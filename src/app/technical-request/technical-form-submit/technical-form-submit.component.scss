@@ -1,0 +1,29 @@
+@import "../../app.component";
+@import "../../../theme/variables";
+
+.center_short {
+  margin: auto;
+  width: 60%;
+}
+
+p {
+  color: $dark-grey;
+  font-size: 14px;
+}
+
+ion-checkbox {
+  margin-right: 10px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.smaller-font {
+  font-size: 13px;
+}
+
+.short_item_no_ripple {
+  height: 40px;
+  margin: 0 0 0 15px !important;
+  --ripple-color: transparent;
+  --background-activated: transparent;
+}

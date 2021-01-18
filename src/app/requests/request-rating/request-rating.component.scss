@@ -1,0 +1,34 @@
+@import "../../../theme/variables";
+
+ion-button {
+  --border-radius: 35px;
+  margin: auto;
+  text-transform: none;
+  font-size: medium;
+  vertical-align: center;
+  font-weight: normal;
+}
+
+.details_top_image {
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 18%;
+}
+
+.center_text {
+  text-align: center
+}
+
+.id_text {
+  margin-top: 0;
+  font-size: small;
+  color: $light-grey-text;
+}
+
+.comments_text_area {
+  background-color: $light-grey2;
+  border-radius: 5px;
+  //font-size: small;
+}
+

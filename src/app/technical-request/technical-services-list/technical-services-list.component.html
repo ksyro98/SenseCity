@@ -1,0 +1,12 @@
+<div *ngFor="let service of technicalServices">
+  <app-technical-item text="{{ service.name }}" image="{{ service.icon }}"
+                      routerLink="/technical-form" routerLinkActive="active"
+                      [queryParams]="{
+                        service_id: service.id,
+                        service_name: service.name,
+                        service_icon: service.icon
+                      }">
+  </app-technical-item>
+</div>
+
+

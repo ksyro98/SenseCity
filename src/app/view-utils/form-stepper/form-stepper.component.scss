@@ -1,0 +1,32 @@
+@import "../../../theme/variables";
+
+div {
+  height: 1px;
+  margin: 3px;
+}
+
+.selectedLine {
+  background-color: var(--ion-color-primary);
+}
+
+.simpleLine {
+  background-color: $light-grey;
+}
+
+ion-icon {
+  font-size: xx-large;
+}
+
+
+ion-row {
+  align-items: center;
+  justify-content: center;
+}
+
+.unclickableButton {
+  opacity: 0.3;
+}
+
+.col-margin {
+  margin: -5px;
+}

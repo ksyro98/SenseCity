@@ -1,0 +1,7 @@
+{
+  "name": "SenseCity",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

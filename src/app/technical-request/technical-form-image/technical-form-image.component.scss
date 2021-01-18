@@ -1,0 +1,16 @@
+@import "../../../theme/variables";
+
+ion-img {
+  height: 200px;
+}
+
+.center_short {
+  margin: auto;
+  width: 70%;
+}
+
+.small_header {
+  font-size: small;
+  margin-bottom: 4px;
+  color: $dark-grey;
+}

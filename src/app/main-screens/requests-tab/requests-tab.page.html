@@ -1,0 +1,19 @@
+<ion-toolbar></ion-toolbar>
+
+<ion-segment [value]="0" swipeGesture="true" (ionChange)="servicesSegmentChanged($event)">
+    <ion-segment-button [value]="0">
+        Σε εξελειξη
+    </ion-segment-button>
+    <ion-segment-button [value]="1">
+        Ολοκληρωμενες
+    </ion-segment-button>
+</ion-segment>
+
+<ion-content>
+
+    <div [ngSwitch]="completedRequests">
+        <app-requests-list *ngSwitchCase="0" [completed]="false"></app-requests-list>
+        <app-requests-list *ngSwitchCase="1" [completed]="true"></app-requests-list>
+    </div>
+
+</ion-content>

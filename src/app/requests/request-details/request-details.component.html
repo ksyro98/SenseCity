@@ -1,0 +1,47 @@
+<app-back-arrow-header title="Αιτηση"></app-back-arrow-header>
+
+<ion-content>
+    <ion-img src="../../assets/svg-images/bin_green.svg" class="details_top_image"></ion-img>
+    <ion-text class="center_text"><h4 style="margin-bottom: 0;">Καθαριοτητα</h4></ion-text>
+    <ion-text class="center_text"><p style="margin-top: 0;">Κομμενα Κλαδια</p></ion-text>
+
+    <div>
+        <ion-text><p class="details_header">Κωδικος</p></ion-text>
+        <ion-text><p class="details_body">#47123</p></ion-text>
+    </div>
+
+    <div>
+        <ion-text><p class="details_header">Κατάσταση</p></ion-text>
+        <ion-text><p class="details_body">Επιβεβαιωμένο</p></ion-text>
+    </div>
+
+    <div>
+        <ion-text><p class="details_header">Αναφορά</p></ion-text>
+        <ion-text><p class="details_body">29 Νοε 2020, 23:04</p></ion-text>
+    </div>
+
+    <div>
+        <ion-text><p class="details_header">Ανάθεση</p></ion-text>
+        <ion-text><p class="details_body">Τμήμα Επίλυσης προβλημάτων</p></ion-text>
+    </div>
+
+    <div>
+        <ion-text><p class="details_header">Παρατηρήσεις</p></ion-text>
+        <ion-text><p class="details_body">Est aut quia qui aliquid non. Dolores qui sed quo. Omnis ut asperiores eos sequi omnis ab. Sint similique inventore quidem in magni cupiditate alias.</p></ion-text>
+    </div>
+
+    <div class="details_rate_button_container">
+        <ion-button *ngIf="completed"
+                    routerLink="/request-rating" routerLinkActive="active"
+                    [queryParams]="{ stars: '-1'}">
+            Αξιολογηση
+        </ion-button>
+    </div>
+
+    <app-request-details-location-bar
+            [location]="locationName"
+            [mapIsHidden]="true"
+            (click)="presentMapModal()">
+    </app-request-details-location-bar>
+
+</ion-content>

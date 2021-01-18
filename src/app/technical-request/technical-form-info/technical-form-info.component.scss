@@ -1,0 +1,32 @@
+@import "../../app.component";
+@import "../../../theme/variables";
+
+ion-img {
+  height: 200px;
+}
+
+.center_long {
+  margin: auto;
+  width: 85%;
+}
+
+.center_short {
+  margin: auto;
+  width: 70%;
+}
+
+.small_header {
+  font-size: small;
+  margin-bottom: 4px;
+  color: $dark-grey;
+}
+
+ion-textarea {
+  background: $light-grey2;
+  border-radius: 5px;
+}
+
+p {
+  font-size: small;
+}
+

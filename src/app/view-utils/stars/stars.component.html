@@ -1,0 +1,7 @@
+<ion-row [style]="fullScreen ? 'justify-content: center;' : ''">
+  <ion-img [style]="fullScreen ? 'width: 9%; margin-right: 4px; margin-left: 4px;' : 'width: 8%;'"
+           *ngFor="let i of [0, 1, 2, 3, 4]"
+           [src]="(!fullScreen || i > selectedStars) ? '../../assets/svg-images/star_empty.svg' : '../../assets/svg-images/star_full.svg'"
+           (click)="starClicked(i)">
+  </ion-img>
+</ion-row>

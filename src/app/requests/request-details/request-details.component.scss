@@ -1,0 +1,57 @@
+@import "../../../theme/variables";
+
+ion-button {
+  --border-radius: 35px;
+  margin: auto;
+  text-transform: none;
+  font-size: medium;
+  vertical-align: center;
+  font-weight: normal;
+}
+
+.details_top_image {
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 18%;
+}
+
+.center_text {
+  text-align: center
+}
+
+.details_header {
+  margin-bottom: 0;
+  margin-top: 12px;
+  margin-left: 30px;
+  font-size: small;
+  color: $light-grey-text;
+}
+
+.details_body {
+  margin-top: 0;
+  margin-bottom: 12px;
+  margin-left: 30px;
+}
+
+.details_bottom_bar {
+  background-color: var(--ion-color-primary);
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.details_bottom_bar_text {
+  color: white;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: 16px;
+}
+
+.details_rate_button_container {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}

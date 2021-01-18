@@ -1,0 +1,50 @@
+<app-back-arrow-header [title]="'Αξιολογηση'"></app-back-arrow-header>
+
+<ion-content>
+  <ion-img src="../../assets/svg-images/bin_green.svg" class="details_top_image"></ion-img>
+  <ion-text class="center_text"><h4 style="margin-bottom: 0;">Καθαριοτητα</h4></ion-text>
+  <ion-text class="center_text"><p style="margin-top: 0; margin-bottom: 0;">Κομμενα Κλαδια</p></ion-text>
+  <ion-text class="center_text"><p class="id_text">(#46923)</p></ion-text>
+
+  <br><br>
+
+  <app-stars [fullScreen]="true" [selectedStars]="stars"></app-stars>
+
+  <ion-text class="center_text"><p style="margin-bottom: 0; margin-top: 24px;">Ολοκληρώθηκε το αίτημα σας;</p></ion-text>
+  <ion-radio-group value="{{true}}">
+    <ion-row style="justify-content: center;">
+      <ion-col size="auto">
+        <ion-item lines="none">
+          <ion-label class="dark-grey-font">Ναι</ion-label>
+          <ion-radio slot="start" value="{{true}}" style="margin-right: 10px;"></ion-radio>
+        </ion-item>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-item lines="none">
+          <ion-label class="dark-grey-font">Οχι</ion-label>
+          <ion-radio slot="start" value="{{false}}" style="margin-right: 10px;"></ion-radio>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-radio-group>
+
+  <ion-row style="justify-content: center;">
+    <ion-col size="11">
+      <ion-textarea
+              placeholder="Σχόλια (προαιρετικό)"
+              type="text"
+              class="comments_text_area"
+              rows="5">
+      </ion-textarea>
+    </ion-col>
+  </ion-row>
+
+  <ion-row style="justify-content: center; margin-top: 30px;">
+    <ion-button (click)="back()">
+      Υποβολη
+    </ion-button>
+  </ion-row>
+
+
+
+</ion-content>

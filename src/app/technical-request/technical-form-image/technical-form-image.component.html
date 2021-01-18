@@ -1,0 +1,7 @@
+<div class="center_short">
+  <div *ngIf="showHeader" class="small_header">Φωτογραφια</div>
+  <ion-img [src]="path === '' ? defaultImage : path"
+           [style]="'height: ' + imageHeight.toString() + 'px;'"
+           (click)="showCameraActionSheet()">
+  </ion-img>
+</div>

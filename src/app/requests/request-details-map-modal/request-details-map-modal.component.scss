@@ -1,0 +1,9 @@
+@import "../../app.component";
+@import "../../../theme/variables";
+
+div {
+  border: 1px solid $dark-grey;
+  height: 80%;
+  width: 90%;
+  margin: auto;
+}

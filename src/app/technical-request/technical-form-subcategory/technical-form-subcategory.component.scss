@@ -1,0 +1,17 @@
+@import "../../../theme/variables";
+@import "../../app.component";
+
+.reduced-width {
+  width: 90%;
+  position: relative;
+  float: right;
+}
+
+.dark-grey-font {
+  color: $dark-grey;
+}
+
+//ion-label {
+//  color: #0b746a;
+//  color: $dark-grey;
+//}
