@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { MoreTabPageRoutingModule } from './more-tab-routing.module';
 
 import { MoreTabPage } from './more-tab.page';
+import {MoreCardComponent} from '../../more/more-card/more-card.component';
+import {FeedbackCardComponent} from '../../more/feedback-card/feedback-card.component';
 
 @NgModule({
   imports: [
@@ -15,6 +17,6 @@ import { MoreTabPage } from './more-tab.page';
     IonicModule,
     MoreTabPageRoutingModule
   ],
-  declarations: [MoreTabPage]
+    declarations: [MoreTabPage, MoreCardComponent, FeedbackCardComponent]
 })
 export class MoreTabPageModule {}
