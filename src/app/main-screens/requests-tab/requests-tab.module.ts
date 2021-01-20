@@ -19,7 +19,7 @@ import {StarsComponent} from '../../view-utils/stars/stars.component';
     RequestsTabPageRoutingModule
   ],
   exports: [
-    StarsComponent
+      StarsComponent
   ],
   declarations: [RequestsTabPage, RequestCardComponent, RequestsListComponent, StarsComponent]
 })

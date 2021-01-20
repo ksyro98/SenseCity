@@ -4,17 +4,19 @@ let AlertService = class AlertService {
     constructor(alertController) {
         this.alertController = alertController;
     }
-    showAlert(callback) {
+    showAlert(head, body, callback, negativeAction = false) {
         return __awaiter(this, void 0, void 0, function* () {
             const alert = yield this.alertController.create({
                 cssClass: 'alert-dialog-class',
-                header: 'Ολοκλήρωση Αίτησης',
-                message: 'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;',
+                header: head,
+                message: body,
                 buttons: [{
                         text: 'Οχι',
                         role: 'cancel',
+                        cssClass: negativeAction ? 'grey-alert-button' : ''
                     }, {
                         text: 'Ναι',
+                        cssClass: negativeAction ? 'red-alert-button' : '',
                         handler: () => {
                             callback();
                         }

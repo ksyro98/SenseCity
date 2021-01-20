@@ -1,0 +1,9 @@
+<ion-row>
+  <ion-img [style]="'width: 10%;'"
+           *ngFor="let i of [0, 1, 2, 3, 4]"
+           [src]="(i > selectedStars)
+           ? '/assets/svg-images/star_empty.svg'
+           : (!read ? '/assets/svg-images/star_full.svg' : '/assets/svg-images/star_full_grey.svg')"
+           (click)="starClicked(i)">
+  </ion-img>
+</ion-row>

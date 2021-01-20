@@ -27,6 +27,7 @@ import {RequestDetailsLocationBarComponent} from './requests/request-details-loc
 import {RequestRatingComponent} from './requests/request-rating/request-rating.component';
 import {RequestsTabPageModule} from './main-screens/requests-tab/requests-tab.module';
 import {TechnicalFormImageComponent} from './technical-request/technical-form-image/technical-form-image.component';
+import {CitiesModalComponent} from './view-utils/cities-modal/cities-modal.component';
 
 @NgModule({
     declarations: [
@@ -42,16 +43,19 @@ import {TechnicalFormImageComponent} from './technical-request/technical-form-im
         RequestDetailsMapModalComponent,
         RequestDetailsLocationBarComponent,
         RequestRatingComponent,
-        TechnicalFormImageComponent
+        TechnicalFormImageComponent,
+        CitiesModalComponent,
     ],
-  entryComponents: [],
+    entryComponents: [],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],
-  providers: [
-      StatusBar,
-      SplashScreen,
-      { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-      { provide: GET_SERVICES_INTERFACE_DI_TOKEN, useClass: ServicesCommunication }
-  ],
-  bootstrap: [AppComponent]
+    providers: [
+        StatusBar,
+        SplashScreen,
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+        {provide: GET_SERVICES_INTERFACE_DI_TOKEN, useClass: ServicesCommunication}
+    ],
+    exports: [
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,0 +1,21 @@
+<ion-header translucent>
+  <ion-row class="header-row">
+    <ion-img src="../../../assets/svg-images/close-grey.svg" (click)="dismiss('')"></ion-img>
+    <p>Επιλογή πόλης</p>
+  </ion-row>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Αναζήτηση" (ionInput)="onSearch($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <div *ngFor="let city of cities">
+      <ion-item
+              *ngIf="query.length === 0 || city.name.toLowerCase().includes(query)"
+              lines="full"
+              (click)="dismiss(city)">
+        {{city.name}}
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>

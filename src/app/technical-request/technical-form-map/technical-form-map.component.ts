@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import * as L from 'leaflet';
+import {ModalController, ToastController} from '@ionic/angular';
+import {CitiesModalComponent} from '../../view-utils/cities-modal/cities-modal.component';
 
 @Component({
   selector: 'app-technical-form-map',
@@ -9,8 +11,9 @@ import * as L from 'leaflet';
 export class TechnicalFormMapComponent implements OnInit, AfterViewInit {
 
   private map;
+  private locationMarker;
 
-  constructor() { }
+  constructor(public modalController: ModalController, public toastController: ToastController) { }
 
   ngOnInit() { }
 
@@ -30,14 +33,33 @@ export class TechnicalFormMapComponent implements OnInit, AfterViewInit {
       iconAnchor: [11, 47], // point of the icon which will correspond to marker's location
       popupAnchor: [-1, -38] // point from which the popup should open relative to the iconAnchor
     });
-    const locationMarker = new L.Marker([38.246242, 21.7350847],
+    this.locationMarker = new L.Marker([38.246242, 21.7350847],
         {icon: markerIcon, draggable: true});
 
     this.map = L.map('map_id', {center: [38.246242, 21.7350847], zoom: 15});
     tiles.addTo(this.map);
-    locationMarker.addTo(this.map);
+    this.locationMarker.addTo(this.map);
 
-    this.map.addEventListener('click', (event) => locationMarker.setLatLng(event.latlng));
+    this.map.addEventListener('click', (event) => this.locationMarker.setLatLng(event.latlng));
   }
 
+  async presentCitiesModal(){
+    const modal = await this.modalController.create({
+      component: CitiesModalComponent,
+      cssClass: 'cities-modal-class',
+    });
+
+    modal.onDidDismiss()
+        .then((data) => {
+          this.toastController.create({
+            message: data.data.name,
+            duration: 1000
+          }).then((toast) => toast.present());
+
+          this.locationMarker.setLatLng(L.latLng(data.data.lat, data.data.long));
+          this.map.setView([data.data.lat, data.data.long], data.data.zoom);
+        });
+
+    return await modal.present();
+  }
 }

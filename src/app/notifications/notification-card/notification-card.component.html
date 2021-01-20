@@ -1,0 +1,15 @@
+<ion-item lines="full" [style]="notification.read ? 'opacity: 50%' : ''">
+  <ion-img [src]="notification.imageSrc" slot="start" class="starting-image"></ion-img>
+  <div class="spacing">
+    <ion-text [innerHTML]="notification.text"></ion-text>
+    <div class="stars-div" *ngIf="isRequestNotification()">
+      <app-notification-stars [(selectedStars)]="notificationStars" [read]="notification.read"></app-notification-stars>
+    </div>
+  </div>
+  <ion-img src="assets/svg-images/notifications/not_read.svg"
+           slot="end"
+           [style]="notification.read
+           ? 'visibility: hidden; margin-bottom: 10px; margin-left: 12px;'
+           : 'margin-bottom: 10px; margin-left: 12px;'">
+  </ion-img>
+</ion-item>

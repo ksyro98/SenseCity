@@ -1,0 +1,36 @@
+<ion-toolbar>
+    <ion-buttons slot="primary">
+        <ion-button (click)="presentPopover($event)">
+            <ion-icon
+                    slot="icon-only"
+                    ios="ellipsis-horizontal"
+                    md="ellipsis-vertical"
+                    class="three-dots" style="visibility: visible;"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <div>
+        <img src="/assets/images/sense_city_logo_green.png" alt="Sense City logo.">
+    </div>
+</ion-toolbar>
+
+<ion-item>
+    <ion-label>Ειδοποιησεις</ion-label>
+    <ion-select [value]="selectedType" interface="popover" (ionChange)="setSelectedType($event.target.value)">
+        <ion-select-option value="All">Ολες</ion-select-option>
+        <ion-select-option value="{{notificationType.REQUEST}}">Αιτησεις</ion-select-option>
+        <ion-select-option value="{{notificationType.NEIGHBORHOOD}}">Γειτονια</ion-select-option>
+        <ion-select-option value="{{notificationType.COMMENT}}">Σχολια</ion-select-option>
+    </ion-select>
+</ion-item>
+
+<ion-content>
+
+    <div *ngFor="let notification of notifications">
+        <app-notification-card
+                *ngIf="shouldShowNotification(notification)"
+                [notification]="notification">
+        </app-notification-card>
+    </div>
+
+</ion-content>
+

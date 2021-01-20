@@ -9,16 +9,18 @@ export class AlertService {
   constructor(public alertController: AlertController) {
   }
 
-  public async showAlert(callback: () => void) {
+  public async showAlert(head: string, body: string, callback: () => void, negativeAction = false) {
     const alert = await this.alertController.create({
       cssClass: 'alert-dialog-class',
-      header: 'Ολοκλήρωση Αίτησης',
-      message: 'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;',
+      header: head, // 'Ολοκλήρωση Αίτησης',
+      message: body, // 'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;',
       buttons: [{
         text: 'Οχι',
         role: 'cancel',
+        cssClass: negativeAction ? 'grey-alert-button' : ''
       }, {
         text: 'Ναι',
+        cssClass: negativeAction ? 'red-alert-button' : '',
         handler: () => {
           callback();
         }
