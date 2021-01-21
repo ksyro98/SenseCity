@@ -13,7 +13,7 @@ export class TechnicalFormMapComponent implements OnInit, AfterViewInit {
   private map;
   private locationMarker;
 
-  constructor(public modalController: ModalController, public toastController: ToastController) { }
+  constructor(public modalController: ModalController) { }
 
   ngOnInit() { }
 
@@ -51,11 +51,6 @@ export class TechnicalFormMapComponent implements OnInit, AfterViewInit {
 
     modal.onDidDismiss()
         .then((data) => {
-          this.toastController.create({
-            message: data.data.name,
-            duration: 1000
-          }).then((toast) => toast.present());
-
           this.locationMarker.setLatLng(L.latLng(data.data.lat, data.data.long));
           this.map.setView([data.data.lat, data.data.long], data.data.zoom);
         });

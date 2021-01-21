@@ -1,8 +1,13 @@
 import { __decorate } from "tslib";
 import { Component, Input } from '@angular/core';
 let MoreCardComponent = class MoreCardComponent {
-    constructor() { }
+    constructor(router) {
+        this.router = router;
+    }
     ngOnInit() { }
+    navigate() {
+        this.router.navigate([this.routeTarget]);
+    }
 };
 __decorate([
     Input()

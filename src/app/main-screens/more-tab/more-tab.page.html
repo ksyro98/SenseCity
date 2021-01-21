@@ -23,9 +23,16 @@
     <div style="margin: 20px;"></div>
 
     <ion-row>
-        <app-more-card image="/assets/svg-images/more/more_chat.svg" title="Διαβουλεύσεις"></app-more-card>
-        <app-more-card image="/assets/svg-images/more/more_neighborhood.svg" title="Η γειτονιά μου"></app-more-card>
-        <app-more-card image="/assets/svg-images/more/more_map.svg" title="Χάρτης"></app-more-card>
-        <app-more-card image="/assets/svg-images/more/more_profile.svg" title="Προφίλ"></app-more-card>
+        <app-more-card image="/assets/svg-images/more/more_chat.svg" title="Διαβουλεύσεις" routeTarget="#">
+        </app-more-card>
+
+        <app-more-card image="/assets/svg-images/more/more_neighborhood.svg" title="Η γειτονιά μου" routeTarget="#">
+        </app-more-card>
+
+        <app-more-card image="/assets/svg-images/more/more_map.svg" title="Χάρτης" routeTarget="#">
+        </app-more-card>
+
+        <app-more-card image="/assets/svg-images/more/more_profile.svg" title="Προφίλ" routeTarget="/profile">
+        </app-more-card>
     </ion-row>
 </ion-content>

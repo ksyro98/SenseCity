@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {TechnicalFormComponent} from './technical-request/technical-form/technical-form.component';
 import {RequestDetailsComponent} from './requests/request-details/request-details.component';
 import {RequestRatingComponent} from './requests/request-rating/request-rating.component';
+import {ProfileComponent} from './profile/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,9 @@ const routes: Routes = [
   },
   {
     path: 'request-rating', component: RequestRatingComponent
+  },
+  {
+    path: 'profile', component: ProfileComponent
   }
 ];
 @NgModule({

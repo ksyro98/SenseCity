@@ -3,9 +3,8 @@ import { Component } from '@angular/core';
 import * as L from 'leaflet';
 import { CitiesModalComponent } from '../../view-utils/cities-modal/cities-modal.component';
 let TechnicalFormMapComponent = class TechnicalFormMapComponent {
-    constructor(modalController, toastController) {
+    constructor(modalController) {
         this.modalController = modalController;
-        this.toastController = toastController;
     }
     ngOnInit() { }
     ngAfterViewInit() {
@@ -35,10 +34,6 @@ let TechnicalFormMapComponent = class TechnicalFormMapComponent {
             });
             modal.onDidDismiss()
                 .then((data) => {
-                this.toastController.create({
-                    message: data.data.name,
-                    duration: 1000
-                }).then((toast) => toast.present());
                 this.locationMarker.setLatLng(L.latLng(data.data.lat, data.data.long));
                 this.map.setView([data.data.lat, data.data.long], data.data.zoom);
             });

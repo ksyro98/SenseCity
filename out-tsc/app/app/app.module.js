@@ -24,6 +24,7 @@ import { RequestRatingComponent } from './requests/request-rating/request-rating
 import { RequestsTabPageModule } from './main-screens/requests-tab/requests-tab.module';
 import { TechnicalFormImageComponent } from './technical-request/technical-form-image/technical-form-image.component';
 import { CitiesModalComponent } from './view-utils/cities-modal/cities-modal.component';
+import { ProfileComponent } from './profile/profile/profile.component';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -43,6 +44,7 @@ AppModule = __decorate([
             RequestRatingComponent,
             TechnicalFormImageComponent,
             CitiesModalComponent,
+            ProfileComponent,
         ],
         entryComponents: [],
         imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],
@@ -52,7 +54,9 @@ AppModule = __decorate([
             { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
             { provide: GET_SERVICES_INTERFACE_DI_TOKEN, useClass: ServicesCommunication }
         ],
-        exports: [],
+        exports: [
+            BackArrowHeaderComponent
+        ],
         bootstrap: [AppComponent]
     })
 ], AppModule);

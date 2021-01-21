@@ -4,6 +4,7 @@ import { PreloadAllModules, RouterModule } from '@angular/router';
 import { TechnicalFormComponent } from './technical-request/technical-form/technical-form.component';
 import { RequestDetailsComponent } from './requests/request-details/request-details.component';
 import { RequestRatingComponent } from './requests/request-rating/request-rating.component';
+import { ProfileComponent } from './profile/profile/profile.component';
 const routes = [
     {
         path: '',
@@ -33,6 +34,9 @@ const routes = [
     },
     {
         path: 'request-rating', component: RequestRatingComponent
+    },
+    {
+        path: 'profile', component: ProfileComponent
     }
 ];
 let AppRoutingModule = class AppRoutingModule {

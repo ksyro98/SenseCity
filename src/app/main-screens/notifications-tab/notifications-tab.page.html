@@ -15,7 +15,11 @@
 
 <ion-item>
     <ion-label>Ειδοποιησεις</ion-label>
-    <ion-select [value]="selectedType" interface="popover" (ionChange)="setSelectedType($event.target.value)">
+    <ion-select
+            [value]="selectedType"
+            interface="popover"
+            (ionChange)="setSelectedType($event.target.value)"
+            [interfaceOptions]="{cssClass: 'options-popover-class'}">
         <ion-select-option value="All">Ολες</ion-select-option>
         <ion-select-option value="{{notificationType.REQUEST}}">Αιτησεις</ion-select-option>
         <ion-select-option value="{{notificationType.NEIGHBORHOOD}}">Γειτονια</ion-select-option>

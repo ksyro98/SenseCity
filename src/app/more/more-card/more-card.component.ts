@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-more-card',
@@ -11,8 +12,12 @@ export class MoreCardComponent implements OnInit {
   @Input() title;
   @Input() routeTarget;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {}
+
+  navigate(){
+    this.router.navigate([this.routeTarget]);
+  }
 
 }

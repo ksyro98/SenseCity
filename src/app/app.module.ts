@@ -28,6 +28,7 @@ import {RequestRatingComponent} from './requests/request-rating/request-rating.c
 import {RequestsTabPageModule} from './main-screens/requests-tab/requests-tab.module';
 import {TechnicalFormImageComponent} from './technical-request/technical-form-image/technical-form-image.component';
 import {CitiesModalComponent} from './view-utils/cities-modal/cities-modal.component';
+import {ProfileComponent} from './profile/profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -45,6 +46,7 @@ import {CitiesModalComponent} from './view-utils/cities-modal/cities-modal.compo
         RequestRatingComponent,
         TechnicalFormImageComponent,
         CitiesModalComponent,
+        ProfileComponent,
     ],
     entryComponents: [],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],
@@ -55,6 +57,7 @@ import {CitiesModalComponent} from './view-utils/cities-modal/cities-modal.compo
         {provide: GET_SERVICES_INTERFACE_DI_TOKEN, useClass: ServicesCommunication}
     ],
     exports: [
+        BackArrowHeaderComponent
     ],
     bootstrap: [AppComponent]
 })

@@ -1,0 +1,46 @@
+<app-back-arrow-header title="Προφιλ"></app-back-arrow-header>
+
+<ion-content>
+  <ion-list>
+
+    <ion-item *ngFor="let element of elements" lines="insert">
+      <ion-label position="floating">{{element.label}}</ion-label>
+      <ion-input
+              [value]="element.value"
+              [type]="element.inputType">
+      </ion-input>
+    </ion-item>
+
+    <ion-item (click)="presentCitiesModal()">
+      <ion-label position="stacked">Πόλη</ion-label>
+      <ion-text>{{city}}</ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Γλώσσα</ion-label>
+      <ion-select value="GR" interface="popover" [interfaceOptions]="{cssClass: 'options-popover-class'}">
+        <ion-select-option value="GR">Ελληνικα</ion-select-option>
+        <ion-select-option value="EN">English</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>
+
+<div style="height: 1px; background-color: #DCDEDB; margin-top: 0; margin-right: 12px; margin-left: 12px; margin-bottom: 0;  padding: 0;"></div>
+
+<ion-item lines="none" class="short_item_no_ripple">
+  <ion-label>
+    <p class="smaller-font">
+      Αποδέχομαι του <a href="https://sense.city/terms.html">όρους χρήσης</a> του SenseCity.
+    </p>
+  </ion-label>
+  <ion-checkbox slot="start" checked="true"></ion-checkbox>
+</ion-item>
+
+<div>
+  Version: 1.4.1
+</div>
+
+<br>
