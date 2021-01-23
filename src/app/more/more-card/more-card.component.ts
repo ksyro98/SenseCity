@@ -17,6 +17,9 @@ export class MoreCardComponent implements OnInit {
   ngOnInit() {}
 
   navigate(){
+    if (this.routeTarget.startsWith('http')){
+      window.location.href = this.routeTarget;
+    }
     this.router.navigate([this.routeTarget]);
   }
 

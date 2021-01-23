@@ -1,0 +1,29 @@
+@import "../../../theme/variables";
+
+app-map {
+  margin: 12px;
+}
+
+ion-checkbox {
+  margin-right: 10px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.smaller-font {
+  font-size: 12px;
+}
+
+.short_item_no_ripple {
+  margin: 0 0 0 15px !important;
+  --ripple-color: transparent;
+  --background-activated: transparent;
+}
+
+.remove-button {
+  color: $dark-red;
+}
+
+.submit-button {
+  color: var(--ion-color-primary);
+}

@@ -14,7 +14,7 @@ export class RequestsTabPage implements OnInit {
   ngOnInit() {
   }
 
-  public servicesSegmentChanged(event: any){
+  public requestsSegmentChanged(event: any){
     this.completedRequests = event.detail.value;
   }
 }

@@ -34,9 +34,12 @@ export class FormStepperComponent implements OnInit {
     }
     if (this.currentStep === this.steps - 1){
       this.alertService.showAlert(
-          'Ολοκλήρωση Αίτησης',
-          'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;',
-          () => this.location.back());
+          {
+            head: 'Ολοκλήρωση Αίτησης',
+            body: 'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;',
+          },
+          () => this.location.back()
+      );
       return;
     }
     this.currentStep++;

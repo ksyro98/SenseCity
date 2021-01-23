@@ -4,12 +4,12 @@ let AlertService = class AlertService {
     constructor(alertController) {
         this.alertController = alertController;
     }
-    showAlert(head, body, callback, negativeAction = false) {
+    showAlert(content, callback, negativeAction = false) {
         return __awaiter(this, void 0, void 0, function* () {
             const alert = yield this.alertController.create({
                 cssClass: 'alert-dialog-class',
-                header: head,
-                message: body,
+                header: content.head,
+                message: content.body,
                 buttons: [{
                         text: 'Οχι',
                         role: 'cancel',

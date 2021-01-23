@@ -57,7 +57,10 @@ let NotificationsTabPage = class NotificationsTabPage {
                         this.showingRead = !this.showingRead;
                         break;
                     case 2:
-                        this.alertService.showAlert('Διαγραφή', 'Είσαι σίγουρος ότι θέλεις να διαγράψεις όλες τις αναγνωσμένες ειδοποιήσεις', () => {
+                        this.alertService.showAlert({
+                            head: 'Διαγραφή',
+                            body: 'Είσαι σίγουρος ότι θέλεις να διαγράψεις όλες τις αναγνωσμένες ειδοποιήσεις'
+                        }, () => {
                             for (let i = this.notifications.length - 1; i > -1; i--) {
                                 if (this.notifications[i].read) {
                                     this.notifications.splice(i, 1);

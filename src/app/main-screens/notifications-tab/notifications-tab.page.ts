@@ -76,8 +76,10 @@ export class NotificationsTabPage implements OnInit {
           break;
         case 2:
           this.alertService.showAlert(
-              'Διαγραφή',
-              'Είσαι σίγουρος ότι θέλεις να διαγράψεις όλες τις αναγνωσμένες ειδοποιήσεις',
+              {
+                head: 'Διαγραφή',
+                body: 'Είσαι σίγουρος ότι θέλεις να διαγράψεις όλες τις αναγνωσμένες ειδοποιήσεις'
+              },
               () => {
                 for (let i = this.notifications.length - 1; i > -1; i--) {
                   if (this.notifications[i].read){

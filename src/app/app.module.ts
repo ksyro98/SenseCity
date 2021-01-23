@@ -29,6 +29,10 @@ import {RequestsTabPageModule} from './main-screens/requests-tab/requests-tab.mo
 import {TechnicalFormImageComponent} from './technical-request/technical-form-image/technical-form-image.component';
 import {CitiesModalComponent} from './view-utils/cities-modal/cities-modal.component';
 import {ProfileComponent} from './profile/profile/profile.component';
+import {NeighborhoodComponent} from './neighborhood/neighborhood/neighborhood.component';
+import {NeighborhoodMapComponent} from './neighborhood/neighborhood-map/neighborhood-map.component';
+import {MapComponent} from './view-utils/map/map.component';
+import {NeighborhoodMessagesComponent} from './neighborhood/neighborhood-messages/neighborhood-messages.component';
 
 @NgModule({
     declarations: [
@@ -47,6 +51,10 @@ import {ProfileComponent} from './profile/profile/profile.component';
         TechnicalFormImageComponent,
         CitiesModalComponent,
         ProfileComponent,
+        NeighborhoodComponent,
+        NeighborhoodMapComponent,
+        MapComponent,
+        NeighborhoodMessagesComponent,
     ],
     entryComponents: [],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],

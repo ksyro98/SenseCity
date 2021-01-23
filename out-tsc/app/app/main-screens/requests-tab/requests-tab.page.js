@@ -6,7 +6,7 @@ let RequestsTabPage = class RequestsTabPage {
     }
     ngOnInit() {
     }
-    servicesSegmentChanged(event) {
+    requestsSegmentChanged(event) {
         this.completedRequests = event.detail.value;
     }
 };

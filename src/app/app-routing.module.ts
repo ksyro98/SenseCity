@@ -4,6 +4,7 @@ import {TechnicalFormComponent} from './technical-request/technical-form/technic
 import {RequestDetailsComponent} from './requests/request-details/request-details.component';
 import {RequestRatingComponent} from './requests/request-rating/request-rating.component';
 import {ProfileComponent} from './profile/profile/profile.component';
+import {NeighborhoodComponent} from './neighborhood/neighborhood/neighborhood.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,9 @@ const routes: Routes = [
   },
   {
     path: 'profile', component: ProfileComponent
+  },
+  {
+    path: 'neighborhood', component: NeighborhoodComponent
   }
 ];
 @NgModule({

@@ -1,13 +1,6 @@
 @import "../../app.component";
 @import "../../../theme/variables";
 
-div {
-  border: 1px solid $dark-grey;
-  height:400px;
-  width: 80%;
-  margin:auto;
-}
-
 p {
   color: var(--ion-color-primary);
   font-size: small;

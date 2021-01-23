@@ -18,7 +18,10 @@ let FormStepperComponent = class FormStepperComponent {
             return;
         }
         if (this.currentStep === this.steps - 1) {
-            this.alertService.showAlert('Ολοκλήρωση Αίτησης', 'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;', () => this.location.back());
+            this.alertService.showAlert({
+                head: 'Ολοκλήρωση Αίτησης',
+                body: 'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;',
+            }, () => this.location.back());
             return;
         }
         this.currentStep++;
