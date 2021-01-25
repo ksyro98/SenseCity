@@ -13,7 +13,7 @@
   </div>
 </ion-toolbar>
 
-<ion-segment [value]="0" swipeGesture="true" (ionChange)="servicesSegmentChanged($event)">
+<ion-segment [value]="typeOfService" swipeGesture="true" (ionChange)="servicesSegmentChanged($event)">
   <ion-segment-button [value]="0">
     Τεχνικες Υπ.
   </ion-segment-button>
@@ -22,13 +22,17 @@
   </ion-segment-button>
 </ion-segment>
 
+<div [ngSwitch]="typeOfService">
+  <ion-searchbar *ngSwitchCase="1" (ionInput)="onSearch($event)"></ion-searchbar>
+</div>
+
 <div style="width: 100%; height: 1px; background-color: #DCDEDB; margin: 0; padding: 0;"></div>
 
 <ion-content>
 
   <div [ngSwitch]="typeOfService">
     <app-technical-services-list *ngSwitchCase="0"></app-technical-services-list>
-    <h1 *ngSwitchCase="1">Work In Progress</h1>
+    <app-administrative-services-list *ngSwitchCase="1" [query]="query"></app-administrative-services-list>
   </div>
 
 

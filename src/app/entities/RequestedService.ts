@@ -113,19 +113,59 @@ export const TECHNICAL_SERVICES_LIST = [
 export const ADMINISTRATIVE_SERVICES_LIST = [
     {
         id: 0,
-        name: 'Πιστοποιητικο γεννησεως',
+        name: 'Dolor assumenda',
         icon: ''
     },
     {
         id: 1,
-        name: 'Πιστοποιητικο οικογενειακης καταστασης',
+        name: 'Et quos',
         icon: ''
     },
     {
         id: 2,
-        name: 'Εξουσιοδοτηση',
+        name: 'Est expedita',
         icon: ''
     },
+    {
+        id: 3,
+        name: 'Corporis',
+        icon: ''
+    },
+    {
+        id: 4,
+        name: 'Voluptatum voluptatem',
+        icon: ''
+    },
+    {
+        id: 5,
+        name: 'Dolorem maiores',
+        icon: ''
+    },
+    {
+        id: 6,
+        name: 'Explicabo provident',
+        icon: ''
+    },
+    {
+        id: 7,
+        name: 'Eius ut ratione',
+        icon: ''
+    },
+    {
+        id: 8,
+        name: 'Sunt',
+        icon: ''
+    },
+    {
+        id: 9,
+        name: 'Voluptas iure',
+        icon: ''
+    },
+    {
+        id: 10,
+        name: 'Nostrum laboriosam',
+        icon: ''
+    }
 ];
 
 

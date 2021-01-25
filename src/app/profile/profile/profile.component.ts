@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {CitiesModalComponent} from '../../view-utils/cities-modal/cities-modal.component';
 import * as L from 'leaflet';
+import {PROFILE_ELEMENTS} from '../../constants/ProfileElements';
+import {ProfileElement} from '../../entities/ProfileElement';
 
 @Component({
   selector: 'app-profile',
@@ -10,17 +12,15 @@ import * as L from 'leaflet';
 })
 export class ProfileComponent implements OnInit {
 
-  elements: Element[];
+  elements: ProfileElement[];
   focus = false;
   city = 'Πάτρα';
 
   constructor(public modalController: ModalController) {
-    this.elements = [];
+    this.elements = PROFILE_ELEMENTS;
   }
 
-  ngOnInit() {
-    this.setElements();
-  }
+  ngOnInit() { }
 
   async presentCitiesModal(){
     const modal = await this.modalController.create({
@@ -37,60 +37,4 @@ export class ProfileComponent implements OnInit {
 
     return await modal.present();
   }
-
-  private setElements(){
-    this.elements.push({
-      label: 'Όνομα',
-      value: 'Κωνσταντίνος Συροκώστας',
-      inputType: 'text'
-    });
-
-    this.elements.push({
-      label: 'Email',
-      value: 'konstantinos.syrokostas@gmail.com',
-      inputType: 'email'
-    });
-
-    this.elements.push({
-      label: 'Τηλέφωνο',
-      value: '6980082464',
-      inputType: 'tel'
-    });
-
-    this.elements.push({
-      label: 'Όνομα πατέρα',
-      value: 'Γεώργιος Συροκώστας',
-      inputType: 'text'
-    });
-
-    this.elements.push({
-      label: 'Όνομα μητέρας',
-      value: 'Αναστασία Βαρουτίδου',
-      inputType: 'text'
-    });
-
-    this.elements.push({
-      label: 'ΑΔΤ',
-      value: 'ΑΑ 123456',
-      inputType: 'text'
-    });
-
-    this.elements.push({
-      label: 'ΑΦΜ',
-      value: '123456789012345',
-      inputType: 'number'
-    });
-  }
 }
-
-interface Element{
-  label: string;
-  value: string;
-  inputType: string;
-}
-
-// interface CityElement extends Element {
-//   label: string;
-//   value: string;
-//   inputType: string;
-// }

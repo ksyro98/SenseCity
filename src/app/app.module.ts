@@ -33,6 +33,8 @@ import {NeighborhoodComponent} from './neighborhood/neighborhood/neighborhood.co
 import {NeighborhoodMapComponent} from './neighborhood/neighborhood-map/neighborhood-map.component';
 import {MapComponent} from './view-utils/map/map.component';
 import {NeighborhoodMessagesComponent} from './neighborhood/neighborhood-messages/neighborhood-messages.component';
+import {AdministrativeFormComponent} from './administrative-request/administrative-form/administrative-form.component';
+import {AdministrativeFormBasicInfoComponent} from './administrative-request/administrative-form-basic-info/administrative-form-basic-info.component';
 
 @NgModule({
     declarations: [
@@ -55,6 +57,8 @@ import {NeighborhoodMessagesComponent} from './neighborhood/neighborhood-message
         NeighborhoodMapComponent,
         MapComponent,
         NeighborhoodMessagesComponent,
+        AdministrativeFormComponent,
+        AdministrativeFormBasicInfoComponent,
     ],
     entryComponents: [],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],
@@ -65,7 +69,8 @@ import {NeighborhoodMessagesComponent} from './neighborhood/neighborhood-message
         {provide: GET_SERVICES_INTERFACE_DI_TOKEN, useClass: ServicesCommunication}
     ],
     exports: [
-        BackArrowHeaderComponent
+        BackArrowHeaderComponent,
+        FormStepperComponent,
     ],
     bootstrap: [AppComponent]
 })

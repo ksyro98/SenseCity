@@ -8,6 +8,10 @@ let MainTabPage = class MainTabPage {
     }
     servicesSegmentChanged(event) {
         this.typeOfService = event.detail.value;
+        console.log(this.typeOfService);
+    }
+    onSearch(event) {
+        this.query = event.target.value.toLowerCase();
     }
 };
 MainTabPage = __decorate([

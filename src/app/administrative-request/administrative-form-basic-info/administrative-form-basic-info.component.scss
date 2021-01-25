@@ -1,0 +1,37 @@
+@import "../../../theme/variables";
+
+ion-item {
+  margin-left: 24px;
+  margin-right: 24px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+
+  --border-color: var(--ion-background-color)
+}
+
+ion-text {
+  margin-left: 24px;
+  margin-right: 24px;
+}
+
+ion-checkbox {
+  margin-right: 18px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.short_item_no_ripple {
+  height: 40px;
+  margin-left: 15px;
+  margin-top: 2px;
+  --ripple-color: transparent;
+  --background-activated: transparent;
+}
+
+.smaller-font {
+  font-size: 13px;
+}
+
+p {
+  color: $light-grey-text;
+}

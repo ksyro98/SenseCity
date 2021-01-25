@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {CITIES} from '../../constants/Cities';
 import {City} from '../../entities/City';
@@ -18,9 +18,7 @@ export class CitiesModalComponent implements OnInit {
   ngOnInit() {}
 
   onSearch(event){
-    const query = event.target.value.toLowerCase();
-    this.query = query;
-    console.log(query);
+    this.query = event.target.value.toLowerCase();
   }
 
   dismiss(city: City) {

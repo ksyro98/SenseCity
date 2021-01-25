@@ -1,0 +1,16 @@
+<ion-list>
+  <div *ngFor="let service of administrativeServices">
+    <app-administrative-card
+            *ngIf="query === undefined || (query.length === 0 || service.name.toLowerCase().includes(query))"
+            [service]="service"
+            routerLink="/administrative-form" routerLinkActive="active"
+            [queryParams]="{
+                        service_id: service.id,
+                        service_name: service.name
+                      }">
+    </app-administrative-card>
+  </div>
+
+</ion-list>
+
+

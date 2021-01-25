@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
-import { TechnicalItemComponent } from '../../technical-request/technical-item/technical-item.component';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-main-tab',
@@ -10,6 +8,7 @@ import { TechnicalItemComponent } from '../../technical-request/technical-item/t
 export class MainTabPage implements OnInit {
 
   public typeOfService = 0; // 0 --> technical, 1 --> administrative
+  public query: string;
 
   constructor() { }
 
@@ -18,5 +17,10 @@ export class MainTabPage implements OnInit {
 
   public servicesSegmentChanged(event: any){
     this.typeOfService = event.detail.value;
+    console.log(this.typeOfService);
+  }
+
+  public onSearch(event){
+    this.query = event.target.value.toLowerCase();
   }
 }

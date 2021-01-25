@@ -5,6 +5,7 @@ import {RequestDetailsComponent} from './requests/request-details/request-detail
 import {RequestRatingComponent} from './requests/request-rating/request-rating.component';
 import {ProfileComponent} from './profile/profile/profile.component';
 import {NeighborhoodComponent} from './neighborhood/neighborhood/neighborhood.component';
+import {AdministrativeFormComponent} from './administrative-request/administrative-form/administrative-form.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,9 @@ const routes: Routes = [
   },
   {
     path: 'neighborhood', component: NeighborhoodComponent
+  },
+  {
+    path: 'administrative-form', component: AdministrativeFormComponent
   }
 ];
 @NgModule({

@@ -29,6 +29,8 @@ import { NeighborhoodComponent } from './neighborhood/neighborhood/neighborhood.
 import { NeighborhoodMapComponent } from './neighborhood/neighborhood-map/neighborhood-map.component';
 import { MapComponent } from './view-utils/map/map.component';
 import { NeighborhoodMessagesComponent } from './neighborhood/neighborhood-messages/neighborhood-messages.component';
+import { AdministrativeFormComponent } from './administrative-request/administrative-form/administrative-form.component';
+import { AdministrativeFormBasicInfoComponent } from './administrative-request/administrative-form-basic-info/administrative-form-basic-info.component';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -53,6 +55,8 @@ AppModule = __decorate([
             NeighborhoodMapComponent,
             MapComponent,
             NeighborhoodMessagesComponent,
+            AdministrativeFormComponent,
+            AdministrativeFormBasicInfoComponent,
         ],
         entryComponents: [],
         imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],
@@ -63,7 +67,8 @@ AppModule = __decorate([
             { provide: GET_SERVICES_INTERFACE_DI_TOKEN, useClass: ServicesCommunication }
         ],
         exports: [
-            BackArrowHeaderComponent
+            BackArrowHeaderComponent,
+            FormStepperComponent,
         ],
         bootstrap: [AppComponent]
     })

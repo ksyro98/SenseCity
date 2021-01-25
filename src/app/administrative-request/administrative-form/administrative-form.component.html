@@ -1,0 +1,14 @@
+<app-back-arrow-header title="Αίτημα"></app-back-arrow-header>
+
+<ion-content>
+
+  <div [ngSwitch]="currentStep">
+    <app-administrative-form-basic-info *ngSwitchCase="0"></app-administrative-form-basic-info>
+  </div>
+
+</ion-content>
+
+<app-form-stepper [steps]="3" [canProceed]="true"
+                  (currentStepEvent)="setCurrentStep($event)"
+                  style="position: absolute; bottom: 0; width: 100%">
+</app-form-stepper>
