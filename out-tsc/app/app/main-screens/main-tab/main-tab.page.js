@@ -1,10 +1,17 @@
-import { __decorate } from "tslib";
+import { __awaiter, __decorate } from "tslib";
 import { Component } from '@angular/core';
+import { ToolbarPopoverComponent } from '../../view-utils/toolbar-popover/toolbar-popover.component';
+import { CitiesModalComponent } from '../../view-utils/cities-modal/cities-modal.component';
+import { Plugins } from '@capacitor/core';
+const { Toast } = Plugins;
 let MainTabPage = class MainTabPage {
-    constructor() {
+    constructor(popoverController, modalController) {
+        this.popoverController = popoverController;
+        this.modalController = modalController;
         this.typeOfService = 0; // 0 --> technical, 1 --> administrative
     }
     ngOnInit() {
+        return __awaiter(this, void 0, void 0, function* () { });
     }
     servicesSegmentChanged(event) {
         this.typeOfService = event.detail.value;
@@ -12,6 +19,20 @@ let MainTabPage = class MainTabPage {
     }
     onSearch(event) {
         this.query = event.target.value.toLowerCase();
+    }
+    presentPopover(ev) {
+        return __awaiter(this, void 0, void 0, function* () {
+            ToolbarPopoverComponent.present(this.popoverController, ev, ['Αλλαγή πόλης'], (data) => {
+                CitiesModalComponent.present(this.modalController, (city) => __awaiter(this, void 0, void 0, function* () { return this.changeCity(city); }));
+            });
+        });
+    }
+    changeCity(city) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield Toast.show({
+                text: 'Η πολη αλλαξε σε ' + city.name
+            });
+        });
     }
 };
 MainTabPage = __decorate([

@@ -12,17 +12,7 @@ let ProfileComponent = class ProfileComponent {
     ngOnInit() { }
     presentCitiesModal() {
         return __awaiter(this, void 0, void 0, function* () {
-            const modal = yield this.modalController.create({
-                component: CitiesModalComponent,
-                cssClass: 'cities-modal-class',
-            });
-            modal.onDidDismiss()
-                .then((data) => {
-                if (data.data.name !== undefined) {
-                    this.city = data.data.name;
-                }
-            });
-            return yield modal.present();
+            CitiesModalComponent.present(this.modalController, (city) => this.city = city.name);
         });
     }
 };

@@ -53,18 +53,15 @@ export class NotificationsTabPage implements OnInit {
   }
 
   async presentPopover(ev: any){
-    const popover = await this.popoverController.create({
-      component:  ToolbarPopoverComponent,
-      cssClass: 'toolbar-popover-class',
-      event: ev,
-      translucent: true,
-      componentProps: {
-        showingRead: this.showingRead
-      }
-    });
 
-    popover.onDidDismiss().then((data) => {
-      this.popoverOptionClicked = data.data;
+    const  items = [
+      'Τα έχω διαβάσει όλα.',
+      this.showingRead ? 'Εμφάνιση μη αναγνωσμένων.' : 'Εμφανιση ολων',
+      'Διγραφή Αναγνωσμένων.'
+    ];
+
+    ToolbarPopoverComponent.present(this.popoverController, ev, items, (which) => {
+      this.popoverOptionClicked = which;
 
       switch (this.popoverOptionClicked){
         case 0:
@@ -91,8 +88,6 @@ export class NotificationsTabPage implements OnInit {
           break;
       }
     });
-
-    return await popover.present();
   }
 
   getNotifications(){

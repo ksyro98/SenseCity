@@ -23,18 +23,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() { }
 
   async presentCitiesModal(){
-    const modal = await this.modalController.create({
-      component: CitiesModalComponent,
-      cssClass: 'cities-modal-class',
-    });
-
-    modal.onDidDismiss()
-        .then((data) => {
-          if (data.data.name !== undefined) {
-            this.city = data.data.name;
-          }
-        });
-
-    return await modal.present();
+    CitiesModalComponent.present(this.modalController, (city) => this.city = city.name);
   }
 }

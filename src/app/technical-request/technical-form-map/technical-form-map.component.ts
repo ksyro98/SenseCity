@@ -19,16 +19,6 @@ export class TechnicalFormMapComponent implements OnInit {
   ngOnInit() { }
 
   async presentCitiesModal(){
-    const modal = await this.modalController.create({
-      component: CitiesModalComponent,
-      cssClass: 'cities-modal-class',
-    });
-
-    modal.onDidDismiss()
-        .then((data) => {
-          this.city = data.data;
-        });
-
-    return await modal.present();
+    CitiesModalComponent.present(this.modalController, (city) => this.city = city);
   }
 }

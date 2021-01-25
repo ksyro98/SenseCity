@@ -13,6 +13,22 @@ export class CitiesModalComponent implements OnInit {
   cities = CITIES;
   query = '';
 
+  static async present(modalController: ModalController, onDismiss: (city: City) => void){
+    const modal = await modalController.create({
+      component: CitiesModalComponent,
+      cssClass: 'cities-modal-class',
+    });
+
+    modal.onDidDismiss()
+        .then((data) => {
+          if (data.data !== null) {
+            onDismiss(data.data);
+          }
+        });
+
+    return await modal.present();
+  }
+
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {}

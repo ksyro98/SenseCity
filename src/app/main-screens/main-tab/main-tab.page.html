@@ -1,11 +1,12 @@
 <ion-toolbar>
   <ion-buttons slot="primary">
-    <ion-button>
+    <ion-button (click)="presentPopover($event)">
       <ion-icon
               slot="icon-only"
               ios="ellipsis-horizontal"
               md="ellipsis-vertical"
-              class="three-dots" style="visibility: visible;"></ion-icon>
+              class="three-dots" style="visibility: visible;">
+      </ion-icon>
     </ion-button>
   </ion-buttons>
   <div>

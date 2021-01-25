@@ -10,15 +10,7 @@ let TechnicalFormMapComponent = class TechnicalFormMapComponent {
     ngOnInit() { }
     presentCitiesModal() {
         return __awaiter(this, void 0, void 0, function* () {
-            const modal = yield this.modalController.create({
-                component: CitiesModalComponent,
-                cssClass: 'cities-modal-class',
-            });
-            modal.onDidDismiss()
-                .then((data) => {
-                this.city = data.data;
-            });
-            return yield modal.present();
+            CitiesModalComponent.present(this.modalController, (city) => this.city = city);
         });
     }
 };

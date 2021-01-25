@@ -31,6 +31,7 @@ import { MapComponent } from './view-utils/map/map.component';
 import { NeighborhoodMessagesComponent } from './neighborhood/neighborhood-messages/neighborhood-messages.component';
 import { AdministrativeFormComponent } from './administrative-request/administrative-form/administrative-form.component';
 import { AdministrativeFormBasicInfoComponent } from './administrative-request/administrative-form-basic-info/administrative-form-basic-info.component';
+import { ToolbarPopoverComponent } from './view-utils/toolbar-popover/toolbar-popover.component';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -57,6 +58,7 @@ AppModule = __decorate([
             NeighborhoodMessagesComponent,
             AdministrativeFormComponent,
             AdministrativeFormBasicInfoComponent,
+            ToolbarPopoverComponent,
         ],
         entryComponents: [],
         imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],
