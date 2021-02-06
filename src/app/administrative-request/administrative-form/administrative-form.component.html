@@ -4,6 +4,8 @@
 
   <div [ngSwitch]="currentStep">
     <app-administrative-form-basic-info *ngSwitchCase="0"></app-administrative-form-basic-info>
+    <app-administrative-form-specific-info *ngSwitchCase="1"></app-administrative-form-specific-info>
+    <app-administrative-form-submit *ngSwitchCase="2"></app-administrative-form-submit>
   </div>
 
 </ion-content>

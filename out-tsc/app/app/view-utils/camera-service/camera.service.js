@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { CameraResultType, CameraSource, Plugins } from '@capacitor/core';
 const { Camera, Filesystem, Storage } = Plugins;
 let CameraService = class CameraService {
-    constructor() { }
+    constructor(actionSheetController) {
+        this.actionSheetController = actionSheetController;
+    }
     takeNewPhoto() {
         return __awaiter(this, void 0, void 0, function* () {
             const capturedPhoto = yield Camera.getPhoto({
@@ -22,6 +24,32 @@ let CameraService = class CameraService {
                 quality: 100
             });
             return galleryPhoto.webPath;
+        });
+    }
+    showCameraActionSheet(callback) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const actionSheet = yield this.actionSheetController.create({
+                header: 'Εισαγωγή φωτογραφίας',
+                cssClass: 'camera-sheet-class',
+                buttons: [{
+                        text: 'Κάμερα',
+                        icon: 'camera',
+                        cssClass: 'camera-sheet-button',
+                        handler: () => {
+                            this.takeNewPhoto()
+                                .then(res => callback(res));
+                        }
+                    }, {
+                        text: 'Συλλογή',
+                        icon: 'image',
+                        cssClass: 'camera-sheet-button',
+                        handler: () => {
+                            this.openGallery()
+                                .then(res => callback(res));
+                        }
+                    }]
+            });
+            yield actionSheet.present();
         });
     }
 };

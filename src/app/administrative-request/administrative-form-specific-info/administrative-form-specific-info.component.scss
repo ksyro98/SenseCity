@@ -1,0 +1,30 @@
+@import "../../../theme/variables";
+
+ion-item {
+  margin-left: 24px;
+  margin-right: 24px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+
+  --border-color: var(--ion-background-color)
+}
+
+ion-text {
+  margin-left: 24px;
+  margin-right: 24px;
+}
+
+// make the label light grey only when the item isn't click (doesn't has focus)
+:not(ion-item.item-has-focus) > ion-label {
+  color: $light-grey-text !important;
+}
+
+ion-icon {
+  margin-right: 12px;
+}
+
+ion-img {
+  height: 100px;
+  width: 100px;
+  margin: 4px;
+}

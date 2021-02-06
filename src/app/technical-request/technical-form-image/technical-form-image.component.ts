@@ -18,28 +18,7 @@ export class TechnicalFormImageComponent implements OnInit {
 
   ngOnInit() {}
 
-  async showCameraActionSheet(){
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Εισαγωγή φωτογραφίας',
-      cssClass: 'camera-sheet-class',
-      buttons: [ {
-        text: 'Κάμερα',
-        icon: 'camera',
-        cssClass: 'camera-sheet-button',
-        handler: () => {
-          this.cameraService.takeNewPhoto()
-              .then(res => this.path = res);
-        }
-      }, {
-        text: 'Συλλογή',
-        icon: 'image',
-        cssClass: 'camera-sheet-button',
-        handler: () => {
-          this.cameraService.openGallery()
-              .then(res => this.path = res);
-        }
-      }]
-    });
-    await actionSheet.present();
+  addImage() {
+    this.cameraService.showCameraActionSheet(res => this.path = res);
   }
 }

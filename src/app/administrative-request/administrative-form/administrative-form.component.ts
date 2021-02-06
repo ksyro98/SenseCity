@@ -11,7 +11,7 @@ import {RequestedService} from '../../entities/RequestedService';
 export class AdministrativeFormComponent implements OnInit {
 
   request: AdministrativeRequest;
-  currentStep = 0;
+  currentStep = 2;
 
   constructor(private router: ActivatedRoute) { }
 

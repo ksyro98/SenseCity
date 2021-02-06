@@ -1,0 +1,47 @@
+<ion-list>
+  <ion-text><b>Εξειδικευμένες πληροφορίες</b></ion-text>
+
+  <ion-item>
+    <ion-label position="floating">Πληροφορια 1 (κειμενο)</ion-label>
+    <ion-input
+            placeholder="Περιγραφη πληροφοριας 1"
+            type="text">
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Πληροφορια 2 (κειμενο)</ion-label>
+    <ion-input
+            placeholder="Περιγραφη πληροφοριας 2"
+            type="text">
+    </ion-input>
+  </ion-item>
+
+  <ion-item lines="none" (click)="addFile()">
+    <ion-label position="floating">Πληροφορια 3 (αρχειο)</ion-label>
+    <u>
+      <ion-input
+              [value]="'Προσθηκη Αρχειου'"
+              type="text"
+              readonly>
+        <ion-icon name="folder"></ion-icon>
+      </ion-input>
+    </u>
+  </ion-item>
+
+  <ion-item lines="none" (click)="addImages()">
+    <ion-label position="floating">Πληροφορια 4 (φωτογραφια)</ion-label>
+    <u>
+      <ion-input
+              [value]="'Προσθηκη Φωτογραφιων (2)'"
+              type="text"
+              readonly>
+        <ion-icon name="camera"></ion-icon>
+      </ion-input>
+    </u>
+    <ion-row>
+      <ion-img *ngFor="let path of paths" [src]="path"></ion-img>
+    </ion-row>
+  </ion-item>
+
+</ion-list>

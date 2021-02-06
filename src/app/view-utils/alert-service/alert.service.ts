@@ -6,14 +6,13 @@ import {AlertController} from '@ionic/angular';
 })
 export class AlertService {
 
-  constructor(public alertController: AlertController) {
-  }
+  constructor(public alertController: AlertController) { }
 
   public async showAlert(content: {head: string, body: string}, callback: () => void, negativeAction = false) {
     const alert = await this.alertController.create({
       cssClass: 'alert-dialog-class',
-      header: content.head, // 'Ολοκλήρωση Αίτησης',
-      message: content.body, // 'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;',
+      header: content.head,
+      message: content.body,
       buttons: [{
         text: 'Οχι',
         role: 'cancel',

@@ -35,3 +35,8 @@ ion-checkbox {
 p {
   color: $light-grey-text;
 }
+
+// make the label light grey only when the item isn't click (doesn't has focus)
+:not(ion-item.item-has-focus) > ion-label {
+  color: $light-grey-text !important;
+}

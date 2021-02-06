@@ -36,6 +36,9 @@ import {NeighborhoodMessagesComponent} from './neighborhood/neighborhood-message
 import {AdministrativeFormComponent} from './administrative-request/administrative-form/administrative-form.component';
 import {AdministrativeFormBasicInfoComponent} from './administrative-request/administrative-form-basic-info/administrative-form-basic-info.component';
 import {ToolbarPopoverComponent} from './view-utils/toolbar-popover/toolbar-popover.component';
+import {AdministrativeFormSpecificInfoComponent} from './administrative-request/administrative-form-specific-info/administrative-form-specific-info.component';
+import { FileChooser } from '@ionic-native/file-chooser/ngx';
+import {AdministrativeFormSubmitComponent} from './administrative-request/administrative-form-submit/administrative-form-submit.component';
 
 @NgModule({
     declarations: [
@@ -61,6 +64,8 @@ import {ToolbarPopoverComponent} from './view-utils/toolbar-popover/toolbar-popo
         AdministrativeFormComponent,
         AdministrativeFormBasicInfoComponent,
         ToolbarPopoverComponent,
+        AdministrativeFormSpecificInfoComponent,
+        AdministrativeFormSubmitComponent,
     ],
     entryComponents: [],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],
@@ -68,7 +73,8 @@ import {ToolbarPopoverComponent} from './view-utils/toolbar-popover/toolbar-popo
         StatusBar,
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
-        {provide: GET_SERVICES_INTERFACE_DI_TOKEN, useClass: ServicesCommunication}
+        {provide: GET_SERVICES_INTERFACE_DI_TOKEN, useClass: ServicesCommunication},
+        FileChooser
     ],
     exports: [
         BackArrowHeaderComponent,

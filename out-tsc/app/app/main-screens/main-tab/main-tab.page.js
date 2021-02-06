@@ -5,13 +5,23 @@ import { CitiesModalComponent } from '../../view-utils/cities-modal/cities-modal
 import { Plugins } from '@capacitor/core';
 const { Toast } = Plugins;
 let MainTabPage = class MainTabPage {
-    constructor(popoverController, modalController) {
+    constructor(popoverController, modalController, alertService, firstTimeStorageService) {
         this.popoverController = popoverController;
         this.modalController = modalController;
+        this.alertService = alertService;
+        this.firstTimeStorageService = firstTimeStorageService;
         this.typeOfService = 0; // 0 --> technical, 1 --> administrative
     }
     ngOnInit() {
-        return __awaiter(this, void 0, void 0, function* () { });
+        return __awaiter(this, void 0, void 0, function* () {
+            const isFirstTime = yield this.firstTimeStorageService.isFirstTime();
+            if (isFirstTime) {
+                this.alertService.showAlert({
+                    head: 'Αλλαγη πόλης',
+                    body: 'Η επιλγμένη πόλη είναι η Πάτρα. Μπορείς να την αλλάξεις πατώντας στις 3 τελειες, πάνω δεξιά.'
+                }, () => __awaiter(this, void 0, void 0, function* () { return this.firstTimeStorageService.setFirstTime(false); }));
+            }
+        });
     }
     servicesSegmentChanged(event) {
         this.typeOfService = event.detail.value;

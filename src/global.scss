@@ -66,3 +66,20 @@
     --inner-border-width: 0;
   }
 }
+
+.city-alert-class {
+  ion-backdrop {
+    background-color: var(--ion-color-primary);
+  }
+}
+
+.feedback-modal-class {
+}
+
+.feedback-modal-class .modal-wrapper {
+  height: 20%;
+  width: 90%;
+  border-radius: 4px;
+}
+
+
