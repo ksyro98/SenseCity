@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 let AdministrativeFormComponent = class AdministrativeFormComponent {
     constructor(router) {
         this.router = router;
-        this.currentStep = 2;
+        this.currentStep = 0;
     }
     ngOnInit() {
         this.router.queryParams.subscribe(params => {

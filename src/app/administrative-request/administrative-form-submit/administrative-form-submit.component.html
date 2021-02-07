@@ -11,7 +11,15 @@
   </ion-item>
 </ion-list>
 
-
+<ion-slides pager="true" [options]="{initialSlide: 0, speed: 400}">
+  <ion-slide *ngFor="let i of [0, 1]">
+    <div>
+      <ion-icon [name]="i % 2 === 0 ? 'camera-outline' : 'document-outline'"></ion-icon>
+      <br>
+      <ion-text>{{i % 2 === 0 ? 'Ονομα φωτογραφιας' : 'Ονομα αρχειου'}}</ion-text>
+    </div>
+  </ion-slide>
+</ion-slides>
 
 <div style="margin-top: 30px;">
   <ion-item lines="none" class="short_item_no_ripple">
