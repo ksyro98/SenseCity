@@ -1,0 +1,69 @@
+<!--<app-back-arrow-header title="{{consultation.name}}"></app-back-arrow-header>-->
+
+
+<ion-toolbar style="margin-left: 4px;">
+    <ion-buttons slot="start" (click)="onBackArrowPressed()">
+        <img src="/assets/svg-images/left-arrow.svg" alt="Back arrow.">
+    </ion-buttons>
+
+    <ion-title class="large">
+
+        <ion-row>
+            <b>{{consultation.name}}</b>
+
+            <ion-buttons (click)="toggleFollows()">
+                <ion-icon
+                        name="notifications-sharp"
+                        class="notification-icon"
+                        [color]="consultation.follows ? 'primary' : ''">
+                </ion-icon>
+            </ion-buttons>
+        </ion-row>
+
+    </ion-title>
+
+    <ion-buttons slot="end" (click)="rate(false)" class="thumbs-button">
+        <ion-text>{{consultation.dislikes.toString()}}</ion-text>
+        <img [src]="'/assets/svg-images/consultations/thumb_down-' + (consultation.rating === -1 ? 'red' : 'grey') + '.svg'"
+             alt="Thumbs down for dislike."
+             style="margin-top: 4px;">
+    </ion-buttons>
+
+    <ion-buttons slot="end" (click)="rate(true)" class="thumbs-button">
+        <ion-text>{{consultation.likes.toString()}}</ion-text>
+        <img [src]="'/assets/svg-images/consultations/thumb_up-' + (consultation.rating === 1 ? 'green' : 'grey') + '.svg'"
+             alt="Thumbs up for like."
+             style="margin-bottom: 4px;">
+    </ion-buttons>
+
+
+
+</ion-toolbar>
+
+
+<ion-row>
+    <ion-col size="6">
+        <ion-item lines="none" class="short-item">
+            <ion-icon name="attach" slot="start" style="margin-right: 0"></ion-icon>
+            <p style="margin: 0; font-size: small;"><a href="https://patras.sense.city/">Σχετικό αρχείο 1</a></p>
+        </ion-item>
+    </ion-col>
+    <ion-col size="6">
+        <ion-item lines="none" class="short-item">
+            <ion-icon name="attach" slot="start" style="margin-right: 0"></ion-icon>
+            <p style="margin: 0; font-size: small;"><a href="https://patras.sense.city/">Σχετικό αρχείο 2</a></p>
+        </ion-item>
+    </ion-col>
+</ion-row>
+
+<div style="width: 100%; height: 1px; background-color: #DCDEDB; margin: 0; padding: 0;"></div>
+
+<ion-content>
+    <p [innerHTML]="consultation.text" style="margin-bottom: 70px;"></p>
+</ion-content>
+
+<app-details-bottom-bar
+        [text]="'Σχολια (' + consultation.comments.length.toString() + ')'"
+        [isHidden]="isHidden"
+        (click)="presentCommentsModal()">
+</app-details-bottom-bar>

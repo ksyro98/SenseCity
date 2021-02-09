@@ -15,7 +15,7 @@ let RequestDetailsComponent = class RequestDetailsComponent {
         return __awaiter(this, void 0, void 0, function* () {
             const modal = yield this.modalController.create({
                 component: RequestDetailsMapModalComponent,
-                cssClass: 'map-modal-class',
+                cssClass: 'general-modal-class',
                 componentProps: {
                     lat: 38.246242,
                     long: 21.7350847,

@@ -8,6 +8,7 @@ import { ProfileComponent } from './profile/profile/profile.component';
 import { NeighborhoodComponent } from './neighborhood/neighborhood/neighborhood.component';
 import { AdministrativeFormComponent } from './administrative-request/administrative-form/administrative-form.component';
 import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
+import { ConsultationDetailsModalComponent } from './consultations/consultation-details/consultation-details-modal.component';
 const routes = [
     {
         path: '',
@@ -49,6 +50,9 @@ const routes = [
     },
     {
         path: 'consultations', component: ConsultationsListComponent
+    },
+    {
+        path: 'consultations/details', component: ConsultationDetailsModalComponent
     }
 ];
 let AppRoutingModule = class AppRoutingModule {

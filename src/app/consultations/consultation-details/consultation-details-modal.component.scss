@@ -1,0 +1,47 @@
+@import "../../../theme/variables";
+
+p {
+  margin: 12px;
+  color: var(--ion-text-color);
+}
+
+a {
+  color: $light-grey-text;
+}
+
+ion-icon {
+  color: $light-grey3  ;
+}
+
+ion-col {
+  padding: 0;
+}
+
+ion-title {
+  font-size: xx-large;
+  vertical-align: center
+}
+
+img {
+  height: 24px;
+}
+
+ion-img {
+  height: 24px;
+}
+
+.thumbs-button {
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.notification-icon {
+  height: 24px;
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+.short-item {
+  margin-top: -8px;
+  height: 44px;
+}

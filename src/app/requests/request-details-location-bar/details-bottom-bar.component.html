@@ -1,0 +1,13 @@
+<div class="details_bottom_bar" [style]="isHidden ? 'bottom: 0' : 'top:0'">
+  <ion-row>
+    <ion-col size="10">
+      <p class="details_bottom_bar_text" [innerHTML]="text"></p>
+    </ion-col>
+    <ion-col size="2" class="ion-align-self-center">
+      <ion-img
+              style="width: 40px; margin: auto;"
+              [src]="isHidden ? '../../assets/svg-images/arrow_up_white.svg' : '../../assets/svg-images/arrow_down_white.svg'">
+      </ion-img>
+    </ion-col>
+  </ion-row>
+</div>

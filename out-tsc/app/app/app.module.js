@@ -19,7 +19,7 @@ import { TechnicalFormMapComponent } from './technical-request/technical-form-ma
 import { TechnicalFormSubmitComponent } from './technical-request/technical-form-submit/technical-form-submit.component';
 import { RequestDetailsComponent } from './requests/request-details/request-details.component';
 import { RequestDetailsMapModalComponent } from './requests/request-details-map-modal/request-details-map-modal.component';
-import { RequestDetailsLocationBarComponent } from './requests/request-details-location-bar/request-details-location-bar.component';
+import { DetailsBottomBarComponent } from './requests/request-details-location-bar/details-bottom-bar.component';
 import { RequestRatingComponent } from './requests/request-rating/request-rating.component';
 import { RequestsTabPageModule } from './main-screens/requests-tab/requests-tab.module';
 import { TechnicalFormImageComponent } from './technical-request/technical-form-image/technical-form-image.component';
@@ -37,6 +37,8 @@ import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { AdministrativeFormSubmitComponent } from './administrative-request/administrative-form-submit/administrative-form-submit.component';
 import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
 import { ConsultationCardComponent } from './consultations/consultation-card/consultation-card.component';
+import { ConsultationDetailsModalComponent } from './consultations/consultation-details/consultation-details-modal.component';
+import { ConsultationCommentsModalComponent } from './consultations/consultation-comments-modal/consultation-comments-modal.component';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -52,7 +54,7 @@ AppModule = __decorate([
             TechnicalFormSubmitComponent,
             RequestDetailsComponent,
             RequestDetailsMapModalComponent,
-            RequestDetailsLocationBarComponent,
+            DetailsBottomBarComponent,
             RequestRatingComponent,
             TechnicalFormImageComponent,
             CitiesModalComponent,
@@ -68,6 +70,8 @@ AppModule = __decorate([
             AdministrativeFormSubmitComponent,
             ConsultationsListComponent,
             ConsultationCardComponent,
+            ConsultationDetailsModalComponent,
+            ConsultationCommentsModalComponent,
         ],
         entryComponents: [],
         imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],

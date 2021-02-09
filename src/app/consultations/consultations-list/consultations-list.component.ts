@@ -9,12 +9,24 @@ import {not} from 'rxjs/internal-compatibility';
 })
 export class ConsultationsListComponent implements OnInit {
 
-  consultations: Consultation[];
-  notificationsOn = false;
-
   constructor() {
     this.consultations = [];
   }
+
+  consultations: Consultation[];
+  notificationsOn = false;
+
+
+  longString = 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.' +
+      '<br><br>' +
+      'Ea qui qui unde quisquam qui et dolores. Eos enim expedita dolores ullam itaque accusamus qui. Eveniet molestiae delectus est placeat. Explicabo est aut et quas error quam.' +
+      '<br><br>' +
+      'Vitae tenetur voluptatem molestias dignissimos sit vel. Rerum ex quia earum. Eum possimus sint est id sequi. Quibusdam quisquam eos dolor consequatur cum sunt similique. Eaque corporis tempora ut quia. Voluptas magnam dolorum quibusdam.' +
+      '<br><br>' +
+      'Praesentium ad magnam voluptatem qui sed nulla et qui. Provident et inventore voluptate mollitia impedit eveniet. Voluptas non quisquam quam blanditiis consequatur. Sit magni voluptatem voluptas aut. Quibusdam quidem perferendis porro distinctio est. Ipsa harum sunt eveniet aut.' +
+      '<br><br>' +
+      'Temporibus explicabo eius fugit non praesentium sunt voluptatem hic. Quis enim nisi alias velit recusandae est est et. Fuga rerum magnam ipsa vero sit perspiciatis. Voluptatem dolore quia excepturi quas occaecati accusantium. Qui placeat vel quia laudantium.';
+
 
   ngOnInit() {
     this.getConsultations();
@@ -39,7 +51,7 @@ export class ConsultationsListComponent implements OnInit {
     this.consultations.push(
         {
           name: 'Θέμα',
-          text: 'Architecto delectus laboriosam sit dicta aliquam inventore facilis. Libero qui omnis quasi. Enim quia optio sapiente harum. Aliquam atque officiis animi voluptates voluptatem...',
+          text: this.longString,
           files: [],
           comments: [],
           follows: false,
@@ -52,7 +64,7 @@ export class ConsultationsListComponent implements OnInit {
     this.consultations.push(
         {
           name: 'Θέμα',
-          text: 'Architecto delectus laboriosam sit dicta aliquam inventore facilis. Libero qui omnis quasi. Enim quia optio sapiente harum. Aliquam atque officiis animi voluptates voluptatem...',
+          text: this.longString,
           files: [],
           comments: [],
           follows: true,
@@ -65,7 +77,7 @@ export class ConsultationsListComponent implements OnInit {
     this.consultations.push(
         {
           name: 'Θέμα',
-          text: 'Architecto delectus laboriosam sit dicta aliquam inventore facilis. Libero qui omnis quasi. Enim quia optio sapiente harum. Aliquam atque officiis animi voluptates voluptatem...',
+          text: this.longString,
           files: [],
           comments: [],
           follows: true,
@@ -78,7 +90,7 @@ export class ConsultationsListComponent implements OnInit {
     this.consultations.push(
         {
           name: 'Θέμα',
-          text: 'Architecto delectus laboriosam sit dicta aliquam inventore facilis. Libero qui omnis quasi. Enim quia optio sapiente harum. Aliquam atque officiis animi voluptates voluptatem...',
+          text: this.longString,
           files: [],
           comments: [],
           follows: false,
@@ -91,7 +103,7 @@ export class ConsultationsListComponent implements OnInit {
     this.consultations.push(
         {
           name: 'Θέμα',
-          text: 'Architecto delectus laboriosam sit dicta aliquam inventore facilis. Libero qui omnis quasi. Enim quia optio sapiente harum. Aliquam atque officiis animi voluptates voluptatem...',
+          text: this.longString,
           files: [],
           comments: [],
           follows: true,
@@ -104,7 +116,7 @@ export class ConsultationsListComponent implements OnInit {
     this.consultations.push(
         {
           name: 'Θέμα',
-          text: 'Architecto delectus laboriosam sit dicta aliquam inventore facilis. Libero qui omnis quasi. Enim quia optio sapiente harum. Aliquam atque officiis animi voluptates voluptatem...',
+          text: this.longString,
           files: [],
           comments: [],
           follows: false,
@@ -117,7 +129,7 @@ export class ConsultationsListComponent implements OnInit {
     this.consultations.push(
         {
           name: 'Θέμα',
-          text: 'Architecto delectus laboriosam sit dicta aliquam inventore facilis. Libero qui omnis quasi. Enim quia optio sapiente harum. Aliquam atque officiis animi voluptates voluptatem...',
+          text: this.longString,
           files: [],
           comments: [],
           follows: true,

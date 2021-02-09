@@ -24,7 +24,7 @@ export class RequestDetailsComponent implements OnInit {
   async presentMapModal(){
     const modal = await this.modalController.create({
       component: RequestDetailsMapModalComponent,
-      cssClass: 'map-modal-class',
+      cssClass: 'general-modal-class',
       componentProps: {
         lat: 38.246242,
         long: 21.7350847,

@@ -38,10 +38,10 @@
         </ion-button>
     </div>
 
-    <app-request-details-location-bar
-            [location]="locationName"
-            [mapIsHidden]="true"
+    <app-details-bottom-bar
+            [text]="locationName"
+            [isHidden]="true"
             (click)="presentMapModal()">
-    </app-request-details-location-bar>
+    </app-details-bottom-bar>
 
 </ion-content>
