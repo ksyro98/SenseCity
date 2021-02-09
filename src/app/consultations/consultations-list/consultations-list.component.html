@@ -1,0 +1,23 @@
+<app-back-arrow-header title="Διαβουλεύσεις"></app-back-arrow-header>
+
+<ion-item>
+    <ion-label>Ταξινόμηση κατά</ion-label>
+    <ion-select
+            [value]="'newest'"
+            interface="popover"
+            (ionChange)="setSorting($event.target.value)"
+            [interfaceOptions]="{cssClass: 'options-popover-class'}">
+        <ion-select-option value="newest">Νεότερα</ion-select-option>
+        <ion-select-option value="popular">Δημοφιλή</ion-select-option>
+        <ion-select-option value="notifications_on">Επιλεγμενα</ion-select-option>
+    </ion-select>
+</ion-item>
+
+<ion-content>
+    <div *ngFor="let consultation of consultations">
+        <app-consultation-card *ngIf="consultation.follows|| !notificationsOn" [consultation]="consultation">
+        </app-consultation-card>
+    </div>
+
+</ion-content>
+

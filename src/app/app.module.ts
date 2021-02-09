@@ -39,6 +39,8 @@ import {ToolbarPopoverComponent} from './view-utils/toolbar-popover/toolbar-popo
 import {AdministrativeFormSpecificInfoComponent} from './administrative-request/administrative-form-specific-info/administrative-form-specific-info.component';
 import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import {AdministrativeFormSubmitComponent} from './administrative-request/administrative-form-submit/administrative-form-submit.component';
+import {ConsultationsListComponent} from './consultations/consultations-list/consultations-list.component';
+import {ConsultationCardComponent} from './consultations/consultation-card/consultation-card.component';
 
 @NgModule({
     declarations: [
@@ -66,6 +68,8 @@ import {AdministrativeFormSubmitComponent} from './administrative-request/admini
         ToolbarPopoverComponent,
         AdministrativeFormSpecificInfoComponent,
         AdministrativeFormSubmitComponent,
+        ConsultationsListComponent,
+        ConsultationCardComponent,
     ],
     entryComponents: [],
     imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],

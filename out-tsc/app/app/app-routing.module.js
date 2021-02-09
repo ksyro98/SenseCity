@@ -7,6 +7,7 @@ import { RequestRatingComponent } from './requests/request-rating/request-rating
 import { ProfileComponent } from './profile/profile/profile.component';
 import { NeighborhoodComponent } from './neighborhood/neighborhood/neighborhood.component';
 import { AdministrativeFormComponent } from './administrative-request/administrative-form/administrative-form.component';
+import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
 const routes = [
     {
         path: '',
@@ -45,6 +46,9 @@ const routes = [
     },
     {
         path: 'administrative-form', component: AdministrativeFormComponent
+    },
+    {
+        path: 'consultations', component: ConsultationsListComponent
     }
 ];
 let AppRoutingModule = class AppRoutingModule {

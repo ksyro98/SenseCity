@@ -1,0 +1,39 @@
+<ion-card>
+
+  <ion-row>
+    <ion-col size="9">
+      <ion-item lines="none" color="white">
+        <h3>{{consultation.name}}</h3>
+        <ion-icon name="notifications-sharp" [color]="consultation.follows ? 'primary' : 'grey'">
+        </ion-icon>
+      </ion-item>
+
+      <p class="body-text">{{consultation.text}}</p>
+    </ion-col>
+
+    <ion-col size="3" style="margin-top: 6px;">
+      <ion-row class="side-row">
+        <p class="side-text">{{consultation.likes}}</p>
+        <ion-img src="/assets/svg-images/consultations/thumb_up-green.svg"></ion-img>
+      </ion-row>
+
+      <ion-row class="side-row">
+        <p class="side-text">{{consultation.dislikes}}</p>
+        <ion-img src="/assets/svg-images/consultations/thumb_down-red.svg"></ion-img>
+      </ion-row>
+
+      <ion-row class="side-row">
+        <p class="side-text">{{consultation.comments !== null ? consultation.comments.length : 0}}</p>
+        <ion-img src="/assets/svg-images/consultations/chat_bubble-grey.svg"></ion-img>
+      </ion-row>
+
+      <ion-row class="side-row" style="position: absolute; bottom: 6px; right: 6px;">
+        <p class="body-text" style="margin: 0; font-size: x-small;">
+          {{getDay() + " " + getMonth() + " " + getYear()}}
+        </p>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+
+</ion-card>
+

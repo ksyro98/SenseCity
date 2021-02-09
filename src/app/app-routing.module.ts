@@ -6,6 +6,7 @@ import {RequestRatingComponent} from './requests/request-rating/request-rating.c
 import {ProfileComponent} from './profile/profile/profile.component';
 import {NeighborhoodComponent} from './neighborhood/neighborhood/neighborhood.component';
 import {AdministrativeFormComponent} from './administrative-request/administrative-form/administrative-form.component';
+import {ConsultationsListComponent} from './consultations/consultations-list/consultations-list.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,9 @@ const routes: Routes = [
   },
   {
     path: 'administrative-form', component: AdministrativeFormComponent
+  },
+  {
+    path: 'consultations', component: ConsultationsListComponent
   }
 ];
 @NgModule({
