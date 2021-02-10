@@ -65,5 +65,6 @@
 <app-details-bottom-bar
         [text]="'Σχολια (' + consultation.comments.length.toString() + ')'"
         [isHidden]="isHidden"
+        [twoLines]="false"
         (click)="presentCommentsModal()">
 </app-details-bottom-bar>

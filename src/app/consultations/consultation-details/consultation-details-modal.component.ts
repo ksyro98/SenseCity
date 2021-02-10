@@ -72,7 +72,12 @@ export class ConsultationDetailsModalComponent implements OnInit {
       const modal = await this.modalController.create({
         component: ConsultationCommentsModalComponent,
         cssClass: 'general-modal-class',
-        componentProps: { }
+        componentProps: {
+          comments: this.consultation.comments
+        }
+      });
+      modal.onDidDismiss().then((res) => {
+        this.consultation.comments = res.data.comments;
       });
       return await modal.present();
   }

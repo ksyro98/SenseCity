@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
+import {ModalController} from '@ionic/angular';
+import {Comment} from '../../entities/Comment';
 
 @Component({
   selector: 'app-consultation-comments-modal',
@@ -7,8 +9,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConsultationCommentsModalComponent implements OnInit {
 
-  constructor() { }
+  @Input() comments: Comment[];
+  userComment = '';
+
+  constructor(private modalController: ModalController) { }
 
   ngOnInit() {}
 
+  dismissModal(){
+    this.modalController.dismiss({
+      comments: this.comments
+    });
+  }
+
+  addComment(){
+    const comment = {
+      userName: 'Κωνσταντινος Συροκωστας',
+      text: this.userComment,
+      replies: [],
+      timestamp: (new Date()).getTime(),
+      isReply: false
+    };
+    this.comments.splice(0, 0, comment);
+    this.userComment = '';
+  }
+
+  setUserComment(value: string){
+    this.userComment = value;
+  }
+
+  @HostListener('document:ionBackButton', ['$event'])
+  private async overrideHardwareBackAction($event: any) {
+    this.dismissModal();
+  }
 }

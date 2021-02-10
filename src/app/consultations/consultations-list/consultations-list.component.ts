@@ -27,6 +27,57 @@ export class ConsultationsListComponent implements OnInit {
       '<br><br>' +
       'Temporibus explicabo eius fugit non praesentium sunt voluptatem hic. Quis enim nisi alias velit recusandae est est et. Fuga rerum magnam ipsa vero sit perspiciatis. Voluptatem dolore quia excepturi quas occaecati accusantium. Qui placeat vel quia laudantium.';
 
+  comments = [
+      {
+          userName: 'Όνομα Επώνυμο',
+          text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+          replies: [],
+          timestamp: 1612994831,
+          isReply: false
+      },
+      {
+          userName: 'Όνομα Επώνυμο',
+          text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+          replies: [],
+          timestamp: 1612994831,
+          isReply: false
+      },
+      {
+          userName: 'Όνομα Επώνυμο',
+          text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+          replies: [],
+          timestamp: 1612994831,
+          isReply: false
+      },
+      {
+          userName: 'Όνομα Επώνυμο',
+          text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+          replies: [],
+          timestamp: 1612994831,
+          isReply: false
+      },
+      {
+          userName: 'Όνομα Επώνυμο',
+          text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+          replies: [],
+          timestamp: 1612994831,
+          isReply: false
+      },
+      {
+          userName: 'Όνομα Επώνυμο',
+          text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+          replies: [],
+          timestamp: 1612994831,
+          isReply: false
+      },
+      {
+          userName: 'Όνομα Επώνυμο',
+          text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+          replies: [],
+          timestamp: 1612994831,
+          isReply: false
+      }
+  ];
 
   ngOnInit() {
     this.getConsultations();
@@ -53,7 +104,7 @@ export class ConsultationsListComponent implements OnInit {
           name: 'Θέμα',
           text: this.longString,
           files: [],
-          comments: [],
+          comments: this.comments,
           follows: false,
           rating: 0,
           likes: 102,
@@ -66,7 +117,7 @@ export class ConsultationsListComponent implements OnInit {
           name: 'Θέμα',
           text: this.longString,
           files: [],
-          comments: [],
+          comments: this.comments,
           follows: true,
           rating: 1,
           likes: 67,
@@ -79,7 +130,7 @@ export class ConsultationsListComponent implements OnInit {
           name: 'Θέμα',
           text: this.longString,
           files: [],
-          comments: [],
+          comments: this.comments,
           follows: true,
           rating: 1,
           likes: 407,
@@ -92,7 +143,7 @@ export class ConsultationsListComponent implements OnInit {
           name: 'Θέμα',
           text: this.longString,
           files: [],
-          comments: [],
+          comments: this.comments,
           follows: false,
           rating: 0,
           likes: 3,
@@ -105,7 +156,7 @@ export class ConsultationsListComponent implements OnInit {
           name: 'Θέμα',
           text: this.longString,
           files: [],
-          comments: [],
+          comments: this.comments,
           follows: true,
           rating: -1,
           likes: 57,
@@ -118,7 +169,7 @@ export class ConsultationsListComponent implements OnInit {
           name: 'Θέμα',
           text: this.longString,
           files: [],
-          comments: [],
+          comments: this.comments,
           follows: false,
           rating: 0,
           likes: 2,
@@ -131,7 +182,7 @@ export class ConsultationsListComponent implements OnInit {
           name: 'Θέμα',
           text: this.longString,
           files: [],
-          comments: [],
+          comments: this.comments,
           follows: true,
           rating: 1,
           likes: 51,

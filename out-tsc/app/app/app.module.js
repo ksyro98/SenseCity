@@ -19,7 +19,7 @@ import { TechnicalFormMapComponent } from './technical-request/technical-form-ma
 import { TechnicalFormSubmitComponent } from './technical-request/technical-form-submit/technical-form-submit.component';
 import { RequestDetailsComponent } from './requests/request-details/request-details.component';
 import { RequestDetailsMapModalComponent } from './requests/request-details-map-modal/request-details-map-modal.component';
-import { DetailsBottomBarComponent } from './requests/request-details-location-bar/details-bottom-bar.component';
+import { DetailsBottomBarComponent } from './requests/details-bottom-bar/details-bottom-bar.component';
 import { RequestRatingComponent } from './requests/request-rating/request-rating.component';
 import { RequestsTabPageModule } from './main-screens/requests-tab/requests-tab.module';
 import { TechnicalFormImageComponent } from './technical-request/technical-form-image/technical-form-image.component';
@@ -39,6 +39,7 @@ import { ConsultationsListComponent } from './consultations/consultations-list/c
 import { ConsultationCardComponent } from './consultations/consultation-card/consultation-card.component';
 import { ConsultationDetailsModalComponent } from './consultations/consultation-details/consultation-details-modal.component';
 import { ConsultationCommentsModalComponent } from './consultations/consultation-comments-modal/consultation-comments-modal.component';
+import { ConsultationCommentCardComponent } from './consultations/consultation-comment-card/consultation-comment-card.component';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -72,6 +73,7 @@ AppModule = __decorate([
             ConsultationCardComponent,
             ConsultationDetailsModalComponent,
             ConsultationCommentsModalComponent,
+            ConsultationCommentCardComponent,
         ],
         entryComponents: [],
         imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],

@@ -9,6 +9,7 @@ export class DetailsBottomBarComponent implements OnInit {
 
   @Input() text: string;
   @Input() isHidden: boolean;
+  @Input() twoLines: boolean;
 
   constructor() { }
 

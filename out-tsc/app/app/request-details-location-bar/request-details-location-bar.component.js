@@ -12,10 +12,10 @@ __decorate([
 ], RequestDetailsLocationBarComponent.prototype, "mapIsHidden", void 0);
 RequestDetailsLocationBarComponent = __decorate([
     Component({
-        selector: 'app-request-details-location-bar',
-        templateUrl: './request-details-location-bar.component.html',
-        styleUrls: ['./request-details-location-bar.component.scss'],
+        selector: 'app-details-bottom-bar',
+        templateUrl: './details-bottom-bar.component.html',
+        styleUrls: ['./details-bottom-bar.component.scss'],
     })
 ], RequestDetailsLocationBarComponent);
 export { RequestDetailsLocationBarComponent };
-//# sourceMappingURL=request-details-location-bar.component.js.map
+//# sourceMappingURL=details-bottom-bar.component.js.map

@@ -1,5 +1,7 @@
 export interface Comment {
-    user_name: string;
+    userName: string;
     text: string;
-    replies: [Comment];
+    replies: Comment[];
+    timestamp: number;
+    isReply: boolean;
 }
