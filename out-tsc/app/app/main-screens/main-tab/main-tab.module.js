@@ -10,6 +10,7 @@ import { TechnicalServicesListComponent } from '../../technical-request/technica
 import { AdministrativeCardComponent } from '../../administrative-request/administrative-card/administrative-card.component';
 import { AdministrativeServicesListComponent } from '../../administrative-request/administrative-services-list/administrative-services-list.component';
 import { FeedbackModalComponent } from '../../starting-screens/feedback-modal/feedback-modal.component';
+import { MoreTabPageModule } from '../more-tab/more-tab.module';
 let MainTabPageModule = class MainTabPageModule {
 };
 MainTabPageModule = __decorate([
@@ -19,6 +20,7 @@ MainTabPageModule = __decorate([
             FormsModule,
             IonicModule,
             MainTabPageRoutingModule,
+            MoreTabPageModule,
         ],
         declarations: [
             MainTabPage,

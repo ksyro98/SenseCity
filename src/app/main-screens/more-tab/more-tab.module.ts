@@ -11,12 +11,15 @@ import {MoreCardComponent} from '../../more/more-card/more-card.component';
 import {FeedbackCardComponent} from '../../more/feedback-card/feedback-card.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    MoreTabPageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        MoreTabPageRoutingModule
+    ],
+    exports: [
+        FeedbackCardComponent
+    ],
     declarations: [MoreTabPage, MoreCardComponent, FeedbackCardComponent]
 })
 export class MoreTabPageModule {}

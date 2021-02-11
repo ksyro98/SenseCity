@@ -12,14 +12,16 @@ import {TechnicalServicesListComponent} from '../../technical-request/technical-
 import {AdministrativeCardComponent} from '../../administrative-request/administrative-card/administrative-card.component';
 import {AdministrativeServicesListComponent} from '../../administrative-request/administrative-services-list/administrative-services-list.component';
 import {FeedbackModalComponent} from '../../starting-screens/feedback-modal/feedback-modal.component';
+import {MoreTabPageModule} from '../more-tab/more-tab.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    MainTabPageRoutingModule,
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        MainTabPageRoutingModule,
+        MoreTabPageModule,
+    ],
   declarations: [
     MainTabPage,
     TechnicalItemComponent,

@@ -1,7 +1,12 @@
 var FeedbackModalComponent_1;
 import { __awaiter, __decorate } from "tslib";
 import { Component } from '@angular/core';
+import { Plugins } from '@capacitor/core';
+const { Toast } = Plugins;
 let FeedbackModalComponent = FeedbackModalComponent_1 = class FeedbackModalComponent {
+    constructor(modalController) {
+        this.modalController = modalController;
+    }
     static present(modalController, onDismiss) {
         return __awaiter(this, void 0, void 0, function* () {
             const modal = yield modalController.create({
@@ -14,8 +19,13 @@ let FeedbackModalComponent = FeedbackModalComponent_1 = class FeedbackModalCompo
             return yield modal.present();
         });
     }
-    constructor() { }
     ngOnInit() { }
+    sendFeedback(value) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield Toast.show({ text: 'Η διαθεση σας καταχωρηθηκε. Ευχαριστουμε!' });
+            yield this.modalController.dismiss();
+        });
+    }
 };
 FeedbackModalComponent = FeedbackModalComponent_1 = __decorate([
     Component({

@@ -50,8 +50,13 @@ export class MainTabPage implements OnInit {
   }
 
   async presentPopover(ev: any){
-    ToolbarPopoverComponent.present(this.popoverController, ev, ['Αλλαγή πόλης'], (data) => {
-      CitiesModalComponent.present(this.modalController, async (city) => this.changeCity(city));
+    await ToolbarPopoverComponent.present(this.popoverController, ev, ['Αλλαγή πόλης'], (data) => {
+      if (data !== undefined) {
+        CitiesModalComponent.present(
+            this.modalController,
+            async (city) => this.changeCity(city)
+        );
+      }
     });
   }
 

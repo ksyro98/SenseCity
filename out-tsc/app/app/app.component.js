@@ -1,5 +1,8 @@
 import { __decorate } from "tslib";
 import { Component } from '@angular/core';
+import { FeedbackModalComponent } from './starting-screens/feedback-modal/feedback-modal.component';
+import { Plugins } from '@capacitor/core';
+const { Geolocation } = Plugins;
 let AppComponent = class AppComponent {
     constructor(platform, splashScreen, statusBar, modalController) {
         this.platform = platform;
@@ -12,7 +15,13 @@ let AppComponent = class AppComponent {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
-            // setTimeout(() => FeedbackModalComponent.present(this.modalController, () => { }), 1000);
+            Geolocation.getCurrentPosition()
+                .then(res => {
+                const lat = res.coords.latitude;
+                const long = res.coords.longitude;
+                FeedbackModalComponent.present(this.modalController, () => { });
+            })
+                .catch(reason => console.log(reason));
         });
     }
 };

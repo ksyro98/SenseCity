@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController} from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
 
+const { Toast } = Plugins;
 
 @Component({
   selector: 'app-feedback-modal',
@@ -23,8 +25,12 @@ export class FeedbackModalComponent implements OnInit {
     return await modal.present();
   }
 
-  constructor() { }
+  constructor(private modalController: ModalController) { }
 
   ngOnInit() {}
 
+  async sendFeedback(value: number){
+    await Toast.show({text: 'Η διαθεση σας καταχωρηθηκε. Ευχαριστουμε!'});
+    await this.modalController.dismiss();
+  }
 }

@@ -17,6 +17,9 @@ MoreTabPageModule = __decorate([
             IonicModule,
             MoreTabPageRoutingModule
         ],
+        exports: [
+            FeedbackCardComponent
+        ],
         declarations: [MoreTabPage, MoreCardComponent, FeedbackCardComponent]
     })
 ], MoreTabPageModule);

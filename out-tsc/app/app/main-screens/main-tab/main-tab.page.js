@@ -32,8 +32,10 @@ let MainTabPage = class MainTabPage {
     }
     presentPopover(ev) {
         return __awaiter(this, void 0, void 0, function* () {
-            ToolbarPopoverComponent.present(this.popoverController, ev, ['Αλλαγή πόλης'], (data) => {
-                CitiesModalComponent.present(this.modalController, (city) => __awaiter(this, void 0, void 0, function* () { return this.changeCity(city); }));
+            yield ToolbarPopoverComponent.present(this.popoverController, ev, ['Αλλαγή πόλης'], (data) => {
+                if (data !== undefined) {
+                    CitiesModalComponent.present(this.modalController, (city) => __awaiter(this, void 0, void 0, function* () { return this.changeCity(city); }));
+                }
             });
         });
     }

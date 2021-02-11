@@ -1,3 +1,18 @@
-<p>
-  feedback-modal works!
-</p>
+<p>Εκφράστε τη διάθεση σας για την περιοχή σας.</p>
+
+<ion-row>
+  <ion-img
+          src="/assets/svg-images/more/feedback_negative.svg"
+          (click)="sendFeedback(-1)">
+  </ion-img>
+
+  <ion-img
+          src="/assets/svg-images/more/feedback_neutral.svg"
+          (click)="sendFeedback(0)">
+  </ion-img>
+
+  <ion-img
+          src="/assets/svg-images/more/feedback_positive.svg"
+          (click)="sendFeedback(1)">
+  </ion-img>
+</ion-row>
