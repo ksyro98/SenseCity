@@ -3,6 +3,7 @@ import { Component, HostListener, Input } from '@angular/core';
 let ConsultationCommentsModalComponent = class ConsultationCommentsModalComponent {
     constructor(modalController) {
         this.modalController = modalController;
+        this.userName = 'Κωνσταντινος Συροκωστας';
         this.userComment = '';
     }
     ngOnInit() { }
@@ -11,16 +12,16 @@ let ConsultationCommentsModalComponent = class ConsultationCommentsModalComponen
             comments: this.comments
         });
     }
-    addComment() {
-        const comment = {
-            userName: 'Κωνσταντινος Συροκωστας',
-            text: this.userComment,
-            replies: [],
-            timestamp: (new Date()).getTime(),
-            isReply: false
-        };
+    addComment(comment) {
+        // const comment = {
+        //   userName: 'Κωνσταντινος Συροκωστας',
+        //   text: this.userComment,
+        //   replies: [],
+        //   timestamp: (new Date()).getTime(),
+        //   isReply: false
+        // };
         this.comments.splice(0, 0, comment);
-        this.userComment = '';
+        // this.userComment = '';
     }
     setUserComment(value) {
         this.userComment = value;

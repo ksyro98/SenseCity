@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Consultation} from '../../entities/Consultation';
-import {not} from 'rxjs/internal-compatibility';
 
 @Component({
   selector: 'app-consultations-list',
@@ -27,53 +26,105 @@ export class ConsultationsListComponent implements OnInit {
       '<br><br>' +
       'Temporibus explicabo eius fugit non praesentium sunt voluptatem hic. Quis enim nisi alias velit recusandae est est et. Fuga rerum magnam ipsa vero sit perspiciatis. Voluptatem dolore quia excepturi quas occaecati accusantium. Qui placeat vel quia laudantium.';
 
+    replies = [
+        {
+            userName: 'Όνομα Επώνυμο',
+            text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+            replies: [],
+            timestamp: 1612994831,
+            isReply: true
+        },
+        {
+            userName: 'Όνομα Επώνυμο',
+            text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+            replies: [],
+            timestamp: 1612994831,
+            isReply: true
+        },
+        {
+            userName: 'Όνομα Επώνυμο',
+            text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+            replies: [],
+            timestamp: 1612994831,
+            isReply: true
+        },
+        {
+            userName: 'Όνομα Επώνυμο',
+            text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+            replies: [],
+            timestamp: 1612994831,
+            isReply: true
+        },
+        {
+            userName: 'Όνομα Επώνυμο',
+            text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+            replies: [],
+            timestamp: 1612994831,
+            isReply: true
+        },
+        {
+            userName: 'Όνομα Επώνυμο',
+            text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+            replies: [],
+            timestamp: 1612994831,
+            isReply: true
+        },
+        {
+            userName: 'Όνομα Επώνυμο',
+            text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+            replies: [],
+            timestamp: 1612994831,
+            isReply: true
+        }
+    ];
+
   comments = [
       {
           userName: 'Όνομα Επώνυμο',
           text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-          replies: [],
+          replies: this.replies,
           timestamp: 1612994831,
           isReply: false
       },
       {
           userName: 'Όνομα Επώνυμο',
           text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-          replies: [],
+          replies: this.replies,
           timestamp: 1612994831,
           isReply: false
       },
       {
           userName: 'Όνομα Επώνυμο',
           text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-          replies: [],
+          replies: this.replies,
           timestamp: 1612994831,
           isReply: false
       },
       {
           userName: 'Όνομα Επώνυμο',
           text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-          replies: [],
+          replies: this.replies,
           timestamp: 1612994831,
           isReply: false
       },
       {
           userName: 'Όνομα Επώνυμο',
           text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-          replies: [],
+          replies: this.replies,
           timestamp: 1612994831,
           isReply: false
       },
       {
           userName: 'Όνομα Επώνυμο',
           text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-          replies: [],
+          replies: this.replies,
           timestamp: 1612994831,
           isReply: false
       },
       {
           userName: 'Όνομα Επώνυμο',
           text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-          replies: [],
+          replies: this.replies,
           timestamp: 1612994831,
           isReply: false
       }

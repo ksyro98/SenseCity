@@ -1,0 +1,38 @@
+<ion-toolbar style="margin-left: 4px;">
+  <ion-buttons slot="start" (click)="onBackPressed()">
+    <img src="/assets/svg-images/left-arrow.svg" alt="Back arrow.">
+  </ion-buttons>
+  <ion-title class="large"><b>Απαντησεις</b></ion-title>
+</ion-toolbar>
+<ion-content>
+
+  <app-consultation-comment-card
+          [comment]="comment"
+          [clickDisabled]="true"
+          [hideRepliesText]="true">
+  </app-consultation-comment-card>
+
+  <ion-row>
+
+    <ion-col *ngIf="comment.replies.length > 0" size="1" style="padding: 0;">
+      <div></div>
+    </ion-col>
+
+    <ion-col size="11" style="padding: 0;">
+      <app-consultation-comment-card
+              *ngFor="let reply of comment.replies"
+              [comment]="reply"
+              [clickDisabled]="true"
+              [hideRepliesText]="true">
+      </app-consultation-comment-card>
+    </ion-col>
+
+  </ion-row>
+
+</ion-content>
+
+<app-consultation-comment-text-bar
+        [userName]="userName"
+        [isReply]="true"
+        (commentEmitter)="addComment($event)"
+></app-consultation-comment-text-bar>

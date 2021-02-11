@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
+import {ModalController} from '@ionic/angular';
 
 @Component({
   selector: 'app-back-arrow-header',

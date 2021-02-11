@@ -40,6 +40,8 @@ import { ConsultationCardComponent } from './consultations/consultation-card/con
 import { ConsultationDetailsModalComponent } from './consultations/consultation-details/consultation-details-modal.component';
 import { ConsultationCommentsModalComponent } from './consultations/consultation-comments-modal/consultation-comments-modal.component';
 import { ConsultationCommentCardComponent } from './consultations/consultation-comment-card/consultation-comment-card.component';
+import { ConsultationCommentRepliesModalComponent } from './consultations/consultation-comment-replies-modal/consultation-comment-replies-modal.component';
+import { ConsultationCommentTextBarComponent } from './consultations/consultation-comment-text-bar/consultation-comment-text-bar.component';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -74,6 +76,8 @@ AppModule = __decorate([
             ConsultationDetailsModalComponent,
             ConsultationCommentsModalComponent,
             ConsultationCommentCardComponent,
+            ConsultationCommentRepliesModalComponent,
+            ConsultationCommentTextBarComponent,
         ],
         entryComponents: [],
         imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],

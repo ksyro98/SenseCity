@@ -1,0 +1,18 @@
+@import "../../../theme/variables";
+
+ion-title {
+  font-size: xx-large;
+  vertical-align: center
+}
+
+img {
+  height: 24px;
+}
+
+div {
+  height: 95%;
+  width: 1px;
+  background-color: $light-grey3;
+  margin-top: 10px;
+  margin-left: auto;
+}

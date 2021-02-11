@@ -1,0 +1,12 @@
+<div style="width: 100%; height: 1px; background-color: #DCDEDB; margin: 0; padding: 0;"></div>
+
+<ion-item lines="none">
+  <ion-card>
+    <ion-input placeholder="Σχολιο"
+               [(ngModel)]="userComment">
+    </ion-input>
+  </ion-card>
+  <ion-img src="/assets/svg-images/right-arrow.svg" slot="end" id="userComment"
+           (click)="addComment()">
+  </ion-img>
+</ion-item>

@@ -1,7 +1,11 @@
-<div>
+<div (click)="!clickDisabled ? presentRepliesModal() : ''">
+
     <p><b>{{comment.userName}}</b></p>
 
     <p class="body-text">{{comment.text}}</p>
 
-    <p class="replies-text">{{'Απαντησεις (' + comment.replies.length + ')'}}</p>
+    <p *ngIf="!hideRepliesText" class="replies-text">
+        {{'Απαντησεις (' + comment.replies.length + ')'}}
+    </p>
+
 </div>

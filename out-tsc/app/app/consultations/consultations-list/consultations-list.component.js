@@ -12,53 +12,104 @@ let ConsultationsListComponent = class ConsultationsListComponent {
             'Praesentium ad magnam voluptatem qui sed nulla et qui. Provident et inventore voluptate mollitia impedit eveniet. Voluptas non quisquam quam blanditiis consequatur. Sit magni voluptatem voluptas aut. Quibusdam quidem perferendis porro distinctio est. Ipsa harum sunt eveniet aut.' +
             '<br><br>' +
             'Temporibus explicabo eius fugit non praesentium sunt voluptatem hic. Quis enim nisi alias velit recusandae est est et. Fuga rerum magnam ipsa vero sit perspiciatis. Voluptatem dolore quia excepturi quas occaecati accusantium. Qui placeat vel quia laudantium.';
+        this.replies = [
+            {
+                userName: 'Όνομα Επώνυμο',
+                text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+                replies: [],
+                timestamp: 1612994831,
+                isReply: true
+            },
+            {
+                userName: 'Όνομα Επώνυμο',
+                text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+                replies: [],
+                timestamp: 1612994831,
+                isReply: true
+            },
+            {
+                userName: 'Όνομα Επώνυμο',
+                text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+                replies: [],
+                timestamp: 1612994831,
+                isReply: true
+            },
+            {
+                userName: 'Όνομα Επώνυμο',
+                text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+                replies: [],
+                timestamp: 1612994831,
+                isReply: true
+            },
+            {
+                userName: 'Όνομα Επώνυμο',
+                text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+                replies: [],
+                timestamp: 1612994831,
+                isReply: true
+            },
+            {
+                userName: 'Όνομα Επώνυμο',
+                text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+                replies: [],
+                timestamp: 1612994831,
+                isReply: true
+            },
+            {
+                userName: 'Όνομα Επώνυμο',
+                text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
+                replies: [],
+                timestamp: 1612994831,
+                isReply: true
+            }
+        ];
         this.comments = [
             {
                 userName: 'Όνομα Επώνυμο',
                 text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-                replies: [],
+                replies: this.replies,
                 timestamp: 1612994831,
                 isReply: false
             },
             {
                 userName: 'Όνομα Επώνυμο',
                 text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-                replies: [],
+                replies: this.replies,
                 timestamp: 1612994831,
                 isReply: false
             },
             {
                 userName: 'Όνομα Επώνυμο',
                 text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-                replies: [],
+                replies: this.replies,
                 timestamp: 1612994831,
                 isReply: false
             },
             {
                 userName: 'Όνομα Επώνυμο',
                 text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-                replies: [],
+                replies: this.replies,
                 timestamp: 1612994831,
                 isReply: false
             },
             {
                 userName: 'Όνομα Επώνυμο',
                 text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-                replies: [],
+                replies: this.replies,
                 timestamp: 1612994831,
                 isReply: false
             },
             {
                 userName: 'Όνομα Επώνυμο',
                 text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-                replies: [],
+                replies: this.replies,
                 timestamp: 1612994831,
                 isReply: false
             },
             {
                 userName: 'Όνομα Επώνυμο',
                 text: 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.',
-                replies: [],
+                replies: this.replies,
                 timestamp: 1612994831,
                 isReply: false
             }
