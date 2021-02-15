@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
+import {StorageFeedbackCounterService} from '../../storage-utils/storage-feedback-counter-service/storage-feedback-counter.service';
 
 const { Toast } = Plugins;
 
@@ -18,19 +19,21 @@ export class FeedbackModalComponent implements OnInit {
     });
 
     modal.onDidDismiss()
-        .then((data) => {
-
-        });
+        .then((data) => onDismiss());
 
     return await modal.present();
   }
 
-  constructor(private modalController: ModalController) { }
+  constructor(
+      private modalController: ModalController,
+      private storageFeedbackCounter: StorageFeedbackCounterService
+  ) { }
 
   ngOnInit() {}
 
   async sendFeedback(value: number){
     await Toast.show({text: 'Η διαθεση σας καταχωρηθηκε. Ευχαριστουμε!'});
     await this.modalController.dismiss();
+    await this.storageFeedbackCounter.updateCounter();
   }
 }

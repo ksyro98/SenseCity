@@ -39,6 +39,8 @@ export class TechnicalFormComponent implements OnInit {
       };
 
     });
+
+    console.log(history.length);
   }
 
   setCanProceed(canProceed: boolean){

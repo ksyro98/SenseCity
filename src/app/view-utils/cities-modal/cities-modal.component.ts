@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {CITIES} from '../../constants/Cities';
 import {City} from '../../entities/City';
@@ -39,5 +39,10 @@ export class CitiesModalComponent implements OnInit {
 
   dismiss(city: City) {
     this.modalController.dismiss(city);
+  }
+
+  @HostListener('document:ionBackButton', ['$event'])
+  private async overrideHardwareBackAction($event: any) {
+    this.dismiss(null);
   }
 }

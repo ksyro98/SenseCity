@@ -19,6 +19,6 @@ export class FirstTimeStorageService {
 
   async isFirstTime(){
     const ret = await Storage.get({key: 'first-time'});
-    return ret.value === 'false' ? false : true;
+    return ret.value !== 'false';
   }
 }

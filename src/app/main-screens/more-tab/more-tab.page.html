@@ -31,7 +31,7 @@
                        title="Η γειτονιά μου" routeTarget="/neighborhood" class="card-margins">
         </app-more-card>
 
-        <a href="https://patras.sense.city/" disabled style="text-decoration: none;" class="card-margins">
+        <a [href]="city.url" disabled style="text-decoration: none;" class="card-margins">
             <app-more-card image="/assets/svg-images/more/more_map.svg" title="Χάρτης" routeTarget="#">
             </app-more-card>
         </a>

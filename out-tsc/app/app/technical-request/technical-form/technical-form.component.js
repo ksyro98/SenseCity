@@ -25,6 +25,7 @@ let TechnicalFormComponent = class TechnicalFormComponent {
                 named: false
             };
         });
+        console.log(history.length);
     }
     setCanProceed(canProceed) {
         this.canProceed = canProceed;

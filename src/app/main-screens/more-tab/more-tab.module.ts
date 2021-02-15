@@ -18,7 +18,8 @@ import {FeedbackCardComponent} from '../../more/feedback-card/feedback-card.comp
         MoreTabPageRoutingModule
     ],
     exports: [
-        FeedbackCardComponent
+        FeedbackCardComponent,
+        MoreCardComponent
     ],
     declarations: [MoreTabPage, MoreCardComponent, FeedbackCardComponent]
 })

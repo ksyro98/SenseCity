@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 const { Toast, Geolocation } = Plugins;
 let FeedbackCardComponent = class FeedbackCardComponent {
-    constructor() {
+    constructor(storageFeedbackCounter) {
+        this.storageFeedbackCounter = storageFeedbackCounter;
         this.feedbackReceived = false;
         this.buttonsEnabled = true;
     }
@@ -22,6 +23,7 @@ let FeedbackCardComponent = class FeedbackCardComponent {
                 Toast.show({ text: 'Η διαθεση σας καταχωρηθηκε. Ευχαριστουμε!' });
                 this.feedbackReceived = true;
                 this.buttonsEnabled = true;
+                this.storageFeedbackCounter.updateCounter();
             })
                 .catch(reason => {
                 Toast.show({

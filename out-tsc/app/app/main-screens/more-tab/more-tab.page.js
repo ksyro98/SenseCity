@@ -1,7 +1,11 @@
 import { __decorate } from "tslib";
 import { Component } from '@angular/core';
+import { CITIES } from '../../constants/Cities';
 let MoreTabPage = class MoreTabPage {
-    constructor() { }
+    constructor() {
+        // We will retrieve this value from the user's selected city.
+        this.city = CITIES[4];
+    }
     ngOnInit() {
     }
 };

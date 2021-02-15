@@ -1,5 +1,5 @@
-import { __decorate } from "tslib";
-import { Component, Input } from '@angular/core';
+import { __awaiter, __decorate } from "tslib";
+import { Component, HostListener, Input } from '@angular/core';
 import * as L from 'leaflet';
 let RequestDetailsMapModalComponent = class RequestDetailsMapModalComponent {
     constructor(modalController) {
@@ -30,6 +30,11 @@ let RequestDetailsMapModalComponent = class RequestDetailsMapModalComponent {
             dismissed: true
         });
     }
+    overrideHardwareBackAction($event) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.dismiss();
+        });
+    }
 };
 __decorate([
     Input()
@@ -40,6 +45,9 @@ __decorate([
 __decorate([
     Input()
 ], RequestDetailsMapModalComponent.prototype, "locationName", void 0);
+__decorate([
+    HostListener('document:ionBackButton', ['$event'])
+], RequestDetailsMapModalComponent.prototype, "overrideHardwareBackAction", null);
 RequestDetailsMapModalComponent = __decorate([
     Component({
         selector: 'app-request-details-map-modal',

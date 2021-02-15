@@ -15,7 +15,7 @@ let FirstTimeStorageService = class FirstTimeStorageService {
     isFirstTime() {
         return __awaiter(this, void 0, void 0, function* () {
             const ret = yield Storage.get({ key: 'first-time' });
-            return ret.value === 'false' ? false : true;
+            return ret.value !== 'false';
         });
     }
 };

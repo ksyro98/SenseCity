@@ -18,7 +18,8 @@ MoreTabPageModule = __decorate([
             MoreTabPageRoutingModule
         ],
         exports: [
-            FeedbackCardComponent
+            FeedbackCardComponent,
+            MoreCardComponent
         ],
         declarations: [MoreTabPage, MoreCardComponent, FeedbackCardComponent]
     })

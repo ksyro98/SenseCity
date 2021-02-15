@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Plugins} from '@capacitor/core';
+import {StorageFeedbackCounterService} from '../../storage-utils/storage-feedback-counter-service/storage-feedback-counter.service';
 
 const {Toast, Geolocation} = Plugins;
 
@@ -13,7 +14,7 @@ export class FeedbackCardComponent implements OnInit {
   feedbackReceived = false;
   buttonsEnabled = true;
 
-  constructor() { }
+  constructor(private storageFeedbackCounter: StorageFeedbackCounterService) { }
 
   ngOnInit() {}
 
@@ -31,6 +32,7 @@ export class FeedbackCardComponent implements OnInit {
           Toast.show({text: 'Η διαθεση σας καταχωρηθηκε. Ευχαριστουμε!'});
           this.feedbackReceived = true;
           this.buttonsEnabled = true;
+          this.storageFeedbackCounter.updateCounter();
         })
         .catch(reason => {
           Toast.show({

@@ -1,0 +1,42 @@
+<ion-toolbar>
+  <div>
+    <img src="/assets/images/sense_city_logo_green.png" alt="Sense City logo.">
+  </div>
+</ion-toolbar>
+
+<p>
+  Πριν ξεκινήσεις επίλεξε την πόλη σου.
+</p>
+
+<ion-searchbar *ngIf="cities.length >= 9" placeholder="Αναζήτηση" (ionInput)="onSearch($event)"></ion-searchbar>
+
+<div style="width: 100%; height: 1px; background-color: #DCDEDB; margin: 0; padding: 0;"></div>
+
+<ion-content>
+
+  <div *ngIf="cities.length < 9">
+    <ion-row>
+      <ion-col size="6" *ngFor="let city of cities">
+        <ion-card [button]="true" (click)="exitComponent(city)">
+          <ion-card-content>
+            <p class="city-card-text">{{ city.name }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div *ngIf="cities.length >= 9">
+    <ion-list>
+      <div *ngFor="let city of cities">
+        <ion-item
+                *ngIf="query.length === 0 || city.name.toLowerCase().includes(query)"
+                lines="full"
+                (click)="exitComponent(city)">
+          {{ city.name }}
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
+
+</ion-content>

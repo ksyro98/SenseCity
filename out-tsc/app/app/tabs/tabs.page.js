@@ -1,7 +1,9 @@
 import { __decorate } from "tslib";
 import { Component } from '@angular/core';
 let TabsPage = class TabsPage {
-    constructor() { }
+    constructor() {
+        this.href = '';
+    }
     ngOnInit() { }
 };
 TabsPage = __decorate([

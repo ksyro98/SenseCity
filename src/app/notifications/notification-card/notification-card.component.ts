@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {GeneralNotification} from '../../entities/notifications/GeneralNotification';
 import {NotificationType} from '../../entities/notifications/NotificationType';
 import {RequestNotification} from '../../entities/notifications/RequestNotification';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-notification-card',
@@ -13,7 +14,7 @@ export class NotificationCardComponent implements OnInit {
   @Input() notification: GeneralNotification;
   notificationStars = -1;
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
@@ -23,6 +24,8 @@ export class NotificationCardComponent implements OnInit {
   isRequestNotification(){
     return this.notification.type === NotificationType.REQUEST;
   }
+
+  navigateOnClick(){ }
 
   private getStars(){
     if (this.notification.type === NotificationType.REQUEST){

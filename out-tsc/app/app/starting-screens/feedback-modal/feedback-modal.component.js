@@ -4,8 +4,9 @@ import { Component } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 const { Toast } = Plugins;
 let FeedbackModalComponent = FeedbackModalComponent_1 = class FeedbackModalComponent {
-    constructor(modalController) {
+    constructor(modalController, storageFeedbackCounter) {
         this.modalController = modalController;
+        this.storageFeedbackCounter = storageFeedbackCounter;
     }
     static present(modalController, onDismiss) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -14,8 +15,7 @@ let FeedbackModalComponent = FeedbackModalComponent_1 = class FeedbackModalCompo
                 cssClass: 'feedback-modal-class',
             });
             modal.onDidDismiss()
-                .then((data) => {
-            });
+                .then((data) => onDismiss());
             return yield modal.present();
         });
     }
@@ -24,6 +24,7 @@ let FeedbackModalComponent = FeedbackModalComponent_1 = class FeedbackModalCompo
         return __awaiter(this, void 0, void 0, function* () {
             yield Toast.show({ text: 'Η διαθεση σας καταχωρηθηκε. Ευχαριστουμε!' });
             yield this.modalController.dismiss();
+            yield this.storageFeedbackCounter.updateCounter();
         });
     }
 };

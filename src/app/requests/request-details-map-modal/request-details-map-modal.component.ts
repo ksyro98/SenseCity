@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, HostListener, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import * as L from 'leaflet';
 
@@ -47,5 +47,10 @@ export class RequestDetailsMapModalComponent implements OnInit, AfterViewInit {
     this.modalController.dismiss({
       dismissed: true
     });
+  }
+
+  @HostListener('document:ionBackButton', ['$event'])
+  private async overrideHardwareBackAction($event: any) {
+    this.dismiss();
   }
 }

@@ -3,24 +3,49 @@ import { Component } from '@angular/core';
 import { ToolbarPopoverComponent } from '../../view-utils/toolbar-popover/toolbar-popover.component';
 import { CitiesModalComponent } from '../../view-utils/cities-modal/cities-modal.component';
 import { Plugins } from '@capacitor/core';
+import { CITY_POLYGONS } from '../../constants/Cities';
 const { Toast } = Plugins;
 let MainTabPage = class MainTabPage {
-    constructor(popoverController, modalController, alertService, firstTimeStorageService) {
+    constructor(popoverController, modalController, alertService, storageCounter, storageState, route) {
         this.popoverController = popoverController;
         this.modalController = modalController;
         this.alertService = alertService;
-        this.firstTimeStorageService = firstTimeStorageService;
+        this.storageCounter = storageCounter;
+        this.storageState = storageState;
+        this.route = route;
         this.typeOfService = 0; // 0 --> technical, 1 --> administrative
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
-            const isFirstTime = yield this.firstTimeStorageService.isFirstTime();
-            if (isFirstTime) {
-                this.alertService.showAlert({
-                    head: 'Αλλαγη πόλης',
-                    body: 'Η επιλγμένη πόλη είναι η Πάτρα. Μπορείς να την αλλάξεις πατώντας στις 3 τελειες, πάνω δεξιά.'
-                }, () => __awaiter(this, void 0, void 0, function* () { return this.firstTimeStorageService.setFirstTime(false); }));
-            }
+            const isSecondTime = yield this.storageCounter.isSecondTime();
+            this.route.queryParamMap.subscribe((params) => {
+                const polygon = CITY_POLYGONS[params.get('name')];
+                this.city = {
+                    name: params.get('name'),
+                    lat: parseInt(params.get('lat'), 10),
+                    long: parseInt(params.get('long'), 10),
+                    zoom: parseInt(params.get('zoom'), 10),
+                    url: params.get('url'),
+                    polygon
+                };
+                if (this.city.name !== null) {
+                    if (isSecondTime) {
+                        this.alertService.showAlert({
+                            head: 'Αλλαγη πόλης',
+                            body: `Η επιλγμένη πόλη είναι η ${this.city.name}. Μπορείς να την αλλάξεις πατώντας στις 3 τελειες, πάνω δεξιά.`
+                        }, () => __awaiter(this, void 0, void 0, function* () {
+                        }));
+                    }
+                    else {
+                        this.storageState.stateIsTrue().then(state => {
+                            if (!state) {
+                                Toast.show({ text: `Η επιλεγμενη πολη ειναι η ${this.city.name}.` });
+                                this.storageState.setState(true);
+                            }
+                        });
+                    }
+                }
+            });
         });
     }
     servicesSegmentChanged(event) {

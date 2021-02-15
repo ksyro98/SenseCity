@@ -7,7 +7,7 @@ export abstract class GeneralNotification {
     read: boolean;
     type: string;
 
-    protected constructor(text: string, imageSrc: string, read: boolean, type: string) {
+    protected constructor(text: string, imageSrc: string, read: boolean, type: string) {    // } , url: string) {
         this.text = text;
         this.imageSrc = '/assets/svg-images/notifications/' + imageSrc + (read ? '_grey' : '') + '.svg';
         this.read = read;
