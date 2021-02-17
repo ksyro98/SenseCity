@@ -39,10 +39,10 @@ import { ConsultationsListComponent } from './consultations/consultations-list/c
 import { ConsultationCardComponent } from './consultations/consultation-card/consultation-card.component';
 import { ConsultationDetailsModalComponent } from './consultations/consultation-details/consultation-details-modal.component';
 import { ConsultationCommentsModalComponent } from './consultations/consultation-comments-modal/consultation-comments-modal.component';
-import { ConsultationCommentCardComponent } from './consultations/consultation-comment-card/consultation-comment-card.component';
 import { ConsultationCommentRepliesModalComponent } from './consultations/consultation-comment-replies-modal/consultation-comment-replies-modal.component';
 import { ConsultationCommentTextBarComponent } from './consultations/consultation-comment-text-bar/consultation-comment-text-bar.component';
 import { SelectCityAtStartComponent } from './starting-screens/select-city-modal/select-city-at-start.component';
+import { ConsultationCommentCardComponent } from './consultations/consultation-comment-card/consultation-comment-card.component';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -76,10 +76,10 @@ AppModule = __decorate([
             ConsultationCardComponent,
             ConsultationDetailsModalComponent,
             ConsultationCommentsModalComponent,
-            ConsultationCommentCardComponent,
             ConsultationCommentRepliesModalComponent,
             ConsultationCommentTextBarComponent,
             SelectCityAtStartComponent,
+            ConsultationCommentCardComponent,
         ],
         entryComponents: [],
         imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],

@@ -22,4 +22,6 @@ export class CityAlertService {
     });
 
     await alert.present();
-  }}
+  }
+
+}
