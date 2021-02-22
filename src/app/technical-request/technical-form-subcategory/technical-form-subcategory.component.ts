@@ -19,8 +19,6 @@ export class TechnicalFormSubcategoryComponent implements OnInit {
   categories: Category[];
   otherPressed = false;
   value: string;
-  // @Input() value: number;
-  // @Output() valueChange = new EventEmitter<number>();
 
   constructor() {}
 

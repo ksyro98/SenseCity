@@ -1,3 +1,4 @@
+const ICONS_PATH = '/assets/svg-images/technical-req-icons/';
 export class RequestedService {
     static getCategoryForService(id) {
         switch (id) {
@@ -65,37 +66,37 @@ export const TECHNICAL_SERVICES_LIST = [
     {
         id: 0,
         name: 'Καθαριοτητα',
-        icon: 'ellipse'
+        icon: ICONS_PATH + 'cleaning.svg'
     },
     {
         id: 1,
         name: 'Ηλεκτροφωτισμος',
-        icon: 'ellipse'
+        icon: ICONS_PATH + 'electricity.svg'
     },
     {
         id: 2,
         name: 'Πεζοδρομιο/Δρομος/Πλατεια',
-        icon: 'ellipse'
+        icon: ICONS_PATH + 'streets.svg'
     },
     {
         id: 3,
         name: 'Πολιτικη Προστασια',
-        icon: 'ellipse'
+        icon: ICONS_PATH + 'civil-protection.svg'
     },
     {
         id: 4,
         name: 'Πρασινο',
-        icon: 'ellipse'
+        icon: ICONS_PATH + 'green.svg'
     },
     {
         id: 5,
         name: 'Περιβαλλοντικα Θεματα',
-        icon: 'ellipse'
+        icon: ICONS_PATH + 'environment.svg'
     },
     {
         id: 6,
         name: 'Υδρευση/Αποχετευση',
-        icon: 'ellipse'
+        icon: ICONS_PATH + 'water.svg'
     }
 ];
 export const ADMINISTRATIVE_SERVICES_LIST = [

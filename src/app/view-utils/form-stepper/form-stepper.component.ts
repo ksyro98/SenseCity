@@ -1,7 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Location } from '@angular/common';
 import {AlertController} from '@ionic/angular';
 import {AlertService} from '../alert-service/alert.service';
+import { Plugins, KeyboardInfo } from '@capacitor/core';
+
+const { Keyboard } = Plugins;
 
 @Component({
   selector: 'app-form-stepper',
@@ -15,13 +18,36 @@ export class FormStepperComponent implements OnInit {
   currentStep: number;
   @Output() currentStepEvent = new EventEmitter<number>();
   rangeArray: number[];
+  keyboardShown = false;
 
-  constructor(private location: Location, private alertService: AlertService) {
+  constructor(
+      private location: Location,
+      private alertService: AlertService,
+      private cdr: ChangeDetectorRef
+  ) {
     this.currentStep = 0;
   }
 
   ngOnInit() {
     this.rangeArray = Array(this.steps).fill(0).map((x, i) => i);
+
+    Keyboard.addListener(
+        'keyboardWillShow',
+        (_) => {
+          this.keyboardShown = true;
+          console.log(this.keyboardShown);
+          this.cdr.detectChanges();
+        }
+    );
+
+    Keyboard.addListener(
+        'keyboardWillHide',
+        () => {
+          this.keyboardShown = false;
+          console.log(this.keyboardShown);
+          this.cdr.detectChanges();
+        }
+    );
   }
 
   public closeForm(){

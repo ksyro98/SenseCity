@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {ModalController, Platform} from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+// import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {FeedbackModalComponent} from './starting-screens/feedback-modal/feedback-modal.component';
 import {Plugins} from '@capacitor/core';
@@ -12,7 +12,7 @@ import {StorageCounterService} from './storage-utils/storage-counter-service/sto
 import {StorageStateService} from './storage-utils/storage-state-service/storage-state.service';
 import {StorageFeedbackCounterService} from './storage-utils/storage-feedback-counter-service/storage-feedback-counter.service';
 
-const {Geolocation} = Plugins;
+const {Geolocation, SplashScreen} = Plugins;
 
 @Component({
   selector: 'app-root',
@@ -22,7 +22,7 @@ const {Geolocation} = Plugins;
 export class AppComponent {
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
+    // private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public modalController: ModalController,
     private storageCounter: StorageCounterService,
@@ -57,7 +57,6 @@ export class AppComponent {
 
           const moreThanSecondTime = await this.storageCounter.isMoreThanSecondTime();
           const showDialog = await this.storageFeedbackCounter.showDialog();
-          console.log(moreThanSecondTime);
           if (moreThanSecondTime && showDialog) {
               await FeedbackModalComponent
                   .present(this.modalController, () => { });
@@ -76,7 +75,8 @@ export class AppComponent {
           await this.router.navigate(['select-city'], {relativeTo: this.route});
       }
 
-      this.splashScreen.hide();
+      await SplashScreen.hide();
+      // this.splashScreen.hide();
   }
 
 }

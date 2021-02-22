@@ -1,21 +1,25 @@
 import { __awaiter, __decorate } from "tslib";
 import { Component } from '@angular/core';
 let AdministrativeFormSpecificInfoComponent = class AdministrativeFormSpecificInfoComponent {
-    constructor(fileChooser, cameraService) {
+    constructor(fileChooser, filePath, cameraService) {
         this.fileChooser = fileChooser;
+        this.filePath = filePath;
         this.cameraService = cameraService;
         this.paths = [];
+        this.selectedFile = 'Προσθηκη Αρχειου';
     }
     ngOnInit() { }
     // NOT WORKING
     addFile() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.fileChooser.open();
+            const uri = yield this.fileChooser.open();
+            const path = yield this.filePath.resolveNativePath(uri);
+            this.selectedFile = path.substr(path.lastIndexOf('/') + 1);
         });
     }
     addImages() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.cameraService.showCameraActionSheet(res => this.paths.push(res));
+            yield this.cameraService.showCameraActionSheet(res => this.paths.push(res));
         });
     }
 };

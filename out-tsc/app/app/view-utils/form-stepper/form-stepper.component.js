@@ -1,14 +1,28 @@
 import { __decorate } from "tslib";
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Plugins } from '@capacitor/core';
+const { Keyboard } = Plugins;
 let FormStepperComponent = class FormStepperComponent {
-    constructor(location, alertService) {
+    constructor(location, alertService, cdr) {
         this.location = location;
         this.alertService = alertService;
+        this.cdr = cdr;
         this.currentStepEvent = new EventEmitter();
+        this.keyboardShown = false;
         this.currentStep = 0;
     }
     ngOnInit() {
         this.rangeArray = Array(this.steps).fill(0).map((x, i) => i);
+        Keyboard.addListener('keyboardWillShow', (_) => {
+            this.keyboardShown = true;
+            console.log(this.keyboardShown);
+            this.cdr.detectChanges();
+        });
+        Keyboard.addListener('keyboardWillHide', () => {
+            this.keyboardShown = false;
+            console.log(this.keyboardShown);
+            this.cdr.detectChanges();
+        });
     }
     closeForm() {
         this.location.back();

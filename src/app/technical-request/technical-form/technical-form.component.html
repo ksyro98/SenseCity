@@ -4,7 +4,8 @@
     <div ngSwitch="{{currentStep}}">
         <app-technical-form-subcategory
                 *ngSwitchCase="0" [service]="request.service"
-                (canProceedEvent)="setCanProceed($event)" [(category)]="request.category">
+                (canProceedEvent)="setCanProceed($event)"
+                [(category)]="request.category">
         </app-technical-form-subcategory>
         <app-technical-form-info *ngSwitchCase="1"></app-technical-form-info>
         <app-technical-form-map *ngSwitchCase="2"></app-technical-form-map>
@@ -15,6 +16,6 @@
 <app-form-stepper
         [steps]="4" [canProceed]="canProceed"
         (currentStepEvent)="setCurrentStep($event)"
-        style="position: absolute; bottom: 0; width: 100%">
+        class="bottom-stepper">
 </app-form-stepper>
 

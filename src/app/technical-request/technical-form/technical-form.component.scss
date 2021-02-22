@@ -1,1 +1,8 @@
 @import "../../../../node_modules/leaflet/dist/leaflet.css";
+
+.bottom-stepper {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  //visibility: hidden;
+}

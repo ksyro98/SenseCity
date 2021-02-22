@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-
 import {RequestedService} from '../../entities/RequestedService';
 import {TechnicalRequest} from '../../entities/TechnicalRequest';
 
@@ -39,8 +38,6 @@ export class TechnicalFormComponent implements OnInit {
       };
 
     });
-
-    console.log(history.length);
   }
 
   setCanProceed(canProceed: boolean){
@@ -50,5 +47,4 @@ export class TechnicalFormComponent implements OnInit {
   setCurrentStep(currentStep: number){
     this.currentStep = currentStep;
   }
-
 }

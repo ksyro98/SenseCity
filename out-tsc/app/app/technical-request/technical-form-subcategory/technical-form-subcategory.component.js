@@ -3,8 +3,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RequestedService } from '../../entities/RequestedService';
 import { isOtherCategory } from '../../entities/OtherCategory';
 let TechnicalFormSubcategoryComponent = class TechnicalFormSubcategoryComponent {
-    // @Input() value: number;
-    // @Output() valueChange = new EventEmitter<number>();
     constructor() {
         this.canProceedEvent = new EventEmitter();
         this.categoryChange = new EventEmitter();

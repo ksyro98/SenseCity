@@ -17,7 +17,7 @@
   <div *ngIf="cities.length < 9">
     <ion-row>
       <ion-col size="6" *ngFor="let city of cities">
-        <ion-card [button]="true" (click)="exitComponent(city)">
+        <ion-card [button]="true" (click)="exitComponent(city)" style="margin: auto">
           <ion-card-content>
             <p class="city-card-text">{{ city.name }}</p>
           </ion-card-content>

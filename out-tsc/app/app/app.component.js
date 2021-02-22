@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { FeedbackModalComponent } from './starting-screens/feedback-modal/feedback-modal.component';
 import { Plugins } from '@capacitor/core';
 import { getCityFromPoint } from './constants/Cities';
-const { Geolocation } = Plugins;
+const { Geolocation, SplashScreen } = Plugins;
 let AppComponent = class AppComponent {
-    constructor(platform, splashScreen, statusBar, modalController, storageCounter, storageState, storageFeedbackCounter, router, route, backButtonService, cityParamsService) {
+    constructor(platform, 
+    // private splashScreen: SplashScreen,
+    statusBar, modalController, storageCounter, storageState, storageFeedbackCounter, router, route, backButtonService, cityParamsService) {
         this.platform = platform;
-        this.splashScreen = splashScreen;
         this.statusBar = statusBar;
         this.modalController = modalController;
         this.storageCounter = storageCounter;
@@ -37,7 +38,6 @@ let AppComponent = class AppComponent {
                 const long = currentPosition.coords.longitude;
                 const moreThanSecondTime = yield this.storageCounter.isMoreThanSecondTime();
                 const showDialog = yield this.storageFeedbackCounter.showDialog();
-                console.log(moreThanSecondTime);
                 if (moreThanSecondTime && showDialog) {
                     yield FeedbackModalComponent
                         .present(this.modalController, () => { });
@@ -55,7 +55,8 @@ let AppComponent = class AppComponent {
             catch (error) {
                 yield this.router.navigate(['select-city'], { relativeTo: this.route });
             }
-            this.splashScreen.hide();
+            yield SplashScreen.hide();
+            // this.splashScreen.hide();
         });
     }
 };
