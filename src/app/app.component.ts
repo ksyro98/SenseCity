@@ -11,6 +11,8 @@ import {CityParamsService} from './view-utils/city-params-service/city-params.se
 import {StorageCounterService} from './storage-utils/storage-counter-service/storage-counter.service';
 import {StorageStateService} from './storage-utils/storage-state-service/storage-state.service';
 import {StorageFeedbackCounterService} from './storage-utils/storage-feedback-counter-service/storage-feedback-counter.service';
+import {TranslateService} from '@ngx-translate/core';
+import {LocalTranslateService} from './view-utils/local-translate-service/local-translate.service';
 
 const {Geolocation, SplashScreen} = Plugins;
 
@@ -31,7 +33,9 @@ export class AppComponent {
     private router: Router,
     private route: ActivatedRoute,
     private backButtonService: BackButtonService,
-    private cityParamsService: CityParamsService
+    private cityParamsService: CityParamsService,
+    private translate: TranslateService,
+    private localTranslateService: LocalTranslateService
   ) {
     this.initializeApp();
   }
@@ -49,6 +53,8 @@ export class AppComponent {
       this.backButtonService.init();
       await this.storageCounter.updateCounter();
       await this.storageState.setState(false);
+
+      this.localTranslateService.translate = this.translate;
 
       try {
           const currentPosition = await Geolocation.getCurrentPosition();

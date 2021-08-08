@@ -1,5 +1,5 @@
 <ion-list>
-  <ion-text><b>Βασικές πληροφορίες</b></ion-text>
+  <ion-text><b>{{basicInformation}}</b></ion-text>
 
   <ion-item *ngFor="let element of elements" lines="insert">
     <ion-label position="floating">{{element.label}}</ion-label>
@@ -16,7 +16,7 @@
 <ion-item lines="none" class="short_item_no_ripple">
   <ion-label>
     <p class="smaller-font">
-      Αποθήκευση αλλαγών στο προφίλ μου.
+      {{saveChanges}}
     </p>
   </ion-label>
   <ion-checkbox slot="start" checked="true"></ion-checkbox>

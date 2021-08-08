@@ -1,3 +1,5 @@
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
+
 export abstract class GeneralNotification {
     text: string;
     // avoid using relative path because it will be used by the component that shows the notification
@@ -6,12 +8,14 @@ export abstract class GeneralNotification {
     imageSrc: string;
     read: boolean;
     type: string;
+    localTranslateService: LocalTranslateService;
 
-    protected constructor(text: string, imageSrc: string, read: boolean, type: string) {    // } , url: string) {
+    protected constructor(text: string, imageSrc: string, read: boolean, type: string, localTranslateService: LocalTranslateService) {
         this.text = text;
         this.imageSrc = '/assets/svg-images/notifications/' + imageSrc + (read ? '_grey' : '') + '.svg';
         this.read = read;
         this.type = type;
+        this.localTranslateService = localTranslateService;
     }
 
     getReadNotification(){

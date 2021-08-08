@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import {AlertController} from '@ionic/angular';
 import {AlertService} from '../alert-service/alert.service';
 import { Plugins, KeyboardInfo } from '@capacitor/core';
+import {LocalTranslateService} from '../local-translate-service/local-translate.service';
 
 const { Keyboard } = Plugins;
 
@@ -20,15 +21,22 @@ export class FormStepperComponent implements OnInit {
   rangeArray: number[];
   keyboardShown = false;
 
+  completeRequestHead = 'Ολοκλήρωση Αίτησης';
+  completeRequestBody = 'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;';
+
   constructor(
       private location: Location,
       private alertService: AlertService,
-      private cdr: ChangeDetectorRef
+      private cdr: ChangeDetectorRef,
+      private localTranslateService: LocalTranslateService
   ) {
     this.currentStep = 0;
+    this.setTranslationPairs();
   }
 
   ngOnInit() {
+    this.localTranslateService.translateLanguage();
+
     this.rangeArray = Array(this.steps).fill(0).map((x, i) => i);
 
     Keyboard.addListener(
@@ -61,8 +69,8 @@ export class FormStepperComponent implements OnInit {
     if (this.currentStep === this.steps - 1){
       this.alertService.showAlert(
           {
-            head: 'Ολοκλήρωση Αίτησης',
-            body: 'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;',
+            head: this.completeRequestHead,
+            body: this.completeRequestBody,
           },
           () => this.location.back()
       );
@@ -80,4 +88,8 @@ export class FormStepperComponent implements OnInit {
     this.currentStepEvent.emit(this.currentStep);
   }
 
+    setTranslationPairs(){
+      this.localTranslateService.pairs.push({key: 'complete-request-head', callback: (res: string) => this.completeRequestHead = res});
+      this.localTranslateService.pairs.push({key: 'complete-request-body', callback: (res: string) => this.completeRequestBody = res});
+    }
 }

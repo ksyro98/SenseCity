@@ -4,6 +4,7 @@ export class OtherCategory implements Category {
     id: number;
     name: string;
     shortDescription: string;
+    translationKey: string = null;
 }
 
 export function isOtherCategory(obj): obj is OtherCategory {

@@ -1,7 +1,14 @@
 import { __decorate } from "tslib";
 import { Component } from '@angular/core';
 let ConsultationsListComponent = class ConsultationsListComponent {
-    constructor() {
+    constructor(localTranslateService) {
+        this.localTranslateService = localTranslateService;
+        this.discussions = 'Διαβουλεύσεις';
+        this.orderBy = 'Ταξινόμηση κατά';
+        this.newest = 'Νεότερα';
+        this.popular = 'Δημοφιλή';
+        this.selected = 'Επιλεγμενα';
+        this.subject = 'Θέμα';
         this.notificationsOn = false;
         this.longString = 'Fugit sit delectus alias aperiam reprehenderit sit. Sit illo laboriosam sint. Rerum ea vitae autem ut possimus voluptatum fugiat eos. Blanditiis autem rerum doloribus.' +
             '<br><br>' +
@@ -115,8 +122,10 @@ let ConsultationsListComponent = class ConsultationsListComponent {
             }
         ];
         this.consultations = [];
+        this.setTranslationPairs();
     }
     ngOnInit() {
+        this.localTranslateService.translateLanguage();
         this.getConsultations();
     }
     setSorting(sorting) {
@@ -131,11 +140,12 @@ let ConsultationsListComponent = class ConsultationsListComponent {
                 break;
             case 'notifications_on':
                 this.notificationsOn = true;
+                break;
         }
     }
     getConsultations() {
         this.consultations.push({
-            name: 'Θέμα',
+            name: this.subject,
             text: this.longString,
             files: [],
             comments: this.comments,
@@ -146,7 +156,7 @@ let ConsultationsListComponent = class ConsultationsListComponent {
             date: new Date('2021-01-01')
         });
         this.consultations.push({
-            name: 'Θέμα',
+            name: this.subject,
             text: this.longString,
             files: [],
             comments: this.comments,
@@ -157,7 +167,7 @@ let ConsultationsListComponent = class ConsultationsListComponent {
             date: new Date('2020-12-01')
         });
         this.consultations.push({
-            name: 'Θέμα',
+            name: this.subject,
             text: this.longString,
             files: [],
             comments: this.comments,
@@ -168,7 +178,7 @@ let ConsultationsListComponent = class ConsultationsListComponent {
             date: new Date('2020-11-30')
         });
         this.consultations.push({
-            name: 'Θέμα',
+            name: this.subject,
             text: this.longString,
             files: [],
             comments: this.comments,
@@ -179,7 +189,7 @@ let ConsultationsListComponent = class ConsultationsListComponent {
             date: new Date('2020-11-27')
         });
         this.consultations.push({
-            name: 'Θέμα',
+            name: this.subject,
             text: this.longString,
             files: [],
             comments: this.comments,
@@ -190,7 +200,7 @@ let ConsultationsListComponent = class ConsultationsListComponent {
             date: new Date('2020-11-19')
         });
         this.consultations.push({
-            name: 'Θέμα',
+            name: this.subject,
             text: this.longString,
             files: [],
             comments: this.comments,
@@ -201,7 +211,7 @@ let ConsultationsListComponent = class ConsultationsListComponent {
             date: new Date('2020-10-30')
         });
         this.consultations.push({
-            name: 'Θέμα',
+            name: this.subject,
             text: this.longString,
             files: [],
             comments: this.comments,
@@ -212,6 +222,14 @@ let ConsultationsListComponent = class ConsultationsListComponent {
             date: new Date('2020-10-25')
         });
         this.consultations.sort((a, b) => -(a.date.getTime() - b.date.getTime()));
+    }
+    setTranslationPairs() {
+        this.localTranslateService.pairs.push({ key: 'discussions', callback: (res) => this.discussions = res });
+        this.localTranslateService.pairs.push({ key: 'order-by', callback: (res) => this.orderBy = res });
+        this.localTranslateService.pairs.push({ key: 'newest', callback: (res) => this.newest = res });
+        this.localTranslateService.pairs.push({ key: 'popular', callback: (res) => this.popular = res });
+        this.localTranslateService.pairs.push({ key: 'selected', callback: (res) => this.selected = res });
+        this.localTranslateService.pairs.push({ key: '_subject', callback: (res) => this.subject = res });
     }
 };
 ConsultationsListComponent = __decorate([

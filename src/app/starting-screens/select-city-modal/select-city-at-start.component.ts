@@ -5,6 +5,7 @@ import {CITIES} from '../../constants/Cities';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CityPolygon} from '../../entities/CityPolygon';
 import {CityParamsService} from '../../view-utils/city-params-service/city-params.service';
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 @Component({
   selector: 'app-select-at-start',
@@ -16,6 +17,8 @@ export class SelectCityAtStartComponent implements OnInit {
   cities: City[];
   query = '';
   buttonWillExit = false;
+
+  selectCityAtStart = 'Πριν ξεκινήσεις επίλεξε την πόλη σου.';
 
   static async present(modalController: ModalController, onDismiss: (data: any) => void) {
     const modal = await modalController.create({
@@ -29,10 +32,12 @@ export class SelectCityAtStartComponent implements OnInit {
     return await modal.present();
   }
 
-  constructor(private cityParamsService: CityParamsService) { }
+  constructor(private cityParamsService: CityParamsService, private localTranslateService: LocalTranslateService) { }
 
   ngOnInit() {
     this.cities = CITIES;
+    this.setTranslationPairs();
+    this.localTranslateService.translateLanguage();
   }
 
   onSearch(event){
@@ -57,6 +62,12 @@ export class SelectCityAtStartComponent implements OnInit {
     //     );
   }
 
+  private setTranslationPairs(){
+    this.localTranslateService.pairs.push({key: 'select-city-at-start', callback: (res: string) => this.selectCityAtStart = res});
+    this.cities.forEach((city) => {
+      this.localTranslateService.pairs.push({key: city.cityKey, callback: (res: string) => city.name = res});
+    });
+  }
 }
 
 

@@ -1,7 +1,7 @@
 <!-- The list is used to set the position of the header. -->
 <ion-list>
   <ion-list-header class="header">
-    <ion-label>Υποβολη</ion-label>
+    <ion-label>{{submit}}</ion-label>
   </ion-list-header>
 </ion-list>
 
@@ -13,21 +13,21 @@
 
   <div style="margin-top: 25px;">
     <p>
-      <b>Κατηγορια:</b>
+      <b>{{category}}:</b>
       <br>
-      Καθαριοτητα
+      {{cleaning}}
     </p>
 
     <p>
-      <b>Αιτημα:</b>
+      <b>{{request}}:</b>
       <br>
-      Κομμενα Κλαδια
+      {{cutBranches}}
     </p>
 
     <p>
-      <b>Σχολια:</b>
+      <b>{{comments}}:</b>
       <br>
-      Architecto commodi quod non...
+      {{commentsValue}}
     </p>
   </div>
 
@@ -35,7 +35,7 @@
 
 <div style="margin-top: 30px;">
   <ion-item lines="none" class="short_item_no_ripple">
-    <ion-label><p class="smaller-font">Επώνυμη αναφορά</p></ion-label>
+    <ion-label><p class="smaller-font">{{namedRequest}}</p></ion-label>
     <ion-checkbox slot="start"></ion-checkbox>
   </ion-item>
 
@@ -43,7 +43,7 @@
   <ion-item lines="none" class="short_item_no_ripple">
     <ion-label>
       <p class="smaller-font">
-        Αποδέχομαι του <a href="https://sense.city/terms.html">όρους χρήσης</a> του SenseCity.
+        {{acceptTerms1}}<a href="https://sense.city/terms.html">{{acceptTerms2}}</a>{{acceptTerms3}}
       </p>
     </ion-label>
     <ion-checkbox slot="start" checked="true"></ion-checkbox>

@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActionSheetController} from '@ionic/angular';
 import {CameraService} from '../../view-utils/camera-service/camera.service';
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
+import {DomUtil} from 'leaflet';
+import setTransform = DomUtil.setTransform;
 
 @Component({
   selector: 'app-technical-form-image',
@@ -14,11 +17,25 @@ export class TechnicalFormImageComponent implements OnInit {
   @Input() showHeader: boolean;
   @Input() imageHeight: number;
 
-  constructor(public actionSheetController: ActionSheetController, public cameraService: CameraService) { }
+  photograph = 'Φωτογραφία';
 
-  ngOnInit() {}
+  constructor(
+      public actionSheetController: ActionSheetController,
+      public cameraService: CameraService,
+      private localTranslateService: LocalTranslateService
+  ) {
+    this.setTranslationPairs();
+  }
+
+  ngOnInit() {
+    this.localTranslateService.translateLanguage();
+  }
 
   addImage() {
     this.cameraService.showCameraActionSheet(res => this.path = res);
+  }
+
+  private setTranslationPairs(){
+    this.localTranslateService.pairs.push({key: 'photograph', callback: (res: string) => this.photograph = res});
   }
 }

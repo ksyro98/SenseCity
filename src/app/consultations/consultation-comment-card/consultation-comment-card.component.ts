@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Comment} from '../../entities/Comment';
 import {ModalController} from '@ionic/angular';
 import {ConsultationCommentRepliesModalComponent} from '../consultation-comment-replies-modal/consultation-comment-replies-modal.component';
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 @Component({
   selector: 'app-consultation-comment-card',
@@ -14,9 +15,15 @@ export class ConsultationCommentCardComponent implements OnInit {
   @Input() clickDisabled = false;
   @Input() hideRepliesText = false;
 
-  constructor(private modalController: ModalController) { }
+  replies = 'Απαντήσεις';
 
-  ngOnInit() {}
+  constructor(private modalController: ModalController, private localTranslateService: LocalTranslateService) {
+    this.setTranslationPairs();
+  }
+
+  ngOnInit() {
+    this.localTranslateService.translateLanguage();
+  }
 
   async presentRepliesModal(){
     const modal = await this.modalController.create({
@@ -30,5 +37,9 @@ export class ConsultationCommentCardComponent implements OnInit {
       this.comment = res.data.comment;
     });
     return await modal.present();
+  }
+
+  private setTranslationPairs(){
+    this.localTranslateService.pairs.push({key: 'replies', callback: (res: string) => this.replies = res});
   }
 }

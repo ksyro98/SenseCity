@@ -1,4 +1,7 @@
 export class OtherCategory {
+    constructor() {
+        this.translationKey = null;
+    }
 }
 export function isOtherCategory(obj) {
     return (obj.shortDescription !== undefined &&

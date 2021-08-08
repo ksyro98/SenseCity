@@ -26,7 +26,7 @@
              style="margin-top: 4px;">
     </ion-buttons>
 
-    <ion-buttons slot="end" (click)="rate(true)" class="thumbs-button">
+    <ion-buttons slot="end" (click)="rate(true)" class="thumbs-button" style="margin-right: 12px;">
         <ion-text>{{consultation.likes.toString()}}</ion-text>
         <img [src]="'/assets/svg-images/consultations/thumb_up-' + (consultation.rating === 1 ? 'green' : 'grey') + '.svg'"
              alt="Thumbs up for like."
@@ -39,18 +39,14 @@
 
 
 <ion-row>
-    <ion-col size="6">
-        <ion-item lines="none" class="short-item">
-            <ion-icon name="attach" slot="start" style="margin-right: 0"></ion-icon>
-            <p style="margin: 0; font-size: small;"><a href="https://patras.sense.city/">Σχετικό αρχείο 1</a></p>
-        </ion-item>
-    </ion-col>
-    <ion-col size="6">
-        <ion-item lines="none" class="short-item">
-            <ion-icon name="attach" slot="start" style="margin-right: 0"></ion-icon>
-            <p style="margin: 0; font-size: small;"><a href="https://patras.sense.city/">Σχετικό αρχείο 2</a></p>
-        </ion-item>
-    </ion-col>
+    <ion-item lines="none" class="short-item">
+        <ion-icon name="attach" slot="start" style="margin-right: 0"></ion-icon>
+        <p style="margin: 0; font-size: small;"><a href="https://patras.sense.city/">{{relevantFile}} 1</a></p>
+    </ion-item>
+    <ion-item lines="none" class="short-item">
+        <ion-icon name="attach" slot="start" style="margin-right: 0"></ion-icon>
+        <p style="margin: 0; font-size: small;"><a href="https://patras.sense.city/">{{relevantFile}} 2</a></p>
+    </ion-item>
 </ion-row>
 
 <div style="width: 100%; height: 1px; background-color: #DCDEDB; margin: 0; padding: 0;"></div>
@@ -60,7 +56,7 @@
 </ion-content>
 
 <app-details-bottom-bar
-        [text]="'Σχολια (' + consultation.comments.length.toString() + ')'"
+        [text]="comments + ' (' + consultation.comments.length.toString() + ')'"
         [isHidden]="isHidden"
         [twoLines]="false"
         (click)="presentCommentsModal()">

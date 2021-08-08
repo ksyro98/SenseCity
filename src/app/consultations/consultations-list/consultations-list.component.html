@@ -1,15 +1,15 @@
-<app-back-arrow-header title="Διαβουλεύσεις"></app-back-arrow-header>
+<app-back-arrow-header [title]="discussions"></app-back-arrow-header>
 
 <ion-item>
-    <ion-label>Ταξινόμηση κατά</ion-label>
+    <ion-label>{{orderBy}}</ion-label>
     <ion-select
             [value]="'newest'"
             interface="popover"
             (ionChange)="setSorting($event.target.value)"
             [interfaceOptions]="{cssClass: 'options-popover-class'}">
-        <ion-select-option value="newest">Νεότερα</ion-select-option>
-        <ion-select-option value="popular">Δημοφιλή</ion-select-option>
-        <ion-select-option value="notifications_on">Επιλεγμενα</ion-select-option>
+        <ion-select-option value="newest">{{newest}}</ion-select-option>
+        <ion-select-option value="popular">{{popular}}</ion-select-option>
+        <ion-select-option value="notifications_on">{{selected}}</ion-select-option>
     </ion-select>
 </ion-item>
 

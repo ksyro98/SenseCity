@@ -1,24 +1,24 @@
 <ion-list>
-  <ion-text><b>Εξειδικευμένες πληροφορίες</b></ion-text>
+  <ion-text><b>{{specificInformation}}</b></ion-text>
 
   <ion-item>
-    <ion-label position="floating">Πληροφορια 1 (κειμενο)</ion-label>
+    <ion-label position="floating">{{informationLabel}} 1 ({{textLabel}})</ion-label>
     <ion-input
-            placeholder="Περιγραφη πληροφοριας 1"
+            [placeholder]="textInformationDesc + ' 1'"
             type="text">
     </ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating">Πληροφορια 2 (κειμενο)</ion-label>
+    <ion-label position="floating">{{informationLabel}} 2 ({{textLabel}})</ion-label>
     <ion-input
-            placeholder="Περιγραφη πληροφοριας 2"
+            [placeholder]="textInformationDesc + ' 2'"
             type="text">
     </ion-input>
   </ion-item>
 
   <ion-item lines="none" (click)="addFile()">
-    <ion-label position="floating">Πληροφορια 3 (αρχειο)</ion-label>
+    <ion-label position="floating">{{informationLabel}} 3 ({{fileLabel}})</ion-label>
     <u>
       <ion-input
               [value]="selectedFile"
@@ -30,12 +30,12 @@
   </ion-item>
 
   <ion-item lines="none" (click)="addImages()">
-    <ion-label position="floating">Πληροφορια 4 (φωτογραφια)</ion-label>
+    <ion-label position="floating">{{informationLabel}} 4 ({{photoLabel}})</ion-label>
     <u>
       <ion-input
-              [value]="'Προσθηκη Φωτογραφιων (2)'"
+              [value]="photoDesc + ' (2)'"
               type="text"
-              readonly>
+              readonly i18n>
         <ion-icon name="camera"></ion-icon>
       </ion-input>
     </u>

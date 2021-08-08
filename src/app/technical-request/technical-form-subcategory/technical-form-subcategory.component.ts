@@ -3,6 +3,7 @@ import {RequestedService} from '../../entities/RequestedService';
 import {Category} from '../../entities/Category';
 import {valueReferenceToExpression} from '@angular/compiler-cli/src/ngtsc/annotations/src/util';
 import {isOtherCategory, OtherCategory} from '../../entities/OtherCategory';
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 @Component({
   selector: 'app-technical-form-subcategory',
@@ -20,12 +21,17 @@ export class TechnicalFormSubcategoryComponent implements OnInit {
   otherPressed = false;
   value: string;
 
-  constructor() {}
+  shortDescription = 'Συντομη περιγραφη (εως 40 χαρ.)';
+
+  constructor(private localTranslateService: LocalTranslateService) {}
 
   ngOnInit() {
     this.categories = RequestedService.getCategoryForService(this.service.id);
     this.setOtherPressed(this.category.id === -1);
     this.value = this.getCategoryDescription();
+
+    this.setTranslationPairs();
+    this.localTranslateService.translateLanguage();
   }
 
   onItemClick(category: Category){
@@ -58,4 +64,10 @@ export class TechnicalFormSubcategoryComponent implements OnInit {
     return '';
   }
 
+  private setTranslationPairs(){
+    this.categories.forEach((category) => {
+      this.localTranslateService.pairs.push({key: category.translationKey, callback: (res: string) => category.name = res});
+    });
+    this.localTranslateService.pairs.push({key: 'short-description', callback: (res: string) => this.shortDescription = res});
+  }
 }

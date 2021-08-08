@@ -14,16 +14,16 @@
 </ion-toolbar>
 
 <ion-item>
-    <ion-label>Ειδοποιησεις</ion-label>
+    <ion-label i18n>{{notificationsText}}</ion-label>
     <ion-select
             [value]="selectedType"
             interface="popover"
             (ionChange)="setSelectedType($event.target.value)"
             [interfaceOptions]="{cssClass: 'options-popover-class'}">
-        <ion-select-option value="All">Ολες</ion-select-option>
-        <ion-select-option value="{{notificationType.REQUEST}}">Αιτησεις</ion-select-option>
-        <ion-select-option value="{{notificationType.NEIGHBORHOOD}}">Γειτονια</ion-select-option>
-        <ion-select-option value="{{notificationType.COMMENT}}">Σχολια</ion-select-option>
+        <ion-select-option value="All">{{allText}}</ion-select-option>
+        <ion-select-option value="{{notificationType.REQUEST}}">{{requestsText}}</ion-select-option>
+        <ion-select-option value="{{notificationType.NEIGHBORHOOD}}">{{neighborhoodText}}</ion-select-option>
+        <ion-select-option value="{{notificationType.COMMENT}}">{{commentsText}}</ion-select-option>
     </ion-select>
 </ion-item>
 

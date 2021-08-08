@@ -7,7 +7,7 @@ const { Geolocation, SplashScreen } = Plugins;
 let AppComponent = class AppComponent {
     constructor(platform, 
     // private splashScreen: SplashScreen,
-    statusBar, modalController, storageCounter, storageState, storageFeedbackCounter, router, route, backButtonService, cityParamsService) {
+    statusBar, modalController, storageCounter, storageState, storageFeedbackCounter, router, route, backButtonService, cityParamsService, translate, localTranslateService) {
         this.platform = platform;
         this.statusBar = statusBar;
         this.modalController = modalController;
@@ -18,6 +18,8 @@ let AppComponent = class AppComponent {
         this.route = route;
         this.backButtonService = backButtonService;
         this.cityParamsService = cityParamsService;
+        this.translate = translate;
+        this.localTranslateService = localTranslateService;
         this.initializeApp();
     }
     initializeApp() {
@@ -32,6 +34,7 @@ let AppComponent = class AppComponent {
             this.backButtonService.init();
             yield this.storageCounter.updateCounter();
             yield this.storageState.setState(false);
+            this.localTranslateService.translate = this.translate;
             try {
                 const currentPosition = yield Geolocation.getCurrentPosition();
                 const lat = currentPosition.coords.latitude;

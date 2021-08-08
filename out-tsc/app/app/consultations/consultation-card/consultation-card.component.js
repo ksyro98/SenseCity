@@ -3,15 +3,22 @@ import { Component, Input } from '@angular/core';
 import { mapMonth } from '../../utils/date-utils';
 import { ConsultationDetailsModalComponent } from '../consultation-details/consultation-details-modal.component';
 let ConsultationCardComponent = class ConsultationCardComponent {
-    constructor(modalController) {
+    constructor(modalController, localTranslateService) {
         this.modalController = modalController;
+        this.localTranslateService = localTranslateService;
     }
-    ngOnInit() { }
+    ngOnInit() {
+        this.month = mapMonth(this.consultation.date.getMonth());
+        this.setTranslationPairs();
+        this.localTranslateService.translateLanguage();
+    }
     getDay() {
         return this.consultation.date.getDate().toString();
     }
     getMonth() {
-        return mapMonth(this.consultation.date.getMonth());
+        // return '1';
+        return this.month.name;
+        // return mapMonth(this.consultation.date.getMonth()).name;
     }
     getYear() {
         return this.consultation.date.getFullYear().toString();
@@ -33,6 +40,9 @@ let ConsultationCardComponent = class ConsultationCardComponent {
             });
             return yield modal.present();
         });
+    }
+    setTranslationPairs() {
+        this.localTranslateService.pairs.push({ key: this.month.translationKey, callback: (res) => this.month.name = res });
     }
 };
 __decorate([

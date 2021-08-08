@@ -2,12 +2,17 @@ import { __awaiter, __decorate } from "tslib";
 import { Component, Input } from '@angular/core';
 import { ConsultationCommentRepliesModalComponent } from '../consultation-comment-replies-modal/consultation-comment-replies-modal.component';
 let ConsultationCommentCardComponent = class ConsultationCommentCardComponent {
-    constructor(modalController) {
+    constructor(modalController, localTranslateService) {
         this.modalController = modalController;
+        this.localTranslateService = localTranslateService;
         this.clickDisabled = false;
         this.hideRepliesText = false;
+        this.replies = 'Απαντήσεις';
+        this.setTranslationPairs();
     }
-    ngOnInit() { }
+    ngOnInit() {
+        this.localTranslateService.translateLanguage();
+    }
     presentRepliesModal() {
         return __awaiter(this, void 0, void 0, function* () {
             const modal = yield this.modalController.create({
@@ -22,6 +27,9 @@ let ConsultationCommentCardComponent = class ConsultationCommentCardComponent {
             });
             return yield modal.present();
         });
+    }
+    setTranslationPairs() {
+        this.localTranslateService.pairs.push({ key: 'replies', callback: (res) => this.replies = res });
     }
 };
 __decorate([

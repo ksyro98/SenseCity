@@ -1,5 +1,6 @@
 import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {Comment} from '../../entities/Comment';
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 @Component({
   selector: 'app-consultation-comment-text-bar',
@@ -13,9 +14,15 @@ export class ConsultationCommentTextBarComponent implements OnInit {
   @Input() isReply: boolean;
   @Output() commentEmitter = new EventEmitter<Comment>();
 
-  constructor() { }
+  commentText = 'Σχόλιο';
 
-  ngOnInit() {}
+  constructor(private localTranslateService: LocalTranslateService) {
+    this.setTranslationPairs();
+  }
+
+  ngOnInit() {
+    this.localTranslateService.translateLanguage();
+  }
 
   addComment(){
     const comment = {
@@ -29,4 +36,7 @@ export class ConsultationCommentTextBarComponent implements OnInit {
     this.commentEmitter.emit(comment);
   }
 
+  private setTranslationPairs(){
+    this.localTranslateService.pairs.push({key: 'comment', callback: (res: string) => this.commentText = res});
+  }
 }

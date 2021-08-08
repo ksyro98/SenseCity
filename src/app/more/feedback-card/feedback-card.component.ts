@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Plugins} from '@capacitor/core';
 import {StorageFeedbackCounterService} from '../../storage-utils/storage-feedback-counter-service/storage-feedback-counter.service';
+import {LanguageSelectorService} from '../../view-utils/language-selector-service/language-selector.service';
+import {createConsoleLogServer} from '@ionic/angular-toolkit/builders/cordova-serve/log-server';
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 const {Toast, Geolocation} = Plugins;
 
@@ -14,9 +17,15 @@ export class FeedbackCardComponent implements OnInit {
   feedbackReceived = false;
   buttonsEnabled = true;
 
-  constructor(private storageFeedbackCounter: StorageFeedbackCounterService) { }
+  expressMoodTitle: string;
 
-  ngOnInit() {}
+  constructor(private storageFeedbackCounter: StorageFeedbackCounterService, private localTranslateService: LocalTranslateService) {
+      this.localTranslateService.pairs.push({key: 'express-mood', callback: (res: string) => this.expressMoodTitle = res});
+  }
+
+  ngOnInit() {
+      this.localTranslateService.translateLanguage();
+  }
 
   async sendFeedback(value: number){
     console.log(this.buttonsEnabled);

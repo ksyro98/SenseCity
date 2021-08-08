@@ -1,14 +1,22 @@
 import { __decorate } from "tslib";
 import { Component, Input } from '@angular/core';
 let TechnicalFormImageComponent = class TechnicalFormImageComponent {
-    constructor(actionSheetController, cameraService) {
+    constructor(actionSheetController, cameraService, localTranslateService) {
         this.actionSheetController = actionSheetController;
         this.cameraService = cameraService;
+        this.localTranslateService = localTranslateService;
         this.path = '';
+        this.photograph = 'Φωτογραφία';
+        this.setTranslationPairs();
     }
-    ngOnInit() { }
+    ngOnInit() {
+        this.localTranslateService.translateLanguage();
+    }
     addImage() {
         this.cameraService.showCameraActionSheet(res => this.path = res);
+    }
+    setTranslationPairs() {
+        this.localTranslateService.pairs.push({ key: 'photograph', callback: (res) => this.photograph = res });
     }
 };
 __decorate([

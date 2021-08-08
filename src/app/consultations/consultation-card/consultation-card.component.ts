@@ -3,6 +3,7 @@ import {Consultation} from '../../entities/Consultation';
 import {mapMonth} from '../../utils/date-utils';
 import {ModalController} from '@ionic/angular';
 import {ConsultationDetailsModalComponent} from '../consultation-details/consultation-details-modal.component';
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 @Component({
   selector: 'app-consultation-card',
@@ -13,16 +14,24 @@ export class ConsultationCardComponent implements OnInit {
 
   @Input() consultation: Consultation;
 
-  constructor(public modalController: ModalController) { }
+  private month: { name: string; translationKey: string; };
 
-  ngOnInit() { }
+  constructor(public modalController: ModalController, private localTranslateService: LocalTranslateService) { }
+
+  ngOnInit() {
+    this.month = mapMonth(this.consultation.date.getMonth());
+    this.setTranslationPairs();
+    this.localTranslateService.translateLanguage();
+  }
 
   getDay(): string {
     return this.consultation.date.getDate().toString();
   }
 
   getMonth(): string {
-    return mapMonth(this.consultation.date.getMonth());
+    // return '1';
+    return this.month.name;
+    // return mapMonth(this.consultation.date.getMonth()).name;
   }
 
   getYear(): string {
@@ -46,4 +55,7 @@ export class ConsultationCardComponent implements OnInit {
     return await modal.present();
   }
 
+  private setTranslationPairs(){
+    this.localTranslateService.pairs.push({key: this.month.translationKey, callback: (res: string) => this.month.name = res});
+  }
 }

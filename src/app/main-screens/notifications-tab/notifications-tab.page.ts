@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {GeneralNotification} from '../../entities/notifications/GeneralNotification';
 import {NeighborhoodNotification} from '../../entities/notifications/NeighborhoodNotification';
 import {CommentNotification} from '../../entities/notifications/CommentNotification';
@@ -9,6 +9,7 @@ import {not} from 'rxjs/internal-compatibility';
 import {ToolbarPopoverComponent} from '../../view-utils/toolbar-popover/toolbar-popover.component';
 import {PopoverController} from '@ionic/angular';
 import {AlertService} from '../../view-utils/alert-service/alert.service';
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 @Component({
   selector: 'app-notifications-tab',
@@ -23,11 +24,35 @@ export class NotificationsTabPage implements OnInit {
   private popoverOptionClicked = -1;
   private showingRead = true;
 
-  constructor(public popoverController: PopoverController, private alertService: AlertService) {
+
+  notificationsText = 'Ειδοποιήσεις';
+  allText = 'Όλες';
+  requestsText = 'Αιτήσεις';
+  neighborhoodText = 'Γειτονιά';
+  commentsText = 'Σχόλια';
+
+  private parkText = 'Δημιουργία νέου πάρκου';
+  private cleaningText = 'Καθαριότητα';
+  private electricLightingText = 'Ηλεκτροφωτισμός';
+
+  private markAllAsRead = 'Τα έχω διαβάσει όλα.';
+  private showUnread = 'Εμφάνιση μη αναγνωσμένων.';
+  private showAll = 'Εμφάνιση όλων.';
+  private deleteRead = 'Διγραφή Αναγνωσμένων.';
+  private deleteDialogHead = 'Διγραφή';
+  private deleteDialogBody = 'Είσαι σίγουρος ότι θέλεις να διαγράψεις όλες τις αναγνωσμένες ειδοποιήσεις;';
+
+  constructor(
+      public popoverController: PopoverController,
+      private alertService: AlertService,
+      private localTranslateService: LocalTranslateService
+  ) {
     this.notifications = [];
+    this.setTranslationPairs();
   }
 
   ngOnInit() {
+    this.localTranslateService.translateLanguage();
     this.getNotifications();
   }
 
@@ -55,9 +80,9 @@ export class NotificationsTabPage implements OnInit {
   async presentPopover(ev: any){
 
     const  items = [
-      'Τα έχω διαβάσει όλα.',
-      this.showingRead ? 'Εμφάνιση μη αναγνωσμένων.' : 'Εμφανιση ολων',
-      'Διγραφή Αναγνωσμένων.'
+      this.markAllAsRead,
+      this.showingRead ? this.showUnread : this.showAll,
+      this.deleteRead
     ];
 
     ToolbarPopoverComponent.present(this.popoverController, ev, items, (which) => {
@@ -74,8 +99,8 @@ export class NotificationsTabPage implements OnInit {
         case 2:
           this.alertService.showAlert(
               {
-                head: 'Διαγραφή',
-                body: 'Είσαι σίγουρος ότι θέλεις να διαγράψεις όλες τις αναγνωσμένες ειδοποιήσεις'
+                head: this.deleteDialogHead,
+                body: this.deleteDialogBody
               },
               () => {
                 for (let i = this.notifications.length - 1; i > -1; i--) {
@@ -91,15 +116,34 @@ export class NotificationsTabPage implements OnInit {
   }
 
   getNotifications(){
-    this.notifications.push(new CommentNotification('Γιάννης Αντωνόπουλος', 'Δημιουργια νεου παρκου', false));
-    this.notifications.push(new RequestNotification('Καθαριότητα', -1,  false));
-    this.notifications.push(new NeighborhoodNotification(false));
-    this.notifications.push(new CommentNotification('Γιάννης Αντωνόπουλος', 'Δημιουργια νεου παρκου', true));
-    this.notifications.push(new CommentReplyNotification('Αλέξης Παπαδόπουλος', false));
-    this.notifications.push(new CommentReplyNotification('Αλέξης Παπαδόπουλος', true));
-    this.notifications.push(new RequestNotification('Ηλεκτροφωτισμός', 3,  true));
-    this.notifications.push(new NeighborhoodNotification(true));
-    this.notifications.push(new NeighborhoodNotification(true));
-    this.notifications.push(new NeighborhoodNotification(true));
+    this.notifications.push(new CommentNotification('Γιάννης Αντωνόπουλος', this.parkText, false, this.localTranslateService));
+    this.notifications.push(new RequestNotification(this.cleaningText, -1,  false, this.localTranslateService));
+    this.notifications.push(new NeighborhoodNotification(false, this.localTranslateService));
+    this.notifications.push(new CommentNotification('Γιάννης Αντωνόπουλος', this.parkText, true, this.localTranslateService));
+    this.notifications.push(new CommentReplyNotification('Αλέξης Παπαδόπουλος', false, this.localTranslateService));
+    this.notifications.push(new CommentReplyNotification('Αλέξης Παπαδόπουλος', true, this.localTranslateService));
+    this.notifications.push(new RequestNotification(this.electricLightingText, 3,  true, this.localTranslateService));
+    this.notifications.push(new NeighborhoodNotification(true, this.localTranslateService));
+    this.notifications.push(new NeighborhoodNotification(true, this.localTranslateService));
+    this.notifications.push(new NeighborhoodNotification(true, this.localTranslateService));
+  }
+
+  private setTranslationPairs(){
+    this.localTranslateService.pairs.push({key: 'notifications-text', callback: (res: string) => this.notificationsText = res});
+    this.localTranslateService.pairs.push({key: 'all-notifications', callback: (res: string) => this.allText = res});
+    this.localTranslateService.pairs.push({key: 'requests-notifications', callback: (res: string) => this.requestsText = res});
+    this.localTranslateService.pairs.push({key: 'neighborhood-notifications', callback: (res: string) => this.neighborhoodText = res});
+    this.localTranslateService.pairs.push({key: 'comments-notifications', callback: (res: string) => this.commentsText = res});
+
+    this.localTranslateService.pairs.push({key: '_park-text', callback: (res: string) => this.parkText = res});
+    this.localTranslateService.pairs.push({key: '_cleaning-text', callback: (res: string) => this.cleaningText = res});
+    this.localTranslateService.pairs.push({key: '_electric-lighting-text', callback: (res: string) => this.electricLightingText = res});
+
+    this.localTranslateService.pairs.push({key: 'mark-all-as-read', callback: (res: string) => this.markAllAsRead = res});
+    this.localTranslateService.pairs.push({key: 'show-unread', callback: (res: string) => this.showUnread = res});
+    this.localTranslateService.pairs.push({key: 'show-all', callback: (res: string) => this.showAll = res});
+    this.localTranslateService.pairs.push({key: 'delete-read', callback: (res: string) => this.deleteRead = res});
+    this.localTranslateService.pairs.push({key: 'delete-dialog-head', callback: (res: string) => this.deleteDialogHead = res});
+    this.localTranslateService.pairs.push({key: 'delete-dialog-body', callback: (res: string) => this.deleteDialogBody = res});
   }
 }

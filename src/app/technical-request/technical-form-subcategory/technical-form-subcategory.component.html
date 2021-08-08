@@ -16,7 +16,7 @@
 
 <ion-textarea
         *ngIf="otherPressed"
-        placeholder="Συντομη περιγραφη (εως 40 χαρ.)"
+        [placeholder]="shortDescription"
         class="reduced-width" type="text" maxlength="40"
         (ionChange)="setCanProceed($event.detail.value !== '')">
 </ion-textarea>

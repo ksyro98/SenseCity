@@ -1,14 +1,15 @@
 <ion-list>
-  <ion-text class="title-text"><b>Υποβολή</b></ion-text>
+  <ion-text class="title-text"><b>{{submit}}</b></ion-text>
 
   <ion-item lines="none">
-    <ion-text class="body-text">
-      Ο <b>Συροκώστας Κωνσταντίνος</b> με ΑΔΤ <b>ΑΑ 123456</b> κάνει αίτηση στο <b>Δήμο Πατρών</b>
-      για την έκδωση πιστοποιητικού <b>Dolor assumenda</b> στις <b>17 Δεκεμβρίου 2020</b>.
+    <ion-text class="body-text" i18n>
+      {{beforeNameText}}<b>Συροκώστας Κωνσταντίνος</b> {{submitAdminRequest1}} <b>ΑΑ 123456</b> {{submitAdminRequest2}} <b>{{submitAdminRequest3}}</b>
+      {{submitAdminRequest4}} <b>{{submitAdminRequest5}}</b> {{submitAdminRequest6}} <b>{{submitAdminRequest7}}</b>.
       <br><br>
-      Το πιστοπιητικό θα σταλθεί στο ηλεκτρονικό ταχυδρομίο με διεύθυνση <b>konstantinos.syrokostas@gmail.com</b>.
+      {{submitAdminRequest8}} <b>konstantinos.syrokostas@gmail.com</b>.
     </ion-text>
   </ion-item>
+
 </ion-list>
 
 <ion-slides pager="true" [options]="{initialSlide: 0, speed: 400}">
@@ -16,7 +17,7 @@
     <div>
       <ion-icon [name]="i % 2 === 0 ? 'camera-outline' : 'document-outline'"></ion-icon>
       <br>
-      <ion-text>{{i % 2 === 0 ? 'Ονομα φωτογραφιας' : 'Ονομα αρχειου'}}</ion-text>
+      <ion-text>{{i % 2 === 0 ? nameOfPhotoValue : nameOfFileValue}}</ion-text>
     </div>
   </ion-slide>
 </ion-slides>
@@ -24,8 +25,8 @@
 <div style="margin-top: 30px;">
   <ion-item lines="none" class="short_item_no_ripple">
     <ion-label>
-      <p class="smaller-font">
-        Αποδέχομαι του <a href="https://sense.city/terms.html">όρους χρήσης</a> του SenseCity.
+      <p class="smaller-font" i18n>
+        {{acceptTerms1}}<a href="https://sense.city/terms.html">{{acceptTerms2}}</a>{{acceptTerms3}}
       </p>
     </ion-label>
     <ion-checkbox slot="start" checked="true"></ion-checkbox>

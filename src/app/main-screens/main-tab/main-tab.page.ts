@@ -13,6 +13,7 @@ import {CITY_POLYGONS} from '../../constants/Cities';
 import {StorageCounterService} from '../../storage-utils/storage-counter-service/storage-counter.service';
 import {StorageStateService} from '../../storage-utils/storage-state-service/storage-state.service';
 import {StorageFeedbackCounterService} from '../../storage-utils/storage-feedback-counter-service/storage-feedback-counter.service';
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 
 const { Toast } = Plugins;
@@ -28,16 +29,33 @@ export class MainTabPage implements OnInit {
   public query: string;
   private city: City;
 
+  technicalServices = 'Τεχνικες Υπ.';
+  administrativeServices = 'Διοικητικες Υπ.';
+  private cityChanged = 'Η πόλη άλλαξε σε';
+  private changeCityTitle = 'Αλλαγή πόλης';
+  private selectedCityText = 'Η επιλγμένη πόλη είναι η';
+  private changeCityText = 'Μπορείς να την αλλάξεις πατώντας στις 3 τελειες, πάνω δεξιά.';
+
   constructor(
       public popoverController: PopoverController,
       public modalController: ModalController,
       private alertService: CityAlertService,
       private storageCounter: StorageCounterService,
       private storageState: StorageStateService,
-      private route: ActivatedRoute
-  ) { }
+      private route: ActivatedRoute,
+      private localTranslateService: LocalTranslateService
+  ) {
+    this.setTranslationPairs();
+  }
 
   async ngOnInit() {
+    this.localTranslateService.translateLanguage();
+    // this.localTranslateService.translationSubject.subscribe({
+    //   next: (language) => {
+    //     this.localTranslateService.translateLanguage();
+    //   }
+    // });
+
     const isSecondTime = await this.storageCounter.isSecondTime();
 
     this.route.queryParamMap.subscribe((params) => {
@@ -48,22 +66,23 @@ export class MainTabPage implements OnInit {
         long: parseInt(params.get('long'), 10),
         zoom: parseInt(params.get('zoom'), 10),
         url: params.get('url'),
-        polygon
+        polygon,
+        cityKey: params.get('cityKey')
       };
 
       if (this.city.name !== null) {
         if (isSecondTime) {
           this.alertService.showAlert(
               {
-                head: 'Αλλαγη πόλης',
-                body: `Η επιλγμένη πόλη είναι η ${this.city.name}. Μπορείς να την αλλάξεις πατώντας στις 3 τελειες, πάνω δεξιά.`
+                head: this.changeCityTitle,
+                body: `${this.selectedCityText} ${this.city.name}. ${this.changeCityText}`
               },
               async () => {
               });
         } else {
           this.storageState.stateIsTrue().then(state => {
             if (!state){
-              Toast.show({text: `Η επιλεγμενη πολη ειναι η ${this.city.name}.`});
+              Toast.show({text: `${this.selectedCityText} ${this.city.name}.`});
               this.storageState.setState(true);
             }
           });
@@ -75,7 +94,7 @@ export class MainTabPage implements OnInit {
 
   public servicesSegmentChanged(event: any){
     this.typeOfService = event.detail.value;
-    console.log(this.typeOfService);
+    // console.log(this.typeOfService);
   }
 
   public onSearch(event){
@@ -83,7 +102,7 @@ export class MainTabPage implements OnInit {
   }
 
   async presentPopover(ev: any){
-    await ToolbarPopoverComponent.present(this.popoverController, ev, ['Αλλαγή πόλης'], (data) => {
+    await ToolbarPopoverComponent.present(this.popoverController, ev, [this.changeCityTitle], (data) => {
       if (data !== undefined) {
         CitiesModalComponent.present(
             this.modalController,
@@ -95,9 +114,17 @@ export class MainTabPage implements OnInit {
 
   async changeCity(city: City){
     await Toast.show({
-      text: 'Η πολη αλλαξε σε ' + city.name
+      text: this.cityChanged + city.name
     });
   }
 
+  private setTranslationPairs(){
+    this.localTranslateService.pairs.push({key: 'technical-services', callback: (res: string) => this.technicalServices = res});
+    this.localTranslateService.pairs.push({key: 'administrative-services', callback: (res: string) => this.administrativeServices = res});
+    this.localTranslateService.pairs.push({key: 'city-changed', callback: (res: string) => this.cityChanged = res});
+    this.localTranslateService.pairs.push({key: 'change-city-title', callback: (res: string) => this.changeCityTitle = res});
+    this.localTranslateService.pairs.push({key: 'selected-city-text', callback: (res: string) => this.selectedCityText = res});
+    this.localTranslateService.pairs.push({key: 'change-city-text', callback: (res: string) => this.changeCityText = res});
+  }
 
 }

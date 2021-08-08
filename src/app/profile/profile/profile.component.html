@@ -1,4 +1,4 @@
-<app-back-arrow-header title="Προφιλ"></app-back-arrow-header>
+<app-back-arrow-header [title]="profile"></app-back-arrow-header>
 
 <ion-content>
   <ion-list>
@@ -12,15 +12,20 @@
     </ion-item>
 
     <ion-item (click)="presentCitiesModal()">
-      <ion-label position="stacked">Πόλη</ion-label>
-      <ion-text>{{city}}</ion-text>
+      <ion-label position="stacked">{{cityTitle}}</ion-label>
+      <ion-text>{{city.name}}</ion-text>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">Γλώσσα</ion-label>
-      <ion-select value="GR" interface="popover" [interfaceOptions]="{cssClass: 'options-popover-class'}">
-        <ion-select-option value="GR">Ελληνικα</ion-select-option>
-        <ion-select-option value="EN">English</ion-select-option>
+      <ion-label position="stacked">{{languageTitle}}</ion-label>
+      <ion-select
+              interface="popover"
+              [interfaceOptions]="{cssClass: 'options-popover-class'}"
+              [(ngModel)]="language"
+              [value]="language"
+              (ionChange)="changeLanguage()">
+        <ion-select-option value="el">Ελληνικα</ion-select-option>
+        <ion-select-option value="en">English</ion-select-option>
       </ion-select>
     </ion-item>
 
@@ -33,7 +38,7 @@
 <ion-item lines="none" class="short_item_no_ripple">
   <ion-label>
     <p class="smaller-font">
-      Αποδέχομαι του <a href="https://sense.city/terms.html">όρους χρήσης</a> του SenseCity.
+      {{acceptTerms1}}<a href="https://sense.city/terms.html">{{acceptTerms2}}</a>{{acceptTerms3}}
     </p>
   </ion-label>
   <ion-checkbox slot="start" checked="true"></ion-checkbox>

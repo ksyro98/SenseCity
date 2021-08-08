@@ -1,10 +1,10 @@
 <!-- The list is used to set the position of the header. -->
 <ion-list>
     <ion-list-header class="header">
-        <ion-label>Τοποθεσια</ion-label>
+        <ion-label>{{location}}</ion-label>
     </ion-list-header>
 </ion-list>
 
 <app-map [city]="city" [useCurrentLocation]="true"></app-map>
 
-<p style="margin-top: 10px;" (click)="presentCitiesModal()">Αλλαγη πολης</p>
+<p style="margin-top: 10px;" (click)="presentCitiesModal()">{{changeCity}}</p>

@@ -1,11 +1,16 @@
 import { __awaiter, __decorate } from "tslib";
 import { Component, HostListener, Input } from '@angular/core';
 let ConsultationCommentRepliesModalComponent = class ConsultationCommentRepliesModalComponent {
-    constructor(modalController) {
+    constructor(modalController, localTranslateService) {
         this.modalController = modalController;
+        this.localTranslateService = localTranslateService;
         this.userName = 'Κωνσταντινος Συροκωστας';
+        this.replies = 'Απαντήσεις';
+        this.setTranslationPairs();
     }
-    ngOnInit() { }
+    ngOnInit() {
+        this.localTranslateService.translateLanguage();
+    }
     addComment(comment) {
         this.comment.replies.push(comment);
     }
@@ -16,6 +21,9 @@ let ConsultationCommentRepliesModalComponent = class ConsultationCommentRepliesM
         return __awaiter(this, void 0, void 0, function* () {
             this.onBackPressed();
         });
+    }
+    setTranslationPairs() {
+        this.localTranslateService.pairs.push({ key: 'replies', callback: (res) => this.replies = res });
     }
 };
 __decorate([

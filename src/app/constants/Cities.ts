@@ -55,52 +55,58 @@ export const CITY_POLYGONS: Map<string, CityPolygon> = new Map([
 
 export const CITIES: City[] = [
     {
-        name: 'Αιγιαλεια',
+        name: 'Αιγιαλεία',
         lat: 38.244094,
         long: 22.086997,
         zoom: 11,
         url: 'https://aigialeia.sense.city/',
-        polygon: CITY_POLYGONS.get('Αιγιαλεια')
+        polygon: CITY_POLYGONS.get('Αιγιαλεια'),
+        cityKey: 'city-aigialeia'
     },
     {
-        name: 'Δελφοι',
+        name: 'Δελφοί',
         lat: 38.480153,
         long: 22.492972,
         zoom: 15,
         url: 'https://delfon.sense.city/',
-        polygon: CITY_POLYGONS.get('Δελφοι')
+        polygon: CITY_POLYGONS.get('Δελφοι'),
+        cityKey: 'city-delfoi'
     },
     {
-        name: 'Διδυμοτειχο',
+        name: 'Διδυμότειχο',
         lat: 41.351323,
         long: 26.496440,
         zoom: 14,
         url: 'https://didymoteicho.sense.city/',
-        polygon: CITY_POLYGONS.get('Διδυμοτειχο')
+        polygon: CITY_POLYGONS.get('Διδυμοτειχο'),
+        cityKey: 'city-didimoticho'
     },
     {
-        name: 'Δυτικη Αχαια',
+        name: 'Δυτική Αχαϊά',
         lat: 38.168806,
         long: 21.437507,
         zoom: 13,
         url: 'https://ddachaias.sense.city/',
-        polygon: CITY_POLYGONS.get('Δυτικη Αχαια')
+        polygon: CITY_POLYGONS.get('Δυτικη Αχαια'),
+        cityKey: 'city-western-achaia'
     },
     {
-        name: 'Πατρα',
+        name: 'Πάτρα',
         lat: 38.246242,
         long: 21.7350847,
         zoom: 14,
         url: 'https://patras.sense.city/',
-        polygon: CITY_POLYGONS.get('Πατρα')
+        polygon: CITY_POLYGONS.get('Πατρα'),
+        cityKey: 'city-patras'
     },
     {
-        name: 'Πυργος',
+        name: 'Πύργος',
         lat: 37.672908,
         long: 21.436974,
         zoom: 14,
         url: 'https://pyrgos.sense.city/',
-        polygon: CITY_POLYGONS.get('Πυργος')
+        polygon: CITY_POLYGONS.get('Πυργος'),
+        cityKey: 'city-pirgos'
     }
 ];
 

@@ -1,12 +1,12 @@
-<app-back-arrow-header title="Η Γειτονιά μου"></app-back-arrow-header>
+<app-back-arrow-header [title]="myNeighborhood"></app-back-arrow-header>
 
 <!--(ionChange)="servicesSegmentChanged($event)"-->
 <ion-segment [value]="0" swipeGesture="true" (ionChange)="neighborhoodSegmentChanged($event)">
   <ion-segment-button [value]="0">
-    Γειτονιά
+    {{neighborhood}}
   </ion-segment-button>
   <ion-segment-button [value]="1">
-    Μηνύματα
+    {{messages}}
   </ion-segment-button>
 </ion-segment>
 

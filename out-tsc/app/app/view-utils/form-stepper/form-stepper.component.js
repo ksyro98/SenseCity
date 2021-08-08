@@ -3,15 +3,20 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 const { Keyboard } = Plugins;
 let FormStepperComponent = class FormStepperComponent {
-    constructor(location, alertService, cdr) {
+    constructor(location, alertService, cdr, localTranslateService) {
         this.location = location;
         this.alertService = alertService;
         this.cdr = cdr;
+        this.localTranslateService = localTranslateService;
         this.currentStepEvent = new EventEmitter();
         this.keyboardShown = false;
+        this.completeRequestHead = 'Ολοκλήρωση Αίτησης';
+        this.completeRequestBody = 'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;';
         this.currentStep = 0;
+        this.setTranslationPairs();
     }
     ngOnInit() {
+        this.localTranslateService.translateLanguage();
         this.rangeArray = Array(this.steps).fill(0).map((x, i) => i);
         Keyboard.addListener('keyboardWillShow', (_) => {
             this.keyboardShown = true;
@@ -33,8 +38,8 @@ let FormStepperComponent = class FormStepperComponent {
         }
         if (this.currentStep === this.steps - 1) {
             this.alertService.showAlert({
-                head: 'Ολοκλήρωση Αίτησης',
-                body: 'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;',
+                head: this.completeRequestHead,
+                body: this.completeRequestBody,
             }, () => this.location.back());
             return;
         }
@@ -47,6 +52,10 @@ let FormStepperComponent = class FormStepperComponent {
         }
         this.currentStep--;
         this.currentStepEvent.emit(this.currentStep);
+    }
+    setTranslationPairs() {
+        this.localTranslateService.pairs.push({ key: 'complete-request-head', callback: (res) => this.completeRequestHead = res });
+        this.localTranslateService.pairs.push({ key: 'complete-request-body', callback: (res) => this.completeRequestBody = res });
     }
 };
 __decorate([

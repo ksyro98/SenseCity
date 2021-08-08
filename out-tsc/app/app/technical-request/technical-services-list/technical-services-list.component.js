@@ -4,16 +4,25 @@ import { GET_SERVICES_INTERFACE_DI_TOKEN } from '../../interface-adapters/GetSer
 let TechnicalServicesListComponent = class TechnicalServicesListComponent {
     // private getServicesInterface: GetServicesInterface;
     // TODO how can we remove the call to the ServicesCommunication
-    constructor(getServicesInterface) {
+    constructor(getServicesInterface, localTranslateService) {
         this.getServicesInterface = getServicesInterface;
-        // this.getServicesInterface = new ServicesCommunication();
+        this.localTranslateService = localTranslateService;
     }
     ngOnInit() {
-        this.updateServices();
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.updateServices();
+            this.setTranslationPairs();
+            this.localTranslateService.translateLanguage();
+        });
     }
     updateServices() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.technicalServices = yield this.getServicesInterface.getServices(0);
+            return this.technicalServices = yield this.getServicesInterface.getServices(0);
+        });
+    }
+    setTranslationPairs() {
+        this.technicalServices.forEach((service) => {
+            this.localTranslateService.pairs.push({ key: service.translationKey, callback: (res) => service.name = res });
         });
     }
 };

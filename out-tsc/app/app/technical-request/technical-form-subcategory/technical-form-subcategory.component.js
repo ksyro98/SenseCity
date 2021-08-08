@@ -3,15 +3,19 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RequestedService } from '../../entities/RequestedService';
 import { isOtherCategory } from '../../entities/OtherCategory';
 let TechnicalFormSubcategoryComponent = class TechnicalFormSubcategoryComponent {
-    constructor() {
+    constructor(localTranslateService) {
+        this.localTranslateService = localTranslateService;
         this.canProceedEvent = new EventEmitter();
         this.categoryChange = new EventEmitter();
         this.otherPressed = false;
+        this.shortDescription = 'Συντομη περιγραφη (εως 40 χαρ.)';
     }
     ngOnInit() {
         this.categories = RequestedService.getCategoryForService(this.service.id);
         this.setOtherPressed(this.category.id === -1);
         this.value = this.getCategoryDescription();
+        this.setTranslationPairs();
+        this.localTranslateService.translateLanguage();
     }
     onItemClick(category) {
         this.setCategory(category);
@@ -37,6 +41,12 @@ let TechnicalFormSubcategoryComponent = class TechnicalFormSubcategoryComponent 
             return this.category.shortDescription;
         }
         return '';
+    }
+    setTranslationPairs() {
+        this.categories.forEach((category) => {
+            this.localTranslateService.pairs.push({ key: category.translationKey, callback: (res) => category.name = res });
+        });
+        this.localTranslateService.pairs.push({ key: 'short-description', callback: (res) => this.shortDescription = res });
     }
 };
 __decorate([

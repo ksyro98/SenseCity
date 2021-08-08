@@ -1,7 +1,7 @@
 <ion-toolbar>
     <app-details-bottom-bar
             [isHidden]="false"
-            [text]="'Σχολια (' + comments.length + ')'"
+            [text]="commentsText + ' (' + comments.length + ')'"
             [twoLines]="false"
             (click)="dismissModal()">
     </app-details-bottom-bar>

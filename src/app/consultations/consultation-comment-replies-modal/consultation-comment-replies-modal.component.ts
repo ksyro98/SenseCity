@@ -1,6 +1,7 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {Comment} from '../../entities/Comment';
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 @Component({
   selector: 'app-consultation-comment-replies-modal',
@@ -12,9 +13,15 @@ export class ConsultationCommentRepliesModalComponent implements OnInit {
   @Input() comment: Comment;
   userName = 'Κωνσταντινος Συροκωστας';
 
-  constructor(private modalController: ModalController) { }
+  replies = 'Απαντήσεις';
 
-  ngOnInit() { }
+  constructor(private modalController: ModalController, private localTranslateService: LocalTranslateService) {
+    this.setTranslationPairs();
+  }
+
+  ngOnInit() {
+    this.localTranslateService.translateLanguage();
+  }
 
   addComment(comment: Comment){
     this.comment.replies.push(comment);
@@ -29,4 +36,7 @@ export class ConsultationCommentRepliesModalComponent implements OnInit {
     this.onBackPressed();
   }
 
+  private setTranslationPairs(){
+    this.localTranslateService.pairs.push({key: 'replies', callback: (res: string) => this.replies = res});
+  }
 }

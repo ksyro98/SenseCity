@@ -1,11 +1,16 @@
 import { __decorate } from "tslib";
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 let ConsultationCommentTextBarComponent = class ConsultationCommentTextBarComponent {
-    constructor() {
+    constructor(localTranslateService) {
+        this.localTranslateService = localTranslateService;
         this.userComment = '';
         this.commentEmitter = new EventEmitter();
+        this.commentText = 'Σχόλιο';
+        this.setTranslationPairs();
     }
-    ngOnInit() { }
+    ngOnInit() {
+        this.localTranslateService.translateLanguage();
+    }
     addComment() {
         const comment = {
             userName: this.userName,
@@ -16,6 +21,9 @@ let ConsultationCommentTextBarComponent = class ConsultationCommentTextBarCompon
         };
         this.userComment = '';
         this.commentEmitter.emit(comment);
+    }
+    setTranslationPairs() {
+        this.localTranslateService.pairs.push({ key: 'comment', callback: (res) => this.commentText = res });
     }
 };
 __decorate([

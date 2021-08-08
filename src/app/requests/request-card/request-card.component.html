@@ -1,10 +1,10 @@
 <ion-item lines="{{isLast ? 'none' : 'full'}}" (click)="navigateToDetailsScreen()">
-  <div style="margin-top: 10px; margin-bottom: 10px; margin-left: 10px;">
-    Το αίτημα σας (<b>Καθαριότητα</b>) με κωδικό #47123 είναι σε εξέλειξη.
+  <div style="margin-top: 10px; margin-bottom: 10px; margin-left: 10px;" i18n>
+    {{text1}}<b>{{value1}}</b>{{text2 + value2 + (!completed ? text3 : text4)}}
     <div style="margin: 7px;"></div>
 
     <div [ngSwitch]="completed">
-      <div *ngSwitchCase="false">Κατάσταση: <b>Επιβεβαιωμένο</b></div>
+      <div *ngSwitchCase="false">{{status}}<b>{{value3}}</b></div>
       <div *ngSwitchCase="true">
         <app-stars [fullScreen]="false" [(selectedStars)]="selectedStars"></app-stars>
       </div>

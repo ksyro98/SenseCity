@@ -3,12 +3,16 @@ import { Component } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 const { Toast, Geolocation } = Plugins;
 let FeedbackCardComponent = class FeedbackCardComponent {
-    constructor(storageFeedbackCounter) {
+    constructor(storageFeedbackCounter, localTranslateService) {
         this.storageFeedbackCounter = storageFeedbackCounter;
+        this.localTranslateService = localTranslateService;
         this.feedbackReceived = false;
         this.buttonsEnabled = true;
+        this.localTranslateService.pairs.push({ key: 'express-mood', callback: (res) => this.expressMoodTitle = res });
     }
-    ngOnInit() { }
+    ngOnInit() {
+        this.localTranslateService.translateLanguage();
+    }
     sendFeedback(value) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(this.buttonsEnabled);

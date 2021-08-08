@@ -2,6 +2,7 @@ import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {CITIES} from '../../constants/Cities';
 import {City} from '../../entities/City';
+import {LocalTranslateService} from '../local-translate-service/local-translate.service';
 
 @Component({
   selector: 'app-cities-modal',
@@ -12,6 +13,9 @@ export class CitiesModalComponent implements OnInit {
 
   cities = CITIES;
   query = '';
+
+  selectCity: string;
+  search: string;
 
   static async present(modalController: ModalController, onDismiss: (city: City) => void){
     const modal = await modalController.create({
@@ -29,9 +33,17 @@ export class CitiesModalComponent implements OnInit {
     return await modal.present();
   }
 
-  constructor(public modalController: ModalController) { }
+  constructor(public modalController: ModalController, private localTranslateService: LocalTranslateService) {
+    this.localTranslateService.pairs.push({key: 'select-city', callback: (res: string) => this.selectCity = res});
+    this.localTranslateService.pairs.push({key: 'search', callback: (res: string) => this.search = res});
+    this.cities.forEach((city) => {
+      this.localTranslateService.pairs.push({key: city.cityKey, callback: (res: string) => city.name = res});
+    });
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.localTranslateService.translateLanguage();
+  }
 
   onSearch(event){
     this.query = event.target.value.toLowerCase();

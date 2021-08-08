@@ -14,11 +14,11 @@
 </ion-toolbar>
 
 <ion-segment [value]="0" swipeGesture="true" (ionChange)="requestsSegmentChanged($event)">
-    <ion-segment-button [value]="0">
-        Σε εξελειξη
+    <ion-segment-button [value]="0" i18n>
+        {{inProgress}}
     </ion-segment-button>
-    <ion-segment-button [value]="1">
-        Ολοκληρωμενες
+    <ion-segment-button [value]="1" i18n>
+        {{completed}}
     </ion-segment-button>
 </ion-segment>
 

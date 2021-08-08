@@ -1,5 +1,5 @@
 import { __decorate } from "tslib";
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -43,6 +43,9 @@ import { ConsultationCommentRepliesModalComponent } from './consultations/consul
 import { ConsultationCommentTextBarComponent } from './consultations/consultation-comment-text-bar/consultation-comment-text-bar.component';
 import { SelectCityAtStartComponent } from './starting-screens/select-city-modal/select-city-at-start.component';
 import { ConsultationCommentCardComponent } from './consultations/consultation-comment-card/consultation-comment-card.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -82,12 +85,27 @@ AppModule = __decorate([
             ConsultationCommentCardComponent,
         ],
         entryComponents: [],
-        imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, RequestsTabPageModule],
+        imports: [
+            BrowserModule,
+            IonicModule.forRoot(),
+            AppRoutingModule,
+            FormsModule,
+            RequestsTabPageModule,
+            HttpClientModule,
+            TranslateModule.forRoot({
+                loader: {
+                    provide: TranslateLoader,
+                    useFactory: HttpLoaderFactory,
+                    deps: [HttpClient]
+                }
+            })
+        ],
         providers: [
             StatusBar,
             SplashScreen,
             { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
             { provide: GET_SERVICES_INTERFACE_DI_TOKEN, useClass: ServicesCommunication },
+            { provide: LOCALE_ID, useValue: 'en-US' },
             FileChooser
         ],
         exports: [
@@ -98,4 +116,7 @@ AppModule = __decorate([
     })
 ], AppModule);
 export { AppModule };
+export function HttpLoaderFactory(http) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 //# sourceMappingURL=app.module.js.map

@@ -4,36 +4,43 @@ export const PROFILE_ELEMENTS: ProfileElement[] = [
     {
         label: 'Όνομα',
         value: 'Κωνσταντίνος Συροκώστας',
-        inputType: 'text'
+        inputType: 'text',
+        translationKey: 'name'
     },
     {
         label: 'Email',
         value: 'konstantinos.syrokostas@gmail.com',
-        inputType: 'email'
+        inputType: 'email',
+        translationKey: 'email'
     },
     {
         label: 'Τηλέφωνο',
         value: '6980082464',
-        inputType: 'tel'
+        inputType: 'tel',
+        translationKey: 'phone-number'
     },
     {
         label: 'Όνομα πατέρα',
         value: 'Γεώργιος Συροκώστας',
-        inputType: 'text'
+        inputType: 'text',
+        translationKey: 'fathers-name'
     },
     {
         label: 'Όνομα μητέρας',
         value: 'Αναστασία Βαρουτίδου',
-        inputType: 'text'
+        inputType: 'text',
+        translationKey: 'mothers-name'
     },
     {
         label: 'ΑΔΤ',
         value: 'ΑΑ 123456',
-        inputType: 'text'
+        inputType: 'text',
+        translationKey: 'id-number'
     },
     {
         label: 'ΑΦΜ',
         value: '123456789012345',
-        inputType: 'number'
+        inputType: 'number',
+        translationKey: 'tax-number'
     }
-]
+];

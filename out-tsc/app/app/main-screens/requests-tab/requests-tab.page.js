@@ -1,13 +1,22 @@
 import { __decorate } from "tslib";
 import { Component } from '@angular/core';
 let RequestsTabPage = class RequestsTabPage {
-    constructor() {
+    constructor(localTranslateService) {
+        this.localTranslateService = localTranslateService;
         this.completedRequests = 0; // 0 --> not completed, 1 --> completed
+        this.inProgress = 'Σε εξέλειξη';
+        this.completed = 'Ολοκληρωμένες';
+        this.setTranslationPairs();
     }
     ngOnInit() {
+        this.localTranslateService.translateLanguage();
     }
     requestsSegmentChanged(event) {
         this.completedRequests = event.detail.value;
+    }
+    setTranslationPairs() {
+        this.localTranslateService.pairs.push({ key: 'in-progress', callback: (res) => this.inProgress = res });
+        this.localTranslateService.pairs.push({ key: 'completed', callback: (res) => this.completed = res });
     }
 };
 RequestsTabPage = __decorate([

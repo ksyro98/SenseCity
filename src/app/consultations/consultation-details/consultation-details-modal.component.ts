@@ -2,6 +2,7 @@ import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {Consultation} from '../../entities/Consultation';
 import {ModalController} from '@ionic/angular';
 import {ConsultationCommentsModalComponent} from '../consultation-comments-modal/consultation-comments-modal.component';
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 @Component({
   selector: 'app-consultation-modal-details',
@@ -13,9 +14,16 @@ export class ConsultationDetailsModalComponent implements OnInit {
   @Input() consultation: Consultation;
   isHidden = true;
 
-  constructor(public modalController: ModalController) { }
+  relevantFile = 'Σχετικό αρχείο';
+  comments = 'Σχόλια';
 
-  ngOnInit() { }
+  constructor(public modalController: ModalController, private localTranslateService: LocalTranslateService) {
+    this.setTranslationPairs();
+  }
+
+  ngOnInit() {
+    this.localTranslateService.translateLanguage();
+  }
 
   getNumberOfComments(): string{
     return this.consultation.comments === undefined
@@ -85,5 +93,10 @@ export class ConsultationDetailsModalComponent implements OnInit {
   @HostListener('document:ionBackButton', ['$event'])
   private async overrideHardwareBackAction($event: any) {
     this.onBackArrowPressed();
+  }
+
+  private setTranslationPairs(){
+    this.localTranslateService.pairs.push({key: 'relevant-file', callback: (res: string) => this.relevantFile = res});
+    this.localTranslateService.pairs.push({key: 'comments', callback: (res: string) => this.comments = res});
   }
 }

@@ -7,4 +7,5 @@ export interface City {
     zoom: number;
     url: string;
     polygon: CityPolygon;
+    cityKey: string;
 }

@@ -1,8 +1,8 @@
 <app-map [useCurrentLocation]="true"></app-map>
 
 <ion-item lines="none" class="short_item_no_ripple">
-    <p class="smaller-font">
-        Ναι, θέλω να λαμβάνω ενημερώσεις για το σημείο ενδιαφέροντος που δήλωσα στον χάρτη!
+    <p class="smaller-font" i18n>
+        {{receiveMessages}}
     </p>
     <ion-checkbox slot="start" checked="true"></ion-checkbox>
 </ion-item>
@@ -11,11 +11,11 @@
     <ion-col size="1"></ion-col>
 
     <ion-col size="5" class="ion-text-center">
-        <p class="remove-button" (click)="removeNeighborhood()">Διαγραφή</p>
+        <p class="remove-button" (click)="removeNeighborhood()">{{delete}}</p>
     </ion-col>
 
     <ion-col size="5" class="ion-text-center">
-        <p class="submit-button" (click)="addNeighborhood()">Καταχώρηση</p>
+        <p class="submit-button" (click)="addNeighborhood()">{{register}}</p>
     </ion-col>
 
     <ion-col size="1"></ion-col>
