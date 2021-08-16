@@ -14,5 +14,9 @@
     }
   },
   "cordova": {},
-  "linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh"
+  "linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
+  "server": {
+    "url": "http://192.168.2.7:8100",
+    "cleartext": true
+  }
 }

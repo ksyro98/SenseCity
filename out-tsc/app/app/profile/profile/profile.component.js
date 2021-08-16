@@ -2,7 +2,7 @@ import { __awaiter, __decorate } from "tslib";
 import { Component } from '@angular/core';
 import { CitiesModalComponent } from '../../view-utils/cities-modal/cities-modal.component';
 import { PROFILE_ELEMENTS } from '../../constants/ProfileElements';
-import { DEFAULT_LANGUAGE } from '../../view-utils/local-translate-service/local-translate.service';
+import { LocalTranslateService } from '../../view-utils/local-translate-service/local-translate.service';
 import { CITIES } from '../../constants/Cities';
 let ProfileComponent = class ProfileComponent {
     constructor(modalController, translate, localTranslateService) {
@@ -11,7 +11,7 @@ let ProfileComponent = class ProfileComponent {
         this.localTranslateService = localTranslateService;
         this.focus = false;
         // city = 'Πάτρα';
-        this.language = DEFAULT_LANGUAGE;
+        this.language = LocalTranslateService.getDefaultLanguage();
         this.city = CITIES[4];
         this.pairs = [
             { key: 'profile', callback: (res) => this.profile = res },
@@ -28,16 +28,10 @@ let ProfileComponent = class ProfileComponent {
         this.pairs.push({ key: 'language', callback: (res) => this.languageTitle = res });
         this.localTranslateService.pairs = this.localTranslateService.pairs.concat(this.pairs);
         this.localTranslateService.translate = translate;
-        this.language = this.localTranslateService.language ? this.localTranslateService.language : DEFAULT_LANGUAGE;
+        this.language = this.localTranslateService.language ? this.localTranslateService.language : LocalTranslateService.getDefaultLanguage();
     }
     ngOnInit() {
-        // if (this.localTranslateService.language === undefined){
-        //   this.localTranslateService.initTranslate(DEFAULT_LANGUAGE);
-        // }
-        // else{
-        //   this.localTranslateService.translateLanguage();
-        // }
-        this.localTranslateService.initTranslate(this.language);
+        this.localTranslateService.initTranslate();
         this.language = this.localTranslateService.language;
     }
     changeLanguage() {

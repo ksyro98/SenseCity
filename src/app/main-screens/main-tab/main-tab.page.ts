@@ -50,11 +50,6 @@ export class MainTabPage implements OnInit {
 
   async ngOnInit() {
     this.localTranslateService.translateLanguage();
-    // this.localTranslateService.translationSubject.subscribe({
-    //   next: (language) => {
-    //     this.localTranslateService.translateLanguage();
-    //   }
-    // });
 
     const isSecondTime = await this.storageCounter.isSecondTime();
 
@@ -94,7 +89,6 @@ export class MainTabPage implements OnInit {
 
   public servicesSegmentChanged(event: any){
     this.typeOfService = event.detail.value;
-    // console.log(this.typeOfService);
   }
 
   public onSearch(event){

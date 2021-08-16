@@ -26,11 +26,6 @@ let MainTabPage = class MainTabPage {
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
             this.localTranslateService.translateLanguage();
-            // this.localTranslateService.translationSubject.subscribe({
-            //   next: (language) => {
-            //     this.localTranslateService.translateLanguage();
-            //   }
-            // });
             const isSecondTime = yield this.storageCounter.isSecondTime();
             this.route.queryParamMap.subscribe((params) => {
                 const polygon = CITY_POLYGONS[params.get('name')];
@@ -65,7 +60,6 @@ let MainTabPage = class MainTabPage {
     }
     servicesSegmentChanged(event) {
         this.typeOfService = event.detail.value;
-        // console.log(this.typeOfService);
     }
     onSearch(event) {
         this.query = event.target.value.toLowerCase();

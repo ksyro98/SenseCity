@@ -1,34 +1,47 @@
 import { Injectable } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {LanguageSelectorService} from '../language-selector-service/language-selector.service';
+import {StorageTranslationService} from '../../storage-utils/storage-translation-service/storage-translation.service';
 
-export const DEFAULT_LANGUAGE = window.Intl && typeof window.Intl === 'object'
-                                    ? getLanguageFromTag(navigator.language)
-                                    : 'en';
+
+// export const DEFAULT_LANGUAGE = window.Intl && typeof window.Intl === 'object'
+//                                     ? getLanguageFromTag(navigator.language)
+//                                     : 'en';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalTranslateService {
 
+  private static defaultLanguage = window.Intl && typeof window.Intl === 'object'
+      ? getLanguageFromTag(navigator.language)
+      : 'en';
+
   language = undefined;
   pairs: {key: string, callback: (s: string) => string}[] = undefined;
   translate: TranslateService;
   // translationSubject = new Subject<string>();
 
-  constructor(private languageSelector: LanguageSelectorService) {
+
+  static getDefaultLanguage(): string{
+    return LocalTranslateService.defaultLanguage;
+  }
+
+  constructor(private languageSelector: LanguageSelectorService, private storageTranslation: StorageTranslationService) {
     if (this.pairs === undefined){
       this.pairs = [];
     }
   }
 
-  initTranslate(language) {
-    this.translate.setDefaultLang(DEFAULT_LANGUAGE);
+  async initTranslate() {
+    this.translate.setDefaultLang(LocalTranslateService.defaultLanguage);
+    const language = await this.storageTranslation.getLanguage();
     if (language) {
       this.language = language;
+      LocalTranslateService.defaultLanguage = language;
     }
     else {
-      this.language = DEFAULT_LANGUAGE;
+      this.language = LocalTranslateService.defaultLanguage;
     }
     this.translateLanguage();
   }
@@ -37,12 +50,12 @@ export class LocalTranslateService {
     this.language = language;
     this.languageSelector.setLanguage(language);
     this.translateLanguage();
-    // this.translationSubject.next(language);
+    this.storageTranslation.setLanguage(language);
   }
 
   translateLanguage(){
     if (this.language === undefined){
-      this.initTranslate(DEFAULT_LANGUAGE);
+      this.initTranslate();
     }
     else{
       this.translate.use(this.language);

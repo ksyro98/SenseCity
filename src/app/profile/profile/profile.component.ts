@@ -5,7 +5,7 @@ import {PROFILE_ELEMENTS} from '../../constants/ProfileElements';
 import {ProfileElement} from '../../entities/ProfileElement';
 import {TranslateService} from '@ngx-translate/core';
 import {stringify} from 'querystring';
-import {DEFAULT_LANGUAGE, LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 import {LanguageSelectorService} from '../../view-utils/language-selector-service/language-selector.service';
 import {CITIES} from '../../constants/Cities';
 
@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit {
   focus = false;
   // city = 'Πάτρα';
 
-  language = DEFAULT_LANGUAGE;
+  language = LocalTranslateService.getDefaultLanguage();
 
   city = CITIES[4];
   profile: string;
@@ -57,17 +57,11 @@ export class ProfileComponent implements OnInit {
     this.localTranslateService.pairs = this.localTranslateService.pairs.concat(this.pairs);
     this.localTranslateService.translate = translate;
 
-    this.language = this.localTranslateService.language ? this.localTranslateService.language : DEFAULT_LANGUAGE;
+    this.language = this.localTranslateService.language ? this.localTranslateService.language : LocalTranslateService.getDefaultLanguage();
   }
 
   ngOnInit() {
-    // if (this.localTranslateService.language === undefined){
-    //   this.localTranslateService.initTranslate(DEFAULT_LANGUAGE);
-    // }
-    // else{
-    //   this.localTranslateService.translateLanguage();
-    // }
-    this.localTranslateService.initTranslate(this.language);
+    this.localTranslateService.initTranslate();
     this.language = this.localTranslateService.language;
   }
 
