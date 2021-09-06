@@ -44,6 +44,7 @@ import {ConsultationCommentCardComponent} from './consultations/consultation-com
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {NeighborhoodTabPageModule} from './main-screens/neighborhood-tab/neighborhood-tab.module';
 
 @NgModule({
     declarations: [
@@ -91,7 +92,8 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
                 useFactory: HttpLoaderFactory,
                 deps: [HttpClient]
             }
-        })
+        }),
+        NeighborhoodTabPageModule
     ],
     providers: [
         StatusBar,

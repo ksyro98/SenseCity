@@ -31,7 +31,8 @@
     </div>
 
     <div class="details_rate_button_container">
-        <ion-button *ngIf="completed"
+<!--        <ion-button *ngIf="completed"-->
+        <ion-button *ngIf="false"
                     routerLink="/request-rating" routerLinkActive="active"
                     [queryParams]="{ stars: '-1'}">
             {{rating}}

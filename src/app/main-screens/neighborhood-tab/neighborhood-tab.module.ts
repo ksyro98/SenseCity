@@ -18,6 +18,9 @@ import {MapComponent} from '../../view-utils/map/map.component';
     IonicModule,
     NeighborhoodTabPageRoutingModule
   ],
+  exports: [
+    MapComponent
+  ],
   declarations: [NeighborhoodTabPage, NeighborhoodMapComponent, NeighborhoodMessagesComponent, MapComponent]
 })
 export class NeighborhoodTabPageModule {}

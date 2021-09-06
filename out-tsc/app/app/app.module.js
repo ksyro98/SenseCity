@@ -43,6 +43,7 @@ import { ConsultationCommentCardComponent } from './consultations/consultation-c
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { NeighborhoodTabPageModule } from './main-screens/neighborhood-tab/neighborhood-tab.module';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -92,7 +93,8 @@ AppModule = __decorate([
                     useFactory: HttpLoaderFactory,
                     deps: [HttpClient]
                 }
-            })
+            }),
+            NeighborhoodTabPageModule
         ],
         providers: [
             StatusBar,
