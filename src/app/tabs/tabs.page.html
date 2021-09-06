@@ -10,9 +10,14 @@
         <ion-label>{{requests}}</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="notifications-tab">
+    <ion-tab-button tab="notifications-tab" *ngIf="false">
       <ion-icon name="notifications-sharp"></ion-icon>
       <ion-label>{{notifications}}</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="neighborhood-tab" *ngIf="true">
+      <ion-icon name="location-sharp"></ion-icon>
+      <ion-label>{{myNeighborhood}}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="more-tab">

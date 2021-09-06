@@ -14,7 +14,7 @@
   </div>
 </ion-toolbar>
 
-<ion-segment [value]="typeOfService" swipeGesture="true" (ionChange)="servicesSegmentChanged($event)">
+<ion-segment *ngIf="false" [value]="typeOfService" swipeGesture="true" (ionChange)="servicesSegmentChanged($event)">
   <ion-segment-button [value]="0" i18n>
     {{technicalServices}}
   </ion-segment-button>

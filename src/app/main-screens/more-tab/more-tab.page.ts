@@ -16,6 +16,7 @@ export class MoreTabPage implements OnInit {
   myNeighborhood = 'Η γειτονιά μου';
   map = 'Χάρτης';
   profile = 'Προφίλ';
+  policy = 'Πολιτική';
 
   constructor(private localTranslateService: LocalTranslateService) {
     this.setTranslationPairs();
@@ -30,5 +31,6 @@ export class MoreTabPage implements OnInit {
     this.localTranslateService.pairs.push({key: 'my-neighborhood', callback: (res: string) => this.myNeighborhood = res});
     this.localTranslateService.pairs.push({key: 'map', callback: (res: string) => this.map = res});
     this.localTranslateService.pairs.push({key: 'profile', callback: (res: string) => this.profile = res});
+    this.localTranslateService.pairs.push({key: 'policy', callback: (res: string) => this.policy = res});
   }
 }

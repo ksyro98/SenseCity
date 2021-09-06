@@ -9,11 +9,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BackArrowHeaderComponent} from './view-utils/back-arrow-header/back-arrow-header.component';
-import {ExploreContainerComponent} from './explore-container/explore-container.component';
 import {TechnicalFormComponent} from './technical-request/technical-form/technical-form.component';
-import {TechnicalItemComponent} from './technical-request/technical-item/technical-item.component';
-import {TechnicalServicesListComponent} from './technical-request/technical-services-list/technical-services-list.component';
-import {GET_SERVICES_INTERFACE_DI_TOKEN, GetServicesInterface} from './interface-adapters/GetServicesInterface';
+import {GET_SERVICES_INTERFACE_DI_TOKEN} from './interface-adapters/GetServicesInterface';
 import {ServicesCommunication} from './backend-communication/ServicesCommunication';
 import {FormStepperComponent} from './view-utils/form-stepper/form-stepper.component';
 import {TechnicalFormSubcategoryComponent} from './technical-request/technical-form-subcategory/technical-form-subcategory.component';
@@ -30,9 +27,6 @@ import {TechnicalFormImageComponent} from './technical-request/technical-form-im
 import {CitiesModalComponent} from './view-utils/cities-modal/cities-modal.component';
 import {ProfileComponent} from './profile/profile/profile.component';
 import {NeighborhoodComponent} from './neighborhood/neighborhood/neighborhood.component';
-import {NeighborhoodMapComponent} from './neighborhood/neighborhood-map/neighborhood-map.component';
-import {MapComponent} from './view-utils/map/map.component';
-import {NeighborhoodMessagesComponent} from './neighborhood/neighborhood-messages/neighborhood-messages.component';
 import {AdministrativeFormComponent} from './administrative-request/administrative-form/administrative-form.component';
 import {AdministrativeFormBasicInfoComponent} from './administrative-request/administrative-form-basic-info/administrative-form-basic-info.component';
 import {ToolbarPopoverComponent} from './view-utils/toolbar-popover/toolbar-popover.component';
@@ -69,9 +63,6 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
         CitiesModalComponent,
         ProfileComponent,
         NeighborhoodComponent,
-        NeighborhoodMapComponent,
-        MapComponent,
-        NeighborhoodMessagesComponent,
         AdministrativeFormComponent,
         AdministrativeFormBasicInfoComponent,
         ToolbarPopoverComponent,

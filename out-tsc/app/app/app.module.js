@@ -26,9 +26,6 @@ import { TechnicalFormImageComponent } from './technical-request/technical-form-
 import { CitiesModalComponent } from './view-utils/cities-modal/cities-modal.component';
 import { ProfileComponent } from './profile/profile/profile.component';
 import { NeighborhoodComponent } from './neighborhood/neighborhood/neighborhood.component';
-import { NeighborhoodMapComponent } from './neighborhood/neighborhood-map/neighborhood-map.component';
-import { MapComponent } from './view-utils/map/map.component';
-import { NeighborhoodMessagesComponent } from './neighborhood/neighborhood-messages/neighborhood-messages.component';
 import { AdministrativeFormComponent } from './administrative-request/administrative-form/administrative-form.component';
 import { AdministrativeFormBasicInfoComponent } from './administrative-request/administrative-form-basic-info/administrative-form-basic-info.component';
 import { ToolbarPopoverComponent } from './view-utils/toolbar-popover/toolbar-popover.component';
@@ -67,9 +64,6 @@ AppModule = __decorate([
             CitiesModalComponent,
             ProfileComponent,
             NeighborhoodComponent,
-            NeighborhoodMapComponent,
-            MapComponent,
-            NeighborhoodMessagesComponent,
             AdministrativeFormComponent,
             AdministrativeFormBasicInfoComponent,
             ToolbarPopoverComponent,

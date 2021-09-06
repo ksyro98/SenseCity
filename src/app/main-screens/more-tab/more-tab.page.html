@@ -24,11 +24,13 @@
 
     <ion-row>
         <app-more-card image="/assets/svg-images/more/more_chat.svg"
-                       [title]="discussions" routeTarget="/consultations" class="card-margins">
+                       [title]="discussions" routeTarget="/consultations" class="card-margins"
+                       *ngIf="false">
         </app-more-card>
 
         <app-more-card image="/assets/svg-images/more/more_neighborhood.svg"
-                       [title]="myNeighborhood" routeTarget="/neighborhood" class="card-margins">
+                       [title]="myNeighborhood" routeTarget="/neighborhood" class="card-margins"
+                       *ngIf="false">
         </app-more-card>
 
         <a [href]="city.url" disabled style="text-decoration: none;" class="card-margins">
@@ -40,5 +42,11 @@
         <app-more-card image="/assets/svg-images/more/more_profile.svg"
                        [title]="profile" routeTarget="/profile" class="card-margins">
         </app-more-card>
+
+        <a [href]="'https://sense.city/terms.html'" disabled style="text-decoration: none;" class="card-margins">
+            <app-more-card image="/assets/svg-images/more/more_policy.svg" [title]="policy" routeTarget="#">
+            </app-more-card>
+        </a>
+
     </ion-row>
 </ion-content>

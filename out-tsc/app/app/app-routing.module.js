@@ -53,6 +53,10 @@ const routes = [
     },
     {
         path: 'select-city', component: SelectCityAtStartComponent
+    },
+    {
+        path: 'neighborhood-tab-old',
+        loadChildren: () => import('./main-screens/neighborhood-tab/neighborhood-tab.module').then(m => m.NeighborhoodTabPageModule)
     }
 ];
 let AppRoutingModule = class AppRoutingModule {

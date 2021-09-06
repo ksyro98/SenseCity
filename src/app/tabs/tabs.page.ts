@@ -14,6 +14,7 @@ export class TabsPage implements OnInit{
   home = 'Αρχική';
   requests = 'Αιτήσεις';
   more = 'Περισσότερα';
+  myNeighborhood = 'Η γειτονιά μου';
 
   constructor(private localTranslateService: LocalTranslateService) {
     this.setTranslationPairs();
@@ -28,5 +29,6 @@ export class TabsPage implements OnInit{
     this.localTranslateService.pairs.push({key: 'home-bottom-nav', callback: (res: string) => this.home = res});
     this.localTranslateService.pairs.push({key: 'requests-bottom-nav', callback: (res: string) => this.requests = res});
     this.localTranslateService.pairs.push({key: 'more-bottom-nav', callback: (res: string) => this.more = res});
+    this.localTranslateService.pairs.push({key: 'my-neighborhood', callback: (res: string) => this.myNeighborhood = res});
   }
 }

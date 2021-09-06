@@ -190,6 +190,7 @@
 	"show-all": "Show all",
 	"delete-read": "Delete read",
 	"delete-dialog-head": "Delete",
-	"delete-dialog-body": "Are you sure you want to delete all the read notifications? You won't be able to retrieve them later."
+	"delete-dialog-body": "Are you sure you want to delete all the read notifications? You won't be able to retrieve them later.",
+	"policy": "Policy"
 }
 

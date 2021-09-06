@@ -13,7 +13,7 @@ let MainTabPage = class MainTabPage {
 MainTabPage = __decorate([
     Component({
         selector: 'app-main-tab',
-        templateUrl: './main-tab.page.html',
+        templateUrl: './neighborhood-tab-old.page.html',
         styleUrls: ['./main-tab.page.scss'],
     })
 ], MainTabPage);

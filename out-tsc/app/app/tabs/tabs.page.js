@@ -8,6 +8,7 @@ let TabsPage = class TabsPage {
         this.home = 'Αρχική';
         this.requests = 'Αιτήσεις';
         this.more = 'Περισσότερα';
+        this.myNeighborhood = 'Η γειτονιά μου';
         this.setTranslationPairs();
     }
     ngOnInit() {
@@ -18,6 +19,7 @@ let TabsPage = class TabsPage {
         this.localTranslateService.pairs.push({ key: 'home-bottom-nav', callback: (res) => this.home = res });
         this.localTranslateService.pairs.push({ key: 'requests-bottom-nav', callback: (res) => this.requests = res });
         this.localTranslateService.pairs.push({ key: 'more-bottom-nav', callback: (res) => this.more = res });
+        this.localTranslateService.pairs.push({ key: 'my-neighborhood', callback: (res) => this.myNeighborhood = res });
     }
 };
 TabsPage = __decorate([

@@ -10,6 +10,7 @@ let MoreTabPage = class MoreTabPage {
         this.myNeighborhood = 'Η γειτονιά μου';
         this.map = 'Χάρτης';
         this.profile = 'Προφίλ';
+        this.policy = 'Πολιτική';
         this.setTranslationPairs();
     }
     ngOnInit() {
@@ -20,6 +21,7 @@ let MoreTabPage = class MoreTabPage {
         this.localTranslateService.pairs.push({ key: 'my-neighborhood', callback: (res) => this.myNeighborhood = res });
         this.localTranslateService.pairs.push({ key: 'map', callback: (res) => this.map = res });
         this.localTranslateService.pairs.push({ key: 'profile', callback: (res) => this.profile = res });
+        this.localTranslateService.pairs.push({ key: 'policy', callback: (res) => this.policy = res });
     }
 };
 MoreTabPage = __decorate([

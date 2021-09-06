@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {ModalController, Platform} from '@ionic/angular';
-// import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {FeedbackModalComponent} from './starting-screens/feedback-modal/feedback-modal.component';
 import {Plugins} from '@capacitor/core';

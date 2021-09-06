@@ -1,0 +1,36 @@
+<ion-toolbar>
+  <ion-buttons slot="primary">
+    <ion-button>
+      <ion-icon
+              slot="icon-only"
+              ios="ellipsis-horizontal"
+              md="ellipsis-vertical"
+              class="three-dots" style="visibility: hidden;"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <div>
+    <img src="/assets/images/sense_city_logo_green.png" alt="Sense City logo.">
+  </div>
+</ion-toolbar>
+
+
+<!--(ionChange)="servicesSegmentChanged($event)"-->
+<ion-segment [value]="0" swipeGesture="true" (ionChange)="neighborhoodSegmentChanged($event)">
+  <ion-segment-button [value]="0">
+    {{neighborhood}}
+  </ion-segment-button>
+  <ion-segment-button [value]="1">
+    {{messages}}
+  </ion-segment-button>
+</ion-segment>
+
+
+<ion-content>
+
+  <div [ngSwitch]="neighborhoodSegment">
+    <app-neighborhood-map *ngSwitchCase="0"></app-neighborhood-map>
+    <app-neighborhood-messages *ngSwitchCase="1"></app-neighborhood-messages>
+  </div>
+
+
+</ion-content>

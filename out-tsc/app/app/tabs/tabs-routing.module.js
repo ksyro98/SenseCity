@@ -24,6 +24,10 @@ const routes = [
                 loadChildren: () => import('../main-screens/more-tab/more-tab.module').then(m => m.MoreTabPageModule)
             },
             {
+                path: 'neighborhood-tab',
+                loadChildren: () => import('../main-screens/neighborhood-tab/neighborhood-tab.module').then(m => m.NeighborhoodTabPageModule)
+            },
+            {
                 path: '',
                 redirectTo: '/tabs/main-tab',
                 pathMatch: 'full'
