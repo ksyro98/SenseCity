@@ -5,42 +5,42 @@ export const PROFILE_ELEMENTS: ProfileElement[] = [
         label: 'Όνομα',
         value: 'Κωνσταντίνος Συροκώστας',
         inputType: 'text',
-        translationKey: 'name'
+        key: 'name'
     },
     {
         label: 'Email',
         value: 'konstantinos.syrokostas@gmail.com',
         inputType: 'email',
-        translationKey: 'email'
+        key: 'email'
     },
     {
         label: 'Τηλέφωνο',
         value: '6980082464',
         inputType: 'tel',
-        translationKey: 'phone-number'
+        key: 'phone-number'
     },
     {
         label: 'Όνομα πατέρα',
         value: 'Γεώργιος Συροκώστας',
         inputType: 'text',
-        translationKey: 'fathers-name'
+        key: 'fathers-name'
     },
     {
         label: 'Όνομα μητέρας',
         value: 'Αναστασία Βαρουτίδου',
         inputType: 'text',
-        translationKey: 'mothers-name'
+        key: 'mothers-name'
     },
     {
         label: 'ΑΔΤ',
         value: 'ΑΑ 123456',
         inputType: 'text',
-        translationKey: 'id-number'
+        key: 'id-number'
     },
     {
         label: 'ΑΦΜ',
         value: '123456789012345',
         inputType: 'number',
-        translationKey: 'tax-number'
+        key: 'tax-number'
     }
 ];

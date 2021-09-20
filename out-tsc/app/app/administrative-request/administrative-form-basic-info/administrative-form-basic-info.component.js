@@ -14,7 +14,7 @@ let AdministrativeFormBasicInfoComponent = class AdministrativeFormBasicInfoComp
     }
     setTranslationPairs() {
         this.elements.forEach((element) => {
-            this.localTranslateService.pairs.push({ key: element.translationKey, callback: (res) => element.label = res });
+            this.localTranslateService.pairs.push({ key: element.key, callback: (res) => element.label = res });
         });
         this.localTranslateService.pairs.push({ key: 'basic-information', callback: (res) => this.basicInformation = res });
         this.localTranslateService.pairs.push({ key: 'save-changes', callback: (res) => this.saveChanges = res });

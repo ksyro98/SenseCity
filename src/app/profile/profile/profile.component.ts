@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {CitiesModalComponent} from '../../view-utils/cities-modal/cities-modal.component';
-import {PROFILE_ELEMENTS} from '../../constants/ProfileElements';
 import {ProfileElement} from '../../entities/ProfileElement';
 import {TranslateService} from '@ngx-translate/core';
-import {stringify} from 'querystring';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
-import {LanguageSelectorService} from '../../view-utils/language-selector-service/language-selector.service';
 import {CITIES} from '../../constants/Cities';
+import {ProfileLogicService} from '../profile-logic/profile-logic.service';
+import {Observable} from 'rxjs';
+import {VerifyModalComponent} from '../verify-modal/verify-modal.component';
+import {Plugins} from '@capacitor/core';
 
+const { Toast } = Plugins;
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +21,6 @@ export class ProfileComponent implements OnInit {
 
   elements: ProfileElement[];
   focus = false;
-  // city = 'Πάτρα';
 
   language = LocalTranslateService.getDefaultLanguage();
 
@@ -31,33 +32,53 @@ export class ProfileComponent implements OnInit {
   acceptTerms1: string;
   acceptTerms2: string;
   acceptTerms3: string;
+  notVerified1: string;
+  notVerified2: string;
+  verify: string;
+  unexpectedError: string;
+
+  readonly emailKey = ProfileElement.EMAIL_KEY;
+  readonly phoneKey = ProfileElement.PHONE_KEY;
 
   private pairs = [
       {key: 'profile', callback: (res: string) => this.profile = res},
       {key: 'accept-terms-1', callback: (res: string) => this.acceptTerms1 = res},
       {key: 'accept-terms-2', callback: (res: string) => this.acceptTerms2 = res},
       {key: 'accept-terms-3', callback: (res: string) => this.acceptTerms3 = res},
+      {key: 'not-verified-1', callback: (res: string) => this.notVerified1 = res},
+      {key: 'not-verified-2', callback: (res: string) => this.notVerified2 = res},
+      {key: 'verify', callback: (res: string) => this.verify = res},
+      {key: 'unexpected-error', callback: (res: string) => this.unexpectedError = res},
       {key: this.city.cityKey, callback: (res: string) => this.city.name = res}
   ];
+
+  isActive$: Observable<any>;
 
   constructor(
       public modalController: ModalController,
       private translate: TranslateService,
-      private localTranslateService: LocalTranslateService
+      private localTranslateService: LocalTranslateService,
+      private logic: ProfileLogicService
   ) {
-    this.elements = PROFILE_ELEMENTS;
+    logic.waitForUser().then((user) => {
+      this.elements = ProfileElement.getProfileElementsFromUser(logic.user);
 
-    this.elements.forEach((element) => {
-      this.pairs.push({key: element.translationKey, callback: (res: string) => element.label = res});
+      this.elements.forEach((element) => {
+        this.pairs.push({key: element.key, callback: (res: string) => element.label = res});
+      });
+
+      this.pairs.push({key: 'city', callback: (res: string) => this.cityTitle = res});
+      this.pairs.push({key: 'language', callback: (res: string) => this.languageTitle = res});
+
+      this.localTranslateService.pairs = this.localTranslateService.pairs.concat(this.pairs);
+      this.localTranslateService.translate = translate;
+
+      this.language = this.localTranslateService.language
+          ? this.localTranslateService.language
+          : LocalTranslateService.getDefaultLanguage();
+
+      this.isActive$ = logic.isUserActive();
     });
-
-    this.pairs.push({key: 'city', callback: (res: string) => this.cityTitle = res});
-    this.pairs.push({key: 'language', callback: (res: string) => this.languageTitle = res});
-
-    this.localTranslateService.pairs = this.localTranslateService.pairs.concat(this.pairs);
-    this.localTranslateService.translate = translate;
-
-    this.language = this.localTranslateService.language ? this.localTranslateService.language : LocalTranslateService.getDefaultLanguage();
   }
 
   ngOnInit() {
@@ -73,4 +94,26 @@ export class ProfileComponent implements OnInit {
     CitiesModalComponent.present(this.modalController, (city) => this.city = city);
   }
 
+  onFocusLost(key: string, value: string){
+    this.logic.setUserValue(key, value);
+    if (key === ProfileElement.EMAIL_KEY || key === ProfileElement.PHONE_KEY) {
+      this.isActive$ = this.logic.isUserActive();
+    }
+  }
+
+  presentVerifyModal(element: ProfileElement){
+    this.logic.sendActivationCode(element.key).subscribe({
+      next: value => console.log(value),
+      error: error => {
+        console.log(error);
+        Toast.show({text: this.unexpectedError});
+      }
+    });
+    VerifyModalComponent.present(this.modalController, element, (result: boolean) => {
+      // TODO this doesn't work
+      if (result) {
+        this.isActive$ = this.logic.isUserActive();
+      }
+    });
+  }
 }

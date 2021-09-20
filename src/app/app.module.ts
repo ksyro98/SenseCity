@@ -45,6 +45,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {NeighborhoodTabPageModule} from './main-screens/neighborhood-tab/neighborhood-tab.module';
+import {VerifyModalComponent} from './profile/verify-modal/verify-modal.component';
 
 @NgModule({
     declarations: [
@@ -77,6 +78,7 @@ import {NeighborhoodTabPageModule} from './main-screens/neighborhood-tab/neighbo
         ConsultationCommentTextBarComponent,
         SelectCityAtStartComponent,
         ConsultationCommentCardComponent,
+        VerifyModalComponent,
     ],
     entryComponents: [],
     imports: [

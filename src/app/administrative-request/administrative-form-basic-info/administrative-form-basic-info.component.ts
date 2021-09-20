@@ -26,7 +26,7 @@ export class AdministrativeFormBasicInfoComponent implements OnInit {
 
   private setTranslationPairs(){
     this.elements.forEach((element) => {
-      this.localTranslateService.pairs.push({key: element.translationKey, callback: (res: string) => element.label = res});
+      this.localTranslateService.pairs.push({key: element.key, callback: (res: string) => element.label = res});
     });
     this.localTranslateService.pairs.push({key: 'basic-information', callback: (res: string) => this.basicInformation = res});
     this.localTranslateService.pairs.push({key: 'save-changes', callback: (res: string) => this.saveChanges = res});

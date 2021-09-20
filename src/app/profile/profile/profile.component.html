@@ -3,13 +3,31 @@
 <ion-content>
   <ion-list>
 
-    <ion-item *ngFor="let element of elements" lines="insert">
-      <ion-label position="floating">{{element.label}}</ion-label>
-      <ion-input
-              [value]="element.value"
-              [type]="element.inputType">
-      </ion-input>
-    </ion-item>
+    <div *ngFor="let element of elements">
+      <ion-item lines="insert">
+        <ion-label position="floating">{{element.label}}</ion-label>
+        <ion-input
+                [value]="element.value"
+                [type]="element.inputType"
+                (focusout)="onFocusLost(element.key, $event.target['value'])">
+        </ion-input>
+      </ion-item>
+      <div *ngIf="element.key === emailKey || element.key === phoneKey">
+        <div *ngIf="(isActive$ | async) as isActive"
+                [class]="isActive[element.key] ? '' : 'negative-warning-div'">
+          {{isActive[element.key]
+                ? ''
+                : notVerified1 + element.label.toLowerCase() + notVerified2
+          }}
+          <u *ngIf="!isActive[element.key]"
+               class="negative-link"
+               (click)="presentVerifyModal(element)">
+            {{verify + '.'}}
+          </u>
+        </div>
+      </div>
+    </div>
+
 
     <ion-item (click)="presentCitiesModal()">
       <ion-label position="stacked">{{cityTitle}}</ion-label>

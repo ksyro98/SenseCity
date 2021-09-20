@@ -24,6 +24,13 @@ ion-checkbox {
   margin-bottom: 0;
 }
 
+div {
+  margin-top: 8px;
+  font-size: smaller;
+  color: $light-grey-text;
+  text-align:center;
+}
+
 .short_item_no_ripple {
   height: 40px;
   margin-left: 15px;
@@ -36,9 +43,16 @@ ion-checkbox {
   font-size: 13px;
 }
 
-div {
-  margin-top: 8px;
-  font-size: smaller;
-  color: $light-grey-text;
-  text-align:center;
+.negative-warning-div{
+  color: red;
+  font-size: 14px;
+  text-align: start;
+  margin-left: 40px;
+  margin-bottom: 24px;
 }
+
+.negative-link{
+  color: red;
+  font-size: 14px;
+}
+

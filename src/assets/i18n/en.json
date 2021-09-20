@@ -191,6 +191,18 @@
 	"delete-read": "Delete read",
 	"delete-dialog-head": "Delete",
 	"delete-dialog-body": "Are you sure you want to delete all the read notifications? You won't be able to retrieve them later.",
-	"policy": "Policy"
+	"policy": "Policy",
+	"not-verified-1": "Your ",
+	"not-verified-2": " is not verified. ",
+	"verify": "Verify",
+	"unexpected-error": "Oh no, an unexpected error occurred, please try again.",
+	"verification": "Verification",
+	"verification-description-1": "We have sent a 4-digit code to your",
+	"verification-description-2": "",
+	"verification-description-3": "Please type the code here to verify it.",
+	"verification-description-4": "",
+	"empty-digits-error": "Please make sure that all the digits are filled.",
+	"wrong-code-error": "The code you entered was incorrect, please try again.",
+	"successful-verification": "The verification was successful!"
 }
 

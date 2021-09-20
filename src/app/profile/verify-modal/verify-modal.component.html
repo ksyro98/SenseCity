@@ -1,0 +1,60 @@
+<app-back-arrow-header [title]="verification"></app-back-arrow-header>
+
+<ion-content>
+  <div class="instructions-div">
+    {{verificationDesc1 + ' ' +
+        profileElement.label.toLowerCase() + ' ' +
+        verificationDesc2 + ' ' +
+        profileElement.value.toLowerCase() + '. \n' +
+        verificationDesc3
+    }}
+  </div>
+
+
+  <ion-row class="digits-row">
+    <ion-col>
+      <div class="digit-input-div">
+        <ion-input class="digit-ion-input" type="number" inputmode="numeric" min="0" max="9"
+                   (ionChange)="onDigitTyped($event)" id="firstDigitInput">
+        </ion-input>
+      </div>
+    </ion-col>
+
+    <ion-col>
+      <div class="digit-input-div">
+        <ion-input class="digit-ion-input" type="number" inputmode="numeric" min="0" max="9"
+                   (ionChange)="onDigitTyped($event)" id="secondDigitInput">
+        </ion-input>
+      </div>
+    </ion-col>
+
+    <ion-col>
+      <div class="digit-input-div">
+        <ion-input class="digit-ion-input" type="number" inputmode="numeric" min="0" max="9"
+                   (ionChange)="onDigitTyped($event)" id="thirdDigitInput">
+        </ion-input>
+      </div>
+    </ion-col>
+
+    <ion-col>
+      <div class="digit-input-div">
+        <ion-input class="digit-ion-input" type="number" inputmode="numeric" min="0" max="9"
+                   (ionChange)="onDigitTyped($event)" id="fourthDigitInput">
+        </ion-input>
+      </div>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="button-row">
+    <ion-button class="verify-button" [disabled]="!isVerifyEnabled"
+                [ngSwitch]="isVerifyLoading" (click)="startVerification()">
+      <ion-spinner name="crescent" *ngSwitchCase="true"></ion-spinner>
+      <div *ngSwitchCase="false">{{verify}}</div>
+    </ion-button>
+  </ion-row>
+
+  <ion-img src="/assets/images/code_sent.png" class="message-image"></ion-img>
+
+</ion-content>
+
+
