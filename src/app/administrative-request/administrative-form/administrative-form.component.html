@@ -10,7 +10,7 @@
 
 </ion-content>
 
-<app-form-stepper [steps]="3" [canProceed]="true"
-                  (currentStepEvent)="setCurrentStep($event)"
+<app-form-stepper [steps]="3" [canProceed]="true" [currentStep]="currentStep"
+                  (currentStepEvent)="setNextStep($event)"
                   style="position: absolute; bottom: 0; width: 100%">
 </app-form-stepper>

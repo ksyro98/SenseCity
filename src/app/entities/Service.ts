@@ -1,16 +1,16 @@
 import {element} from 'protractor';
-import {Category} from './Category';
+import {SubService} from './SubService';
 import {OtherCategory} from './OtherCategory';
 
 const ICONS_PATH = '/assets/svg-images/technical-req-icons/';
 
-export class RequestedService{
+export class Service {
     id: number;
     name: string;
     icon: string;   // check how the icon will be stored; empty string for administrative services
     translationKey: string;
 
-    static getCategoryForService(id: number): Category[]{
+    static getSubService(id: number): SubService[]{
         switch (id){
             case 0:
                 return [
@@ -80,43 +80,43 @@ export const TECHNICAL_SERVICES_LIST = [
         id: 0,
         name: 'Καθαριότητα',
         icon: ICONS_PATH + 'cleaning.svg',
-        translationKey: 'cleaning'
+        translationKey: 'garbage'
     },
     {
         id: 1,
         name: 'Ηλεκτροφωτισμός',
         icon: ICONS_PATH + 'electricity.svg',
-        translationKey: 'electric-lighting'
+        translationKey: 'lighting'
     },
     {
         id: 2,
         name: 'Πεζοδρόμιο/Δρόμος/Πλατειά',
         icon: ICONS_PATH + 'streets.svg',
-        translationKey: 'sidewalk-street-square'
+        translationKey: 'road-constructor'
     },
     {
         id: 3,
         name: 'Πολιτική Προστασία',
         icon: ICONS_PATH + 'civil-protection.svg',
-        translationKey: 'civil-protection'
+        translationKey: 'protection-policy'
     },
     {
         id: 4,
         name: 'Πράσινο',
         icon: ICONS_PATH + 'green.svg',
-        translationKey: 'nature'
+        translationKey: 'green'
     },
     {
         id: 5,
         name: 'Περιβαλλοντικά Θέματα',
         icon: ICONS_PATH + 'environment.svg',
-        translationKey: 'environmental-issues'
+        translationKey: 'environment'
     },
     {
         id: 6,
         name: 'Ύδρευση/Αποχέτευση',
         icon: ICONS_PATH + 'water.svg',
-        translationKey: 'water'
+        translationKey: 'plumbing'
     }
 ];
 

@@ -1,5 +1,5 @@
-import {Component, Input, OnInit, Optional} from '@angular/core';
-import {Config, IonRouterOutlet, NavController, Platform} from '@ionic/angular';
+import {Component, Input, OnInit, Optional, Output} from '@angular/core';
+import {Config, IonRouterOutlet, ModalController, NavController, Platform} from '@ionic/angular';
 
 
 
@@ -14,6 +14,7 @@ import {Config, IonRouterOutlet, NavController, Platform} from '@ionic/angular';
 export class BackArrowHeaderComponent implements OnInit {
 
   @Input() title: string;
+  @Input() modalController: ModalController;
 
   defaultHref: string | undefined | null;
 
@@ -22,6 +23,11 @@ export class BackArrowHeaderComponent implements OnInit {
   ngOnInit() {}
 
   public onBackArrowPressed(){
+    if (this.modalController){
+      this.modalController.dismiss();
+      return;
+    }
+
     const defaultHref = this.defaultHref || this.config.get('backButtonDefaultHref');
 
     if (this.routerOutlet && this.routerOutlet.canGoBack()) {

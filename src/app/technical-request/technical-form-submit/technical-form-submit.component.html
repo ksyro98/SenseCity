@@ -6,7 +6,8 @@
 </ion-list>
 
 <app-technical-form-image
-        defaultImage="../../assets/svg-images/no_photo.svg" [showHeader]="false" [imageHeight]="150">
+        defaultImage="../../assets/svg-images/no_photo.svg" [showHeader]="false" [imageHeight]="150"
+        [path]="finalRequest.image" (pathChange)="imageChange.emit($event)">
 </app-technical-form-image>
 
 <div class="center_short">
@@ -15,19 +16,19 @@
     <p>
       <b>{{category}}:</b>
       <br>
-      {{cleaning}}
+      {{finalRequest.service.name}}
     </p>
 
     <p>
       <b>{{request}}:</b>
       <br>
-      {{cutBranches}}
+      {{finalRequest.subService.name}}
     </p>
 
     <p>
       <b>{{comments}}:</b>
       <br>
-      {{commentsValue}}
+      {{getUserComments()}}
     </p>
   </div>
 
@@ -36,7 +37,7 @@
 <div style="margin-top: 30px;">
   <ion-item lines="none" class="short_item_no_ripple">
     <ion-label><p class="smaller-font">{{namedRequest}}</p></ion-label>
-    <ion-checkbox slot="start"></ion-checkbox>
+    <ion-checkbox slot="start" [(ngModel)]="namedClicked" (ionChange)="onNamedClickChanged()"></ion-checkbox>
   </ion-item>
 
 

@@ -12,6 +12,7 @@ import {StorageStateService} from './storage-utils/storage-state-service/storage
 import {StorageFeedbackCounterService} from './storage-utils/storage-feedback-counter-service/storage-feedback-counter.service';
 import {TranslateService} from '@ngx-translate/core';
 import {LocalTranslateService} from './view-utils/local-translate-service/local-translate.service';
+import {UserService} from './user-service/user.service';
 
 const {Geolocation, SplashScreen} = Plugins;
 
@@ -34,7 +35,8 @@ export class AppComponent {
     private backButtonService: BackButtonService,
     private cityParamsService: CityParamsService,
     private translate: TranslateService,
-    private localTranslateService: LocalTranslateService
+    private localTranslateService: LocalTranslateService,
+    private userService: UserService
   ) {
     this.initializeApp();
   }
@@ -48,6 +50,8 @@ export class AppComponent {
       // this.statusBar.backgroundColorByHexString('#f8faf7');
       // this.statusBar.overlaysWebView(true);
       // this.statusBar.backgroundColorByHexString('#f8faf7');
+
+      this.userService.initUser();
 
       this.backButtonService.init();
       await this.storageCounter.updateCounter();

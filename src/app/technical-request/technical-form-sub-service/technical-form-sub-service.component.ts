@@ -1,23 +1,22 @@
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, OnChanges} from '@angular/core';
-import {RequestedService} from '../../entities/RequestedService';
-import {Category} from '../../entities/Category';
-import {valueReferenceToExpression} from '@angular/compiler-cli/src/ngtsc/annotations/src/util';
+import {Service} from '../../entities/Service';
+import {SubService} from '../../entities/SubService';
 import {isOtherCategory, OtherCategory} from '../../entities/OtherCategory';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 @Component({
   selector: 'app-technical-form-subcategory',
-  templateUrl: './technical-form-subcategory.component.html',
-  styleUrls: ['./technical-form-subcategory.component.scss'],
+  templateUrl: './technical-form-sub-service.component.html',
+  styleUrls: ['./technical-form-sub-service.component.scss'],
 })
-export class TechnicalFormSubcategoryComponent implements OnInit {
+export class TechnicalFormSubServiceComponent implements OnInit {
 
-  @Input() service: RequestedService;
+  @Input() service: Service;
   canProceed: boolean;
   @Output() canProceedEvent = new EventEmitter<boolean>();
-  @Input() category: Category;
-  @Output() categoryChange = new EventEmitter<Category>();
-  categories: Category[];
+  @Input() category: SubService;
+  @Output() categoryChange = new EventEmitter<SubService>();
+  categories: SubService[];
   otherPressed = false;
   value: string;
 
@@ -26,7 +25,7 @@ export class TechnicalFormSubcategoryComponent implements OnInit {
   constructor(private localTranslateService: LocalTranslateService) {}
 
   ngOnInit() {
-    this.categories = RequestedService.getCategoryForService(this.service.id);
+    this.categories = Service.getSubService(this.service.id);
     this.setOtherPressed(this.category.id === -1);
     this.value = this.getCategoryDescription();
 
@@ -34,7 +33,7 @@ export class TechnicalFormSubcategoryComponent implements OnInit {
     this.localTranslateService.translateLanguage();
   }
 
-  onItemClick(category: Category){
+  onItemClick(category: SubService){
     this.setCategory(category);
     this.setOtherPressed(category.id === -1);
   }
@@ -52,7 +51,7 @@ export class TechnicalFormSubcategoryComponent implements OnInit {
     this.canProceedEvent.emit(this.canProceed);
   }
 
-  setCategory(category: Category){
+  setCategory(category: SubService){
     this.category = category;
     this.categoryChange.emit(this.category);
   }

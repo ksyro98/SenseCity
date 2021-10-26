@@ -70,7 +70,7 @@ let NotificationsTabPage = class NotificationsTabPage {
                         this.showingRead = !this.showingRead;
                         break;
                     case 2:
-                        this.alertService.showAlert({
+                        this.alertService.show({
                             head: this.deleteDialogHead,
                             body: this.deleteDialogBody
                         }, () => {

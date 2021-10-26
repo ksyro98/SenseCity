@@ -35,7 +35,6 @@ export class ProfileComponent implements OnInit {
   notVerified1: string;
   notVerified2: string;
   verify: string;
-  unexpectedError: string;
 
   readonly emailKey = ProfileElement.EMAIL_KEY;
   readonly phoneKey = ProfileElement.PHONE_KEY;
@@ -48,7 +47,6 @@ export class ProfileComponent implements OnInit {
       {key: 'not-verified-1', callback: (res: string) => this.notVerified1 = res},
       {key: 'not-verified-2', callback: (res: string) => this.notVerified2 = res},
       {key: 'verify', callback: (res: string) => this.verify = res},
-      {key: 'unexpected-error', callback: (res: string) => this.unexpectedError = res},
       {key: this.city.cityKey, callback: (res: string) => this.city.name = res}
   ];
 
@@ -61,7 +59,7 @@ export class ProfileComponent implements OnInit {
       private logic: ProfileLogicService
   ) {
     logic.waitForUser().then((user) => {
-      this.elements = ProfileElement.getProfileElementsFromUser(logic.user);
+      this.elements = ProfileElement.getProfileElementsFromUser(user);
 
       this.elements.forEach((element) => {
         this.pairs.push({key: element.key, callback: (res: string) => element.label = res});
@@ -102,13 +100,6 @@ export class ProfileComponent implements OnInit {
   }
 
   presentVerifyModal(element: ProfileElement){
-    this.logic.sendActivationCode(element.key).subscribe({
-      next: value => console.log(value),
-      error: error => {
-        console.log(error);
-        Toast.show({text: this.unexpectedError});
-      }
-    });
     VerifyModalComponent.present(this.modalController, element, (result: boolean) => {
       // TODO this doesn't work
       if (result) {

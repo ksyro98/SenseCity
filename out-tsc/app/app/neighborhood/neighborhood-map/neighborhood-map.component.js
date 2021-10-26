@@ -32,7 +32,7 @@ let NeighborhoodMapComponent = class NeighborhoodMapComponent {
             head: this.deleteNeighborhoodHead,
             body: this.deleteNeighborhoodBody,
         };
-        this.alertService.showAlert(content, callback, true);
+        this.alertService.show(content, callback, true);
     }
     setTranslationPairs() {
         this.localTranslateService.pairs.push({ key: 'receive-messages', callback: (res) => this.receiveMessages = res });

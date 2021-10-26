@@ -10,6 +10,10 @@ let BackArrowHeaderComponent = class BackArrowHeaderComponent {
     }
     ngOnInit() { }
     onBackArrowPressed() {
+        if (this.modalController) {
+            this.modalController.dismiss();
+            return;
+        }
         const defaultHref = this.defaultHref || this.config.get('backButtonDefaultHref');
         if (this.routerOutlet && this.routerOutlet.canGoBack()) {
             this.navCtrl.setDirection('back', undefined, undefined, null);
@@ -23,6 +27,9 @@ let BackArrowHeaderComponent = class BackArrowHeaderComponent {
 __decorate([
     Input()
 ], BackArrowHeaderComponent.prototype, "title", void 0);
+__decorate([
+    Input()
+], BackArrowHeaderComponent.prototype, "modalController", void 0);
 BackArrowHeaderComponent = __decorate([
     Component({
         selector: 'app-back-arrow-header',

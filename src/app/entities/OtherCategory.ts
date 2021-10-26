@@ -1,6 +1,6 @@
-import {Category} from './Category';
+import {SubService} from './SubService';
 
-export class OtherCategory implements Category {
+export class OtherCategory implements SubService {
     id: number;
     name: string;
     shortDescription: string;

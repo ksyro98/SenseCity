@@ -1,6 +1,6 @@
-import {RequestedService} from './RequestedService';
+import {Service} from './Service';
 
 export interface AdministrativeRequest {
-    service: RequestedService;
+    service: Service;
 }
 

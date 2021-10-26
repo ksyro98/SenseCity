@@ -1,61 +1,62 @@
+const ICONS_PATH = '/assets/svg-images/technical-req-icons/';
 export class Service {
-    static getCategoryForService(id) {
+    static getSubService(id) {
         switch (id) {
             case 0:
                 return [
-                    { id: 0, name: 'Χαλασμενος καδος' },
-                    { id: 1, name: 'Ογκωδη αντικειμενα' },
-                    { id: 2, name: 'Κομμενα κλαδια' },
-                    { id: 3, name: 'Μπαζα' },
-                    { id: 4, name: 'Καθαρισμος πλατειας' },
-                    { id: 5, name: 'Μηχανοκινητη σαρωση' },
-                    { id: -1, name: 'Αλλο' }
+                    { id: 0, name: 'Χαλασμενος καδος', translationKey: 'damaged-bucket' },
+                    { id: 1, name: 'Ογκωδη αντικειμενα', translationKey: 'bulky-items' },
+                    { id: 2, name: 'Κομμενα κλαδια', translationKey: 'cut-branches' },
+                    { id: 3, name: 'Μπαζα', translationKey: 'debris' },
+                    { id: 4, name: 'Καθαρισμος πλατειας', translationKey: 'square-cleaning' },
+                    { id: 5, name: 'Μηχανοκινητη σαρωση', translationKey: 'motorized-scanning' },
+                    { id: -1, name: 'Αλλο', translationKey: 'other' }
                 ];
             case 1:
                 return [
-                    { id: 0, name: 'Καμμενος λαμπτηρας' },
-                    { id: 1, name: 'Λαμπτηρας που αναβοσβηνει' },
-                    { id: 2, name: 'Επεκταση δημοτικου φωτισμου' },
-                    { id: 3, name: 'Τοποθετηση φωτιστικου σωματος' },
-                    { id: -1, name: 'Αλλο' }
+                    { id: 0, name: 'Καμμενος λαμπτηρας', translationKey: 'burnt-lamp' },
+                    { id: 1, name: 'Λαμπτηρας που αναβοσβηνει', translationKey: 'flashing-lamp' },
+                    { id: 2, name: 'Επεκταση δημοτικου φωτισμου', translationKey: 'expansion-of-municipal-lighting' },
+                    { id: 3, name: 'Τοποθετηση φωτιστικου σωματος', translationKey: 'installation-of-luminaire' },
+                    { id: -1, name: 'Αλλο', translationKey: 'other' }
                 ];
             case 2:
                 return [
-                    { id: 0, name: 'Λακουβα' },
-                    { id: 1, name: 'Καταπατησεις κοινοχρ. χωρων' },
-                    { id: 2, name: 'Σπασμενες πλακες πεζοδρομιου' },
-                    { id: 3, name: 'Εγκαταλ. αυτοκινητο' },
-                    { id: 4, name: 'Καταληψη πεζοδρομιου' },
-                    { id: 5, name: 'Σπασμενο παγκακι' },
-                    { id: 6, name: 'Κακοτεχνια' },
-                    { id: -1, name: 'Αλλο' }
+                    { id: 0, name: 'Λακουβα', translationKey: 'pond' },
+                    { id: 1, name: 'Καταπατησεις κοινοχρ. χωρων', translationKey: 'violations-of-common-areas' },
+                    { id: 2, name: 'Σπασμενες πλακες πεζοδρομιου', translationKey: 'broken-pavement-slabs' },
+                    { id: 3, name: 'Εγκαταλ. αυτοκινητο', translationKey: 'abandoned-car' },
+                    { id: 4, name: 'Καταληψη πεζοδρομιου', translationKey: 'pavement-occupation' },
+                    { id: 5, name: 'Σπασμενο παγκακι', translationKey: 'broken-bench' },
+                    { id: 6, name: 'Κακοτεχνια', translationKey: 'botchery' },
+                    { id: -1, name: 'Αλλο', translationKey: 'other' }
                 ];
             case 3:
                 return [
-                    { id: 0, name: 'Θεομηνια' },
-                    { id: 1, name: 'Ακαθαριστο ιδιωτικο οικοπεδο' },
-                    { id: -1, name: 'Αλλο' }
+                    { id: 0, name: 'Θεομηνια', translationKey: 'catastrophe' },
+                    { id: 1, name: 'Ακαθαριστο ιδιωτικο οικοπεδο', translationKey: 'gross-private-plot' },
+                    { id: -1, name: 'Αλλο', translationKey: 'other' }
                 ];
             case 4:
                 return [
-                    { id: 0, name: 'Κοπη χορτων' },
-                    { id: 1, name: 'Κλαδεμα δεντρων' },
-                    { id: 2, name: 'Ακαθαριστο δημοτικο οικοπεδο' },
-                    { id: -1, name: 'Αλλο' }
+                    { id: 0, name: 'Κοπη χορτων', translationKey: 'mowing-grass' },
+                    { id: 1, name: 'Κλαδεμα δεντρων', translationKey: 'tree-pruning' },
+                    { id: 2, name: 'Ακαθαριστο δημοτικο οικοπεδο', translationKey: 'gross-municipal-plot' },
+                    { id: -1, name: 'Αλλο', translationKey: 'other' }
                 ];
             case 5:
                 return [
-                    { id: 0, name: 'Ανακυκλωση' },
-                    { id: 1, name: 'Μυοκτονιες' },
-                    { id: 2, name: 'Εντομοκτονια' },
-                    { id: -1, name: 'Αλλο' }
+                    { id: 0, name: 'Ανακυκλωση', translationKey: 'recycling' },
+                    { id: 1, name: 'Μυοκτονιες', translationKey: 'rodenticide' },
+                    { id: 2, name: 'Εντομοκτονια', translationKey: 'insecticide' },
+                    { id: -1, name: 'Αλλο', translationKey: 'other' }
                 ];
             case 6:
                 return [
-                    { id: 0, name: 'Βοθλωμενο φρεατιο' },
-                    { id: 1, name: 'Σπασμενο καπακι φρεατιου' },
-                    { id: 2, name: 'Διαρροη νερου' },
-                    { id: -1, name: 'Αλλο' }
+                    { id: 0, name: 'Βουλωμενο φρεατιο', translationKey: 'clogged-well' },
+                    { id: 1, name: 'Σπασμενο καπακι φρεατιου', translationKey: 'broken-manhole-cover' },
+                    { id: 2, name: 'Διαρροη νερου', translationKey: 'water-leak' },
+                    { id: -1, name: 'Αλλο', translationKey: 'other' }
                 ];
         }
         return [];
@@ -64,55 +65,113 @@ export class Service {
 export const TECHNICAL_SERVICES_LIST = [
     {
         id: 0,
-        name: 'Καθαριοτητα',
-        icon: 'ellipse'
+        name: 'Καθαριότητα',
+        icon: ICONS_PATH + 'cleaning.svg',
+        translationKey: 'garbage'
     },
     {
         id: 1,
-        name: 'Ηλεκτροφωτισμος',
-        icon: 'ellipse'
+        name: 'Ηλεκτροφωτισμός',
+        icon: ICONS_PATH + 'electricity.svg',
+        translationKey: 'lighting'
     },
     {
         id: 2,
-        name: 'Πεζοδρομιο/Δρομος/Πλατεια',
-        icon: 'ellipse'
+        name: 'Πεζοδρόμιο/Δρόμος/Πλατειά',
+        icon: ICONS_PATH + 'streets.svg',
+        translationKey: 'road-constructor'
     },
     {
         id: 3,
-        name: 'Πολιτικη Προστασια',
-        icon: 'ellipse'
+        name: 'Πολιτική Προστασία',
+        icon: ICONS_PATH + 'civil-protection.svg',
+        translationKey: 'protection-policy'
     },
     {
         id: 4,
-        name: 'Πρασινο',
-        icon: 'ellipse'
+        name: 'Πράσινο',
+        icon: ICONS_PATH + 'green.svg',
+        translationKey: 'green'
     },
     {
         id: 5,
-        name: 'Περιβαλλοντικα Θεματα',
-        icon: 'ellipse'
+        name: 'Περιβαλλοντικά Θέματα',
+        icon: ICONS_PATH + 'environment.svg',
+        translationKey: 'environment'
     },
     {
         id: 6,
-        name: 'Υδρευση/Αποχετευση',
-        icon: 'ellipse'
+        name: 'Ύδρευση/Αποχέτευση',
+        icon: ICONS_PATH + 'water.svg',
+        translationKey: 'plumbing'
     }
 ];
 export const ADMINISTRATIVE_SERVICES_LIST = [
     {
         id: 0,
-        name: 'Πιστοποιητικο γεννησεως',
-        icon: ''
+        name: 'Dolor assumenda',
+        icon: '',
+        translationKey: '_placeholder'
     },
     {
         id: 1,
-        name: 'Πιστοποιητικο οικογενειακης καταστασης',
-        icon: ''
+        name: 'Et quos',
+        icon: '',
+        translationKey: '_placeholder'
     },
     {
         id: 2,
-        name: 'Εξουσιοδοτηση',
-        icon: ''
+        name: 'Est expedita',
+        icon: '',
+        translationKey: '_placeholder'
     },
+    {
+        id: 3,
+        name: 'Corporis',
+        icon: '',
+        translationKey: '_placeholder'
+    },
+    {
+        id: 4,
+        name: 'Voluptatum voluptatem',
+        icon: '',
+        translationKey: '_placeholder'
+    },
+    {
+        id: 5,
+        name: 'Dolorem maiores',
+        icon: '',
+        translationKey: '_placeholder'
+    },
+    {
+        id: 6,
+        name: 'Explicabo provident',
+        icon: '',
+        translationKey: '_placeholder'
+    },
+    {
+        id: 7,
+        name: 'Eius ut ratione',
+        icon: '',
+        translationKey: '_placeholder'
+    },
+    {
+        id: 8,
+        name: 'Sunt',
+        icon: '',
+        translationKey: '_placeholder'
+    },
+    {
+        id: 9,
+        name: 'Voluptas iure',
+        icon: '',
+        translationKey: '_placeholder'
+    },
+    {
+        id: 10,
+        name: 'Nostrum laboriosam',
+        icon: '',
+        translationKey: '_placeholder'
+    }
 ];
 //# sourceMappingURL=Service.js.map

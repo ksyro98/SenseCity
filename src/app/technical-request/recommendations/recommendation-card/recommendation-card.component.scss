@@ -1,0 +1,42 @@
+@import "../../../../theme/variables";
+
+.card-col {
+  background-color: white;
+  border-top: $light-grey solid 1px;
+  border-bottom: $light-grey solid 1px;
+}
+
+.general-text {
+  color: $dark-grey;
+  font-size: 16px;
+  hyphens: auto;
+}
+
+.light-text  {
+  color: $light-grey-text;
+  font-size: 16px;
+  hyphens: auto;
+}
+
+.header-text {
+  color: $dark-grey;
+  font-size: 18px;
+}
+
+.header-div {
+  margin-left: 18px;
+  margin-right: 18px;
+  margin-top: 8px;
+  margin-bottom: 6px;
+}
+
+.body-div {
+  margin-left: 24px;
+  margin-right: 24px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.last-div {
+  margin-bottom: 10px !important;
+}

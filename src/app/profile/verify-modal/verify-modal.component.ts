@@ -1,10 +1,10 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {ProfileElement} from '../../entities/ProfileElement';
-import {ProfileLogicService} from '../profile-logic/profile-logic.service';
 import {Plugins} from '@capacitor/core';
 import {Subscription} from 'rxjs';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
+import {VerificationLogicService} from '../verification-logic/verification-logic.service';
 
 const { Toast } = Plugins;
 
@@ -21,6 +21,7 @@ export class VerifyModalComponent implements OnInit {
   private secondDigit: string;
   private thirdDigit: string;
   private fourthDigit: string;
+  private unexpectedError: string;
 
 
   isVerifyEnabled = true;
@@ -41,19 +42,19 @@ export class VerifyModalComponent implements OnInit {
 
 
   constructor(
-      private logic: ProfileLogicService,
+      private logic: VerificationLogicService,
       public modalController: ModalController,
       private localTranslateService: LocalTranslateService
   ) {
     this.setTranslationPairs();
   }
 
-  static async present(modalController: ModalController, usersElement: ProfileElement, onDismiss?: (result: boolean) => void){
+  static async present(modalController: ModalController, userElement: ProfileElement, onDismiss?: (result: boolean) => void){
     const modal = await modalController.create({
       component: VerifyModalComponent,
       cssClass: 'verify-modal-class',
       componentProps: {
-        profileElement: usersElement,
+        profileElement: userElement,
       }
     });
 
@@ -69,6 +70,7 @@ export class VerifyModalComponent implements OnInit {
 
   ngOnInit() {
     this.localTranslateService.translateLanguage();
+    this.sendActivationCode();
   }
 
   onDigitTyped(ev) {
@@ -79,7 +81,6 @@ export class VerifyModalComponent implements OnInit {
 
     if (value) {
       if (value.length > 1) {
-        // this.firstDigit = +(this.firstDigit.toString().substring(0, 1));
         ev.target.firstChild.value = value.toString().split('')[value.length - 1];
       }
       if (ev.target.parentElement.parentElement.nextElementSibling) {
@@ -92,6 +93,16 @@ export class VerifyModalComponent implements OnInit {
     if (this.firstDigit && this.secondDigit && this.thirdDigit && this.fourthDigit) {
       this.startVerification();
     }
+  }
+
+  private sendActivationCode(){
+    this.logic.sendActivationCode(this.profileElement.key).subscribe({
+      next: value => console.log(value),
+      error: error => {
+        console.log(error);
+        Toast.show({text: this.unexpectedError});
+      }
+    });
   }
 
   startVerification(){
@@ -178,5 +189,6 @@ export class VerifyModalComponent implements OnInit {
     this.localTranslateService.pairs.push({key: 'empty-digits-error', callback: (res: string) => this.emptyDigitsError = res});
     this.localTranslateService.pairs.push({key: 'wrong-code-error', callback: (res: string) => this.wrongCodeError = res});
     this.localTranslateService.pairs.push({key: 'successful-verification', callback: (res: string) => this.successfulVerification = res});
+    this.localTranslateService.pairs.push({key: 'unexpected-error', callback: (res: string) => this.unexpectedError = res});
   }
 }

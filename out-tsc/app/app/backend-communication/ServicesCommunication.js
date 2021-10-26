@@ -1,5 +1,5 @@
 import { __awaiter } from "tslib";
-import { ADMINISTRATIVE_SERVICES_LIST, TECHNICAL_SERVICES_LIST } from '../entities/RequestedService';
+import { ADMINISTRATIVE_SERVICES_LIST, TECHNICAL_SERVICES_LIST } from '../entities/Service';
 export class ServicesCommunication {
     constructor() { }
     getServices(typeOfService) {

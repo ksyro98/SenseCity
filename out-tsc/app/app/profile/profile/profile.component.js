@@ -26,11 +26,10 @@ let ProfileComponent = class ProfileComponent {
             { key: 'not-verified-1', callback: (res) => this.notVerified1 = res },
             { key: 'not-verified-2', callback: (res) => this.notVerified2 = res },
             { key: 'verify', callback: (res) => this.verify = res },
-            { key: 'unexpected-error', callback: (res) => this.unexpectedError = res },
             { key: this.city.cityKey, callback: (res) => this.city.name = res }
         ];
         logic.waitForUser().then((user) => {
-            this.elements = ProfileElement.getProfileElementsFromUser(logic.user);
+            this.elements = ProfileElement.getProfileElementsFromUser(user);
             this.elements.forEach((element) => {
                 this.pairs.push({ key: element.key, callback: (res) => element.label = res });
             });
@@ -63,13 +62,6 @@ let ProfileComponent = class ProfileComponent {
         }
     }
     presentVerifyModal(element) {
-        this.logic.sendActivationCode(element.key).subscribe({
-            next: value => console.log(value),
-            error: error => {
-                console.log(error);
-                Toast.show({ text: this.unexpectedError });
-            }
-        });
         VerifyModalComponent.present(this.modalController, element, (result) => {
             // TODO this doesn't work
             if (result) {

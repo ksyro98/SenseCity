@@ -21,13 +21,13 @@ let VerifyModalComponent = VerifyModalComponent_1 = class VerifyModalComponent {
         this.successfulVerification = '';
         this.setTranslationPairs();
     }
-    static present(modalController, usersElement, onDismiss) {
+    static present(modalController, userElement, onDismiss) {
         return __awaiter(this, void 0, void 0, function* () {
             const modal = yield modalController.create({
                 component: VerifyModalComponent_1,
                 cssClass: 'verify-modal-class',
                 componentProps: {
-                    profileElement: usersElement,
+                    profileElement: userElement,
                 }
             });
             modal.onDidDismiss()
@@ -41,6 +41,7 @@ let VerifyModalComponent = VerifyModalComponent_1 = class VerifyModalComponent {
     }
     ngOnInit() {
         this.localTranslateService.translateLanguage();
+        this.sendActivationCode();
     }
     onDigitTyped(ev) {
         const value = ev.target.firstChild.value;
@@ -48,7 +49,6 @@ let VerifyModalComponent = VerifyModalComponent_1 = class VerifyModalComponent {
         console.log(value);
         if (value) {
             if (value.length > 1) {
-                // this.firstDigit = +(this.firstDigit.toString().substring(0, 1));
                 ev.target.firstChild.value = value.toString().split('')[value.length - 1];
             }
             if (ev.target.parentElement.parentElement.nextElementSibling) {
@@ -60,6 +60,15 @@ let VerifyModalComponent = VerifyModalComponent_1 = class VerifyModalComponent {
         if (this.firstDigit && this.secondDigit && this.thirdDigit && this.fourthDigit) {
             this.startVerification();
         }
+    }
+    sendActivationCode() {
+        this.logic.sendActivationCode(this.profileElement.key).subscribe({
+            next: value => console.log(value),
+            error: error => {
+                console.log(error);
+                Toast.show({ text: this.unexpectedError });
+            }
+        });
     }
     startVerification() {
         if (this.firstDigit && this.secondDigit && this.thirdDigit && this.fourthDigit) {
@@ -138,6 +147,7 @@ let VerifyModalComponent = VerifyModalComponent_1 = class VerifyModalComponent {
         this.localTranslateService.pairs.push({ key: 'empty-digits-error', callback: (res) => this.emptyDigitsError = res });
         this.localTranslateService.pairs.push({ key: 'wrong-code-error', callback: (res) => this.wrongCodeError = res });
         this.localTranslateService.pairs.push({ key: 'successful-verification', callback: (res) => this.successfulVerification = res });
+        this.localTranslateService.pairs.push({ key: 'unexpected-error', callback: (res) => this.unexpectedError = res });
     }
 };
 __decorate([

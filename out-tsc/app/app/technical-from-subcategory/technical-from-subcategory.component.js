@@ -55,10 +55,10 @@ __decorate([
 ], TechnicalFromSubcategoryComponent.prototype, "categoryChange", void 0);
 TechnicalFromSubcategoryComponent = __decorate([
     Component({
-        selector: 'app-technical-form-subcategory',
-        templateUrl: './technical-form-subcategory.component.html',
-        styleUrls: ['./technical-form-subcategory.component.scss'],
+        selector: 'app-technical-form-sub-service',
+        templateUrl: './technical-form-sub-service.component.html',
+        styleUrls: ['./technical-form-sub-service.component.scss'],
     })
 ], TechnicalFromSubcategoryComponent);
 export { TechnicalFromSubcategoryComponent };
-//# sourceMappingURL=technical-form-subcategory.component.js.map
+//# sourceMappingURL=technical-form-sub-service.component.js.map

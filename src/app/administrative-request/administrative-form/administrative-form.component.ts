@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AdministrativeRequest} from '../../entities/AdministrativeRequest';
-import {RequestedService} from '../../entities/RequestedService';
+import {Service} from '../../entities/Service';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class AdministrativeFormComponent implements OnInit {
     this.localTranslateService.translateLanguage();
 
     this.router.queryParams.subscribe(params => {
-      const service: RequestedService = {
+      const service: Service = {
         id: parseInt(params.service_id, 10),
         name: params.service_name,
         icon: '',
@@ -33,8 +33,8 @@ export class AdministrativeFormComponent implements OnInit {
     });
   }
 
-  setCurrentStep(currentStep: number){
-    this.currentStep = currentStep;
+  setNextStep(nextStep: number){
+    this.currentStep = nextStep;
   }
 
   private setTranslationPairs(){

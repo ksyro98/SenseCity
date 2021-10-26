@@ -42,7 +42,7 @@ export class NeighborhoodMapComponent implements OnInit {
       head: this.deleteNeighborhoodHead,
       body: this.deleteNeighborhoodBody,
     };
-    this.alertService.showAlert(
+    this.alertService.show(
         content,
         callback,
         true

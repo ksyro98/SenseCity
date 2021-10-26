@@ -12,7 +12,7 @@ import { TechnicalFormComponent } from './technical-request/technical-form/techn
 import { GET_SERVICES_INTERFACE_DI_TOKEN } from './interface-adapters/GetServicesInterface';
 import { ServicesCommunication } from './backend-communication/ServicesCommunication';
 import { FormStepperComponent } from './view-utils/form-stepper/form-stepper.component';
-import { TechnicalFormSubcategoryComponent } from './technical-request/technical-form-subcategory/technical-form-subcategory.component';
+import { TechnicalFormSubServiceComponent } from './technical-request/technical-form-sub-service/technical-form-sub-service.component';
 import { FormsModule } from '@angular/forms';
 import { TechnicalFormInfoComponent } from './technical-request/technical-form-info/technical-form-info.component';
 import { TechnicalFormMapComponent } from './technical-request/technical-form-map/technical-form-map.component';
@@ -45,6 +45,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { NeighborhoodTabPageModule } from './main-screens/neighborhood-tab/neighborhood-tab.module';
 import { VerifyModalComponent } from './profile/verify-modal/verify-modal.component';
+import { RecommendationsModalComponent } from './technical-request/recommendations/recommendations-modal/recommendations-modal.component';
+import { RecommendationCardComponent } from './technical-request/recommendations/recommendation-card/recommendation-card.component';
+import { SnackbarComponent } from './view-utils/snackbar/snackbar.component';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -54,7 +57,7 @@ AppModule = __decorate([
             BackArrowHeaderComponent,
             TechnicalFormComponent,
             FormStepperComponent,
-            TechnicalFormSubcategoryComponent,
+            TechnicalFormSubServiceComponent,
             TechnicalFormInfoComponent,
             TechnicalFormMapComponent,
             TechnicalFormSubmitComponent,
@@ -80,6 +83,9 @@ AppModule = __decorate([
             SelectCityAtStartComponent,
             ConsultationCommentCardComponent,
             VerifyModalComponent,
+            RecommendationsModalComponent,
+            RecommendationCardComponent,
+            SnackbarComponent,
         ],
         entryComponents: [],
         imports: [

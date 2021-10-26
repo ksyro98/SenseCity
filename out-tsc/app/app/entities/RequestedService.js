@@ -1,6 +1,6 @@
 const ICONS_PATH = '/assets/svg-images/technical-req-icons/';
 export class RequestedService {
-    static getCategoryForService(id) {
+    static getSubService(id) {
         switch (id) {
             case 0:
                 return [

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {RequestedService} from '../../entities/RequestedService';
+import {Service} from '../../entities/Service';
 
 @Component({
   selector: 'app-administrative-card',
@@ -8,7 +8,7 @@ import {RequestedService} from '../../entities/RequestedService';
 })
 export class AdministrativeCardComponent implements OnInit {
 
-  @Input() service: RequestedService;
+  @Input() service: Service;
 
   constructor() { }
 

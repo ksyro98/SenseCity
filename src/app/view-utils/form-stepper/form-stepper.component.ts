@@ -14,10 +14,16 @@ const { Keyboard } = Plugins;
 })
 export class FormStepperComponent implements OnInit {
 
+  static readonly CLOSE = -1;
+  static readonly PREVIOUS = 0;
+  static readonly NEXT = 1;
+
   @Input() steps: number;
   @Input() canProceed: boolean;
-  currentStep: number;
+  @Input() currentStep: number;
+  @Input() loading: boolean;
   @Output() currentStepEvent = new EventEmitter<number>();
+  @Output() submitEvent = new EventEmitter<void>();
   rangeArray: number[];
   keyboardShown = false;
 
@@ -59,37 +65,52 @@ export class FormStepperComponent implements OnInit {
   }
 
   public closeForm(){
+    if (!this.canButtonBeClicked(FormStepperComponent.CLOSE)){
+      return;
+    }
+    this.currentStepEvent.emit(0);
     this.location.back();
   }
 
+  public previousStep(){
+    if (!this.canButtonBeClicked(FormStepperComponent.PREVIOUS)){
+      return;
+    }
+    this.currentStepEvent.emit(this.currentStep - 1);
+  }
+
   public nextStep(){
-    if (!this.canProceed){
+    if (!this.canButtonBeClicked(FormStepperComponent.NEXT)){
       return;
     }
     if (this.currentStep === this.steps - 1){
-      this.alertService.showAlert(
+      this.alertService.show(
           {
             head: this.completeRequestHead,
             body: this.completeRequestBody,
           },
-          () => this.location.back()
+          () => this.submitEvent.emit()
       );
       return;
     }
-    this.currentStep++;
-    this.currentStepEvent.emit(this.currentStep);
+    this.currentStepEvent.emit(this.currentStep + 1);
   }
 
-  public previousStep(){
-    if ((!this.canProceed) || (this.currentStep === 0)){
-      return;
+  private canButtonBeClicked(which: number): boolean{
+    switch (which) {
+      case FormStepperComponent.CLOSE:
+        return !this.loading;
+      case FormStepperComponent.PREVIOUS:
+        return this.canProceed && (this.currentStep !== 0) && !this.loading;
+      case FormStepperComponent.NEXT:
+        return this.canProceed && !this.loading;
+      default:
+        return false;
     }
-    this.currentStep--;
-    this.currentStepEvent.emit(this.currentStep);
   }
 
-    setTranslationPairs(){
-      this.localTranslateService.pairs.push({key: 'complete-request-head', callback: (res: string) => this.completeRequestHead = res});
-      this.localTranslateService.pairs.push({key: 'complete-request-body', callback: (res: string) => this.completeRequestBody = res});
-    }
+  private setTranslationPairs(){
+    this.localTranslateService.pairs.push({key: 'complete-request-head', callback: (res: string) => this.completeRequestHead = res});
+    this.localTranslateService.pairs.push({key: 'complete-request-body', callback: (res: string) => this.completeRequestBody = res});
+  }
 }

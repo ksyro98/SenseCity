@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {RequestDetailsMapModalComponent} from '../request-details-map-modal/request-details-map-modal.component';
-import {RequestedService} from '../../entities/RequestedService';
+import {Service} from '../../entities/Service';
 import {ActivatedRoute} from '@angular/router';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 

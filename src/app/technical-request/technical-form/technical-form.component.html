@@ -1,21 +1,37 @@
-<app-back-arrow-header [title]="newRequest"></app-back-arrow-header>
+<app-back-arrow-header [title]="newRequestTxt"></app-back-arrow-header>
 
 <ion-content style="height: 100%">
     <div ngSwitch="{{currentStep}}">
         <app-technical-form-subcategory
-                *ngSwitchCase="0" [service]="request.service"
+                *ngSwitchCase="0" [service]="logic.request.service"
                 (canProceedEvent)="setCanProceed($event)"
-                [(category)]="request.category">
+                [(category)]="logic.request.subService">
         </app-technical-form-subcategory>
-        <app-technical-form-info *ngSwitchCase="1"></app-technical-form-info>
-        <app-technical-form-map *ngSwitchCase="2"></app-technical-form-map>
-        <app-technical-form-submit *ngSwitchCase="3"></app-technical-form-submit>
+
+        <app-technical-form-info *ngSwitchCase="1"
+                                 [(imagePath)]="logic.request.image"
+                                 [(userComments)]="logic.request.comments">
+        </app-technical-form-info>
+
+        <app-technical-form-map *ngSwitchCase="2" [(locationLatLng)]="logic.request.location">
+        </app-technical-form-map>
+
+        <app-technical-form-submit *ngSwitchCase="3" [finalRequest]="logic.request"
+                                   (imageChange)="logic.request.image = $event"
+                                   [(namedClicked)]="namedClicked">
+        </app-technical-form-submit>
     </div>
 </ion-content>
 
 <app-form-stepper
-        [steps]="4" [canProceed]="canProceed"
-        (currentStepEvent)="setCurrentStep($event)"
+        [steps]="4" [canProceed]="canProceed" [currentStep]="currentStep"
+        (currentStepEvent)="goToNextStep($event)" [loading]="loading" (submitEvent)="goToNextStep(4)"
         class="bottom-stepper">
 </app-form-stepper>
 
+<app-snackbar
+        *ngIf="shouldShowVerificationSnackBar()"
+        [text]="getVerificationSnackBarText()" [buttonText]="verifyTxt"
+        (click)="presentVerificationModal()"
+        style="z-index: 10">
+</app-snackbar>

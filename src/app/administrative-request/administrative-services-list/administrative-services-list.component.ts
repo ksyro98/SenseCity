@@ -1,6 +1,6 @@
 import {Component, Inject, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {AdministrativeRequest} from '../../entities/AdministrativeRequest';
-import {RequestedService} from '../../entities/RequestedService';
+import {Service} from '../../entities/Service';
 import {GET_SERVICES_INTERFACE_DI_TOKEN, GetServicesInterface} from '../../interface-adapters/GetServicesInterface';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
@@ -12,7 +12,7 @@ import {LocalTranslateService} from '../../view-utils/local-translate-service/lo
 export class AdministrativeServicesListComponent implements OnInit {
 
   @Input() query;
-  administrativeServices: RequestedService[];
+  administrativeServices: Service[];
 
   constructor(
       @Inject(GET_SERVICES_INTERFACE_DI_TOKEN) private getServicesInterface: GetServicesInterface,

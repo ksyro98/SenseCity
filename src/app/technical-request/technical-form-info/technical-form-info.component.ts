@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
-import { CameraService } from '../../view-utils/camera-service/camera.service';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 @Component({
@@ -13,6 +12,12 @@ export class TechnicalFormInfoComponent implements OnInit {
   details = 'Πληροφορίες';
   additionalDescription = 'Επιπλέον Παρατηρήσεις';
   comments = 'Σχόλια';
+
+  @Input() imagePath: string;
+  @Output() imagePathChange = new EventEmitter<string>();
+
+  @Input() userComments: string;
+  @Output() userCommentsChange = new EventEmitter<string>();
 
   constructor(public actionSheetController: ActionSheetController, private localTranslateService: LocalTranslateService) {
     this.setTranslationPairs();
@@ -28,4 +33,7 @@ export class TechnicalFormInfoComponent implements OnInit {
     this.localTranslateService.pairs.push({key: 'comments', callback: (res: string) => this.comments = res});
   }
 
+  onCommentChange(){
+    this.userCommentsChange.emit(this.userComments);
+  }
 }

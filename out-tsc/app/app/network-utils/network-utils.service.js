@@ -61,6 +61,62 @@ let NetworkUtilsService = NetworkUtilsService_1 = class NetworkUtilsService {
             headers: NetworkUtilsService_1.getHeaders()
         });
     }
+    getPolicyAboutEmailsSms(lat, long) {
+        const url = `${BASE_URL}/api/1.0/activate_city_policy?lat=${lat}&long=${long}`;
+        return this.http.post(url, {}, {
+            headers: NetworkUtilsService_1.getHeaders()
+        });
+    }
+    getPolicyAboutAnonymity(issue, lat, long) {
+        const url = `${BASE_URL}/api/1.0/city_policy?coordinates=[${lat},${long}]&issue=${issue}`;
+        return this.http.get(url, {
+            headers: NetworkUtilsService_1.getHeaders()
+        });
+    }
+    getIssueRecommendations(subServiceIssue, issueLat, issueLong) {
+        const url = `${BASE_URL}/api/1.0/issue_recommendation`;
+        const body = {
+            issue: subServiceIssue,
+            lat: issueLat,
+            long: issueLong
+        };
+        return this.http.post(url, body, {
+            headers: NetworkUtilsService_1.getHeaders()
+        });
+    }
+    addNewIssue(request, user, userDeviceId, userId) {
+        const url = `${BASE_URL}/api/1.0/add_new_issue`;
+        const body = {
+            loc: {
+                type: request.location.type,
+                coordinates: [request.location.coordinates[1], request.location.coordinates[0]]
+            },
+            issue: request.service.translationKey,
+            device_id: userDeviceId,
+            value_desc: request.subService.name,
+            comments: request.comments,
+            image_name: request.image,
+            uuid: userId,
+            name: user.fullName,
+            email: user.email,
+            mobile_num: user.phone
+        };
+        return this.http.post(url, body, {
+            headers: NetworkUtilsService_1.getHeaders()
+        });
+    }
+    subscribeToIssue(issueId, user) {
+        const url = `${BASE_URL}/api/1.0/issue_subscribe`;
+        const body = {
+            bug_id: issueId,
+            email: user.email,
+            mobile_num: user.phone,
+            name: user.fullName
+        };
+        return this.http.post(url, body, {
+            headers: NetworkUtilsService_1.getHeaders()
+        });
+    }
 };
 NetworkUtilsService = NetworkUtilsService_1 = __decorate([
     Injectable({

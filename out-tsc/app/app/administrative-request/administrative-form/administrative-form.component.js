@@ -19,8 +19,8 @@ let AdministrativeFormComponent = class AdministrativeFormComponent {
             };
         });
     }
-    setCurrentStep(currentStep) {
-        this.currentStep = currentStep;
+    setNextStep(nextStep) {
+        this.currentStep = nextStep;
     }
     setTranslationPairs() {
         this.localTranslateService.pairs.push({ key: 'new-request', callback: (res) => this.newRequest = res });

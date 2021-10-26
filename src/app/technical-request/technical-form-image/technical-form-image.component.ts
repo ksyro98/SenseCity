@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActionSheetController} from '@ionic/angular';
 import {CameraService} from '../../view-utils/camera-service/camera.service';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
@@ -12,7 +12,8 @@ import setTransform = DomUtil.setTransform;
 })
 export class TechnicalFormImageComponent implements OnInit {
 
-  path = '';
+  @Input() path: string;
+  @Output() pathChange = new EventEmitter<string>();
   @Input() defaultImage: string;
   @Input() showHeader: boolean;
   @Input() imageHeight: number;
@@ -32,7 +33,10 @@ export class TechnicalFormImageComponent implements OnInit {
   }
 
   addImage() {
-    this.cameraService.showCameraActionSheet(res => this.path = res);
+    this.cameraService.showCameraActionSheet(res => {
+      this.path = res;
+      this.pathChange.emit(this.path);
+    });
   }
 
   private setTranslationPairs(){

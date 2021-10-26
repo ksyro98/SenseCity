@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { TechnicalFormSubcategoryComponent } from './technical-form-subcategory.component';
+import { RecommendationCardComponent } from './recommendation-card.component';
 
-describe('TechnicalFromSubcategoryComponent', () => {
-  let component: TechnicalFormSubcategoryComponent;
-  let fixture: ComponentFixture<TechnicalFormSubcategoryComponent>;
+describe('RecommendationCardComponent', () => {
+  let component: RecommendationCardComponent;
+  let fixture: ComponentFixture<RecommendationCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TechnicalFormSubcategoryComponent ],
+      declarations: [ RecommendationCardComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TechnicalFormSubcategoryComponent);
+    fixture = TestBed.createComponent(RecommendationCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

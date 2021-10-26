@@ -11,7 +11,7 @@ let TechnicalFormSubcategoryComponent = class TechnicalFormSubcategoryComponent 
         this.shortDescription = 'Συντομη περιγραφη (εως 40 χαρ.)';
     }
     ngOnInit() {
-        this.categories = RequestedService.getCategoryForService(this.service.id);
+        this.categories = RequestedService.getSubService(this.service.id);
         this.setOtherPressed(this.category.id === -1);
         this.value = this.getCategoryDescription();
         this.setTranslationPairs();
@@ -63,10 +63,10 @@ __decorate([
 ], TechnicalFormSubcategoryComponent.prototype, "categoryChange", void 0);
 TechnicalFormSubcategoryComponent = __decorate([
     Component({
-        selector: 'app-technical-form-subcategory',
-        templateUrl: './technical-form-subcategory.component.html',
-        styleUrls: ['./technical-form-subcategory.component.scss'],
+        selector: 'app-technical-form-sub-service',
+        templateUrl: './technical-form-sub-service.component.html',
+        styleUrls: ['./technical-form-sub-service.component.scss'],
     })
 ], TechnicalFormSubcategoryComponent);
 export { TechnicalFormSubcategoryComponent };
-//# sourceMappingURL=technical-form-subcategory.component.js.map
+//# sourceMappingURL=technical-form-sub-service.component.js.map

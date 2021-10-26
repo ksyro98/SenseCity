@@ -6,29 +6,38 @@ let AlertService = class AlertService {
         this.localTranslateService = localTranslateService;
         this.yes = 'Ναι';
         this.no = 'Όχι';
+        this.ok = 'Ok';
         this.setTranslationPairs();
         this.localTranslateService.translateLanguage();
     }
-    showAlert(content, callback, negativeAction = false) {
+    show(content, callback, negativeAction = false, onlyOk = false) {
         return __awaiter(this, void 0, void 0, function* () {
             const alert = yield this.alertController.create({
                 cssClass: 'alert-dialog-class',
                 header: content.head,
                 message: content.body,
-                buttons: [{
-                        text: this.no,
-                        role: 'cancel',
-                        cssClass: negativeAction ? 'grey-alert-button' : ''
-                    }, {
-                        text: this.yes,
-                        cssClass: negativeAction ? 'red-alert-button' : '',
-                        handler: () => {
-                            callback();
-                        }
-                    }]
+                buttons: this.getButtons(onlyOk, negativeAction, callback)
             });
             yield alert.present();
         });
+    }
+    getButtons(onlyOk, negativeAction, callback) {
+        const buttons = [];
+        if (!onlyOk) {
+            buttons.push({
+                text: this.no,
+                role: 'cancel',
+                cssClass: negativeAction ? 'grey-alert-button' : ''
+            });
+        }
+        buttons.push({
+            text: onlyOk ? this.ok : this.yes,
+            cssClass: negativeAction ? 'red-alert-button' : '',
+            handler: () => {
+                callback();
+            }
+        });
+        return buttons;
     }
     setTranslationPairs() {
         this.localTranslateService.pairs.push({ key: 'yes', callback: (res) => this.yes = res });

@@ -1,0 +1,42 @@
+@import "../../../../theme/variables";
+
+.general-text {
+  color: $dark-grey;
+  font-size: 16px;
+  text-align: center;
+  padding-top: 16px;
+  padding-bottom: 8px;
+  margin-right: 12px;
+  margin-left: 12px;
+}
+
+.horizontal-line {
+  height: 1px;
+  width: 100%;
+  background-color: $light-grey;
+}
+
+ion-fab-button {
+  width: 80px !important;
+  height: 40px !important;
+  --border-radius: 15px !important;
+  font-size: 16px;
+}
+
+.fab-span {
+  padding-bottom: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.spinner-div {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ion-spinner{
+  width: 40px !important;
+  height: 40px !important;
+}

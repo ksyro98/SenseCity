@@ -21,8 +21,9 @@
 
     <ion-col size="1.2" class="col-margin">
       <ion-buttons (click)="nextStep()">
-        <img src="../../../assets/svg-images/right-arrow.svg" alt="Next step arrow." *ngIf="currentStep !== steps - 1">
-        <img src="../../../assets/svg-images/check.svg" alt="Next step arrow." *ngIf="currentStep === steps - 1">
+        <ion-spinner name="crescent" color="primary" *ngIf="loading"></ion-spinner>
+        <img src="../../../assets/svg-images/right-arrow.svg" alt="Next step arrow." *ngIf="!loading && currentStep !== steps - 1">
+        <img src="../../../assets/svg-images/check.svg" alt="Next step arrow." *ngIf="!loading && currentStep === steps - 1">
       </ion-buttons>
     </ion-col>
 

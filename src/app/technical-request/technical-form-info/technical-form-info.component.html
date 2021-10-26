@@ -6,14 +6,16 @@
 </ion-list>
 
 <app-technical-form-image
-        defaultImage="../../assets/images/add_photo.png" [showHeader]="true" [imageHeight]="200">
+        defaultImage="../../assets/images/add_photo.png" [showHeader]="true" [imageHeight]="200"
+        [(path)]="imagePath" (pathChange)="imagePathChange.emit($event)">
 </app-technical-form-image>
 
 <br><br>
 
 <div class="center_long" style="height: 150px">
     <div class="small_header">{{additionalDescription}}</div>
-    <ion-textarea [placeholder]="comments" rows="7"></ion-textarea>
+    <ion-textarea [placeholder]="comments" rows="7" [(ngModel)]="userComments" (ionChange)="onCommentChange()">
+    </ion-textarea>
 </div>
 
 <br><br>

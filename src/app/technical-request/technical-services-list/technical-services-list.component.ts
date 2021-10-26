@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 
 import {GET_SERVICES_INTERFACE_DI_TOKEN, GetServicesInterface} from '../../interface-adapters/GetServicesInterface';
-import {RequestedService} from '../../entities/RequestedService';
+import {Service} from '../../entities/Service';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 @Component({
@@ -11,7 +11,7 @@ import {LocalTranslateService} from '../../view-utils/local-translate-service/lo
 })
 export class TechnicalServicesListComponent implements OnInit {
 
-  public technicalServices: RequestedService[];
+  public technicalServices: Service[];
   // private getServicesInterface: GetServicesInterface;
 
   // TODO how can we remove the call to the ServicesCommunication

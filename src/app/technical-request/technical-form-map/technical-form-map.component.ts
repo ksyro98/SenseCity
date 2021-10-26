@@ -1,8 +1,9 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {ModalController, ToastController} from '@ionic/angular';
 import {CitiesModalComponent} from '../../view-utils/cities-modal/cities-modal.component';
 import {CITIES} from '../../constants/Cities';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
+import {RequestLocation} from '../../entities/RequestLocation';
 
 @Component({
   selector: 'app-technical-form-map',
@@ -14,6 +15,8 @@ export class TechnicalFormMapComponent implements OnInit {
   private map;
   private locationMarker;
   city = CITIES[4];
+  @Input() locationLatLng: RequestLocation;
+  @Output() locationLatLngChange = new EventEmitter<RequestLocation>();
 
   location = 'Τοποθεσία';
   changeCity = 'Αλλαγή πόλης';
@@ -27,7 +30,11 @@ export class TechnicalFormMapComponent implements OnInit {
   }
 
   async presentCitiesModal(){
-    CitiesModalComponent.present(this.modalController, (city) => this.city = city);
+    CitiesModalComponent.present(this.modalController, (city) => {
+      this.city = city;
+      this.locationLatLng = {type: 'Point', coordinates: [city.lat, city.long]};
+      this.locationLatLngChange.emit(this.locationLatLng);
+    });
   }
 
   setTranslationPairs(){

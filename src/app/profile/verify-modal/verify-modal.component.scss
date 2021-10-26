@@ -2,18 +2,25 @@
 
 .instructions-div{
   margin-top: 18px;
-  margin-bottom: 32px;
+  margin-bottom: 0;
   padding-right: 32px;
   padding-left: 38px;
   font-size: 14px;
   color: $dark-grey;
 }
 
+.digits-row {
+  padding-right: 12px;
+  padding-left: 12px;
+  padding-top: 90px;
+  background-color: var(--ion-background-color);
+}
+
 .digit-input-div {
   width: 70px;
   height: 90px;
-  background-color: white;
-  border: #0b746a solid 1px;
+  background-color: var(--ion-background-color);
+  border: var(--ion-color-primary) solid 1px;
   border-radius: 10px;
 }
 
@@ -24,10 +31,21 @@
   width: 70px;
 }
 
-.digits-row {
-  margin-right: 12px;
-  margin-left: 12px;
-  margin-top: 90px;
+.button-row {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: var(--ion-background-color);
+}
+
+.verify-button {
+  --border-radius: 35px;
+  margin: auto;
+  text-transform: none;
+  font-size: medium;
+  vertical-align: center;
+  font-weight: normal;
+  width: 150px;
+  height: 40px;
 }
 
 .message-image {
@@ -40,19 +58,5 @@
   bottom: 0;
   left: 0;
   right: 0;
-}
-
-.button-row {
-  margin-top: 40px;
-}
-
-.verify-button {
-  --border-radius: 35px;
-  margin: auto;
-  text-transform: none;
-  font-size: medium;
-  vertical-align: center;
-  font-weight: normal;
-  width: 150px;
-  height: 40px;
+  z-index: -10;
 }
