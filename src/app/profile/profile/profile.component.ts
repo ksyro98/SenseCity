@@ -94,7 +94,6 @@ export class ProfileComponent implements OnInit {
 
   onFocusLost(key: string, value: string){
     this.logic.setUserValue(key, value);
-    this.elements = ProfileElement.getProfileElementsFromUser(this.logic.getUser());
     if (key === ProfileElement.EMAIL_KEY || key === ProfileElement.PHONE_KEY) {
       this.isActive$ = this.logic.isUserActive();
     }

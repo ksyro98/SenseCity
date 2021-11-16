@@ -1,52 +1,64 @@
 <app-back-arrow-header [title]="profile"></app-back-arrow-header>
 
 <ion-content>
-  <ion-list>
+    <ion-list>
 
-    <form>
-      <div *ngFor="let element of elements">
+        <form>
+        <div *ngFor="let element of elements">
 
-        <ion-item lines="insert">
-          <ion-label position="floating" class="grey-label">{{element.label}}</ion-label>
-          <ion-input
-                  [value]="element.value"
-                  [type]="element.inputType"
-                  (focusout)="onFocusLost(element.key, $event.target['value'])">
-          </ion-input>
+            <ion-item lines="insert">
+                <ion-label position="floating" class="grey-label">{{element.label}}</ion-label>
+                <ion-input
+                        [value]="element.value"
+                        [type]="element.inputType"
+                        (focusout)="onFocusLost(element.key, $event.target['value'])">
+                </ion-input>
+            </ion-item>
+
+            <div *ngIf="element.key === emailKey || element.key === phoneKey">
+                <div *ngIf="(isActive$ | async) as isActive" [class]="isActive[element.key] ? '' : 'negative-warning-div'">
+                    {{isActive[element.key] ? '' : notVerified1 + element.label.toLowerCase() + notVerified2}}
+                    <u *ngIf="!isActive[element.key]" class="negative-link" (click)="presentVerifyModal(element)">
+                        {{verify + '.'}}
+                    </u>
+                </div>
+            </div>
+
+        </div>
+        </form>
+
+
+<!--        <div>-->
+<!--            <ion-item *ngFor="let element of elements; let i = index;" lines="insert">-->
+<!--                <ion-label position="floating" class="grey-label">{{element.label}}</ion-label>-->
+<!--                <ion-input-->
+<!--                        [value]="element.value"-->
+<!--                        [type]="element.inputType"-->
+<!--                        (focusout)="onFocusLost(element.key, $event.target['value'])"-->
+<!--                        (keyup.enter)="focusNext($event)">-->
+<!--                </ion-input>-->
+<!--            </ion-item>-->
+<!--        </div>-->
+
+        <ion-item (click)="presentCitiesModal()">
+            <ion-label position="stacked">{{cityTitle}}</ion-label>
+            <ion-text>{{city.name}}</ion-text>
         </ion-item>
 
-        <div *ngIf="(element.key === emailKey || element.key === phoneKey) && (element.value.length > 0)">
-          <div *ngIf="(isActive$ | async) as isActive" [class]="isActive[element.key] ? '' : 'negative-warning-div'">
-            {{isActive[element.key] ? '' : notVerified1 + element.label.toLowerCase() + notVerified2}}
-            <u *ngIf="!isActive[element.key]" class="negative-link" (click)="presentVerifyModal(element)">
-              {{verify + '.'}}
-            </u>
-          </div>
-        </div>
+        <ion-item>
+            <ion-label position="stacked">{{languageTitle}}</ion-label>
+            <ion-select
+                    interface="popover"
+                    [interfaceOptions]="{cssClass: 'options-popover-class'}"
+                    [(ngModel)]="language"
+                    [value]="language"
+                    (ionChange)="changeLanguage()">
+                <ion-select-option value="el">Ελληνικα</ion-select-option>
+                <ion-select-option value="en">English</ion-select-option>
+            </ion-select>
+        </ion-item>
 
-      </div>
-    </form>
-
-
-    <ion-item (click)="presentCitiesModal()">
-      <ion-label position="stacked">{{cityTitle}}</ion-label>
-      <ion-text>{{city.name}}</ion-text>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="stacked">{{languageTitle}}</ion-label>
-      <ion-select
-              interface="popover"
-              [interfaceOptions]="{cssClass: 'options-popover-class'}"
-              [(ngModel)]="language"
-              [value]="language"
-              (ionChange)="changeLanguage()">
-        <ion-select-option value="el">Ελληνικα</ion-select-option>
-        <ion-select-option value="en">English</ion-select-option>
-      </ion-select>
-    </ion-item>
-
-  </ion-list>
+    </ion-list>
 
 </ion-content>
 

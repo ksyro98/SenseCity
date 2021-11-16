@@ -4,11 +4,11 @@
   </div>
 </ion-toolbar>
 
-<p>{{selectCityAtStart}}</p>
+<p>{{selectCityAtStartTxt}}</p>
 
-<ion-searchbar *ngIf="cities.length >= 9" placeholder="Αναζήτηση" (ionInput)="onSearch($event)" i18n></ion-searchbar>
+<ion-searchbar *ngIf="cities.length >= 9" [placeholder]=searchTxt (ionInput)="onSearch($event)" i18n></ion-searchbar>
 
-<app-divider></app-divider>
+<app-divider *ngIf="cities.length >= 9"></app-divider>
 
 <ion-content>
 

@@ -8,7 +8,8 @@ let SelectCityAtStartComponent = SelectCityAtStartComponent_1 = class SelectCity
         this.localTranslateService = localTranslateService;
         this.query = '';
         this.buttonWillExit = false;
-        this.selectCityAtStart = 'Πριν ξεκινήσεις επίλεξε την πόλη σου.';
+        this.selectCityAtStartTxt = 'Πριν ξεκινήσεις επίλεξε την πόλη σου.';
+        this.searchTxt = 'Αναζήτηση';
     }
     static present(modalController, onDismiss) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -49,7 +50,8 @@ let SelectCityAtStartComponent = SelectCityAtStartComponent_1 = class SelectCity
         });
     }
     setTranslationPairs() {
-        this.localTranslateService.pairs.push({ key: 'select-city-at-start', callback: (res) => this.selectCityAtStart = res });
+        this.localTranslateService.pairs.push({ key: 'select-city-at-start', callback: (res) => this.selectCityAtStartTxt = res });
+        this.localTranslateService.pairs.push({ key: 'search', callback: (res) => this.searchTxt = res });
         this.cities.forEach((city) => {
             this.localTranslateService.pairs.push({ key: city.cityKey, callback: (res) => city.name = res });
         });

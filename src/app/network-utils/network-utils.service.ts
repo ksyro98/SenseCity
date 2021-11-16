@@ -69,8 +69,8 @@ export class NetworkUtilsService {
   }
 
   activateEmail(userEmail: string, emailCode: string): Observable<any>{
-    const url = `${BASE_URL}/api/1.0/activate_email?uuid=${this.deviceUuid}&code=${emailCode}&email=${userEmail}`;
-    // const url = `${BASE_URL}/api/1.0/activate_email?uuid=web-site&code=${emailCode}&email=${userEmail}`;
+    // const url = `${BASE_URL}/api/1.0/activate_email?uuid=${this.deviceUuid}&code=${emailCode}&email=${userEmail}`;
+    const url = `${BASE_URL}/api/1.0/activate_email?uuid=web-site&code=${emailCode}&email=${userEmail}`;
 
     return this.http.post(url, {}, {
       headers: NetworkUtilsService.getHeaders()

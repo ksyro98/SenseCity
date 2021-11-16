@@ -18,7 +18,8 @@ export class SelectCityAtStartComponent implements OnInit {
   query = '';
   buttonWillExit = false;
 
-  selectCityAtStart = 'Πριν ξεκινήσεις επίλεξε την πόλη σου.';
+  selectCityAtStartTxt = 'Πριν ξεκινήσεις επίλεξε την πόλη σου.';
+  searchTxt = 'Αναζήτηση';
 
   static async present(modalController: ModalController, onDismiss: (data: any) => void) {
     const modal = await modalController.create({
@@ -63,7 +64,8 @@ export class SelectCityAtStartComponent implements OnInit {
   }
 
   private setTranslationPairs(){
-    this.localTranslateService.pairs.push({key: 'select-city-at-start', callback: (res: string) => this.selectCityAtStart = res});
+    this.localTranslateService.pairs.push({key: 'select-city-at-start', callback: (res: string) => this.selectCityAtStartTxt = res});
+    this.localTranslateService.pairs.push({key: 'search', callback: (res: string) => this.searchTxt = res});
     this.cities.forEach((city) => {
       this.localTranslateService.pairs.push({key: city.cityKey, callback: (res: string) => city.name = res});
     });

@@ -35,8 +35,8 @@ export class ProfileLogicService {
 
     return this.repository.isUserActive(user.email, user.phone, user.fullName).pipe(
         map(x => ({
-          [ProfileElement.EMAIL_KEY]: x[1].activate_email === '1',
-          [ProfileElement.PHONE_KEY]: x[0].activate_sms === '1'
+          [ProfileElement.EMAIL_KEY]: user.email.length === 0 || x[1].activate_email === '1',
+          [ProfileElement.PHONE_KEY]: user.phone.length === 0 || x[0].activate_sms === '1'
         }))
     );
   }

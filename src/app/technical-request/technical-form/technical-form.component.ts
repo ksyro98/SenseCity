@@ -188,12 +188,6 @@ export class TechnicalFormComponent implements OnInit {
     const emailNeeded = !this.unverifiedEmailAllowed && !this.logic.isEmailVerified();
     const phoneNeeded = !this.unverifiedSmsAllowed && !this.logic.isPhoneVerified();
 
-    console.log('---');
-    console.log(this.unverifiedSmsAllowed);
-    console.log(this.logic.isPhoneVerified());
-    console.log(phoneNeeded);
-    console.log('---');
-
     text += emailNeeded ? this.emailTxt : '';
     text += (emailNeeded && phoneNeeded) ? this.needToVerify2Txt : '';
     text += phoneNeeded ? this.mobilePhoneTxt : '';

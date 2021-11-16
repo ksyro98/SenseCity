@@ -47,8 +47,8 @@ let NetworkUtilsService = NetworkUtilsService_1 = class NetworkUtilsService {
         });
     }
     activateEmail(userEmail, emailCode) {
-        const url = `${BASE_URL}/api/1.0/activate_email?uuid=${this.deviceUuid}&code=${emailCode}&email=${userEmail}`;
-        // const url = `${BASE_URL}/api/1.0/activate_email?uuid=web-site&code=${emailCode}&email=${userEmail}`;
+        // const url = `${BASE_URL}/api/1.0/activate_email?uuid=${this.deviceUuid}&code=${emailCode}&email=${userEmail}`;
+        const url = `${BASE_URL}/api/1.0/activate_email?uuid=web-site&code=${emailCode}&email=${userEmail}`;
         return this.http.post(url, {}, {
             headers: NetworkUtilsService_1.getHeaders()
         });
