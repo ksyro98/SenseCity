@@ -11,21 +11,21 @@ export class VerificationRepositoryService {
 
   constructor(private storageUserService: StorageUserService, private networkUtils: NetworkUtilsService) { }
 
-  sendActivationEmail(userEmail: string, userUuid?: string): Observable<any>{
-    return this.networkUtils.sendActivationEmail(userEmail, userUuid);
+  sendActivationEmail(userEmail: string): Observable<any>{
+    return this.networkUtils.sendActivationEmail(userEmail);
   }
 
   sendActivationMobileMessage(
-      userMobile: string, userName: string, userUuid?: string, lat?: number, long?: number, city?: string
+      userMobile: string, userName: string, lat?: number, long?: number, city?: string
   ): Observable<any>{
-    return this.networkUtils.sendActivationMobileMessage(userMobile, userName, userUuid, lat, long, city);
+    return this.networkUtils.sendActivationMobileMessage(userMobile, userName, lat, long, city);
   }
 
-  activateEmail(userEmail: string, emailCode: string, userUuid?: string): Observable<any>{
+  activateEmail(userEmail: string, emailCode: string): Observable<any>{
     return this.networkUtils.activateEmail(userEmail, emailCode);
   }
 
-  activateMobile(userPhone: string, emailCode: string, userUuid?: string): Observable<any>{
+  activateMobile(userPhone: string, emailCode: string): Observable<any>{
     return this.networkUtils.activateEmail(userPhone, emailCode);
   }
 }

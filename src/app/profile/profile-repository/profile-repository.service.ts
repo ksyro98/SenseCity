@@ -11,8 +11,8 @@ export class ProfileRepositoryService {
 
   constructor(private storageUserService: StorageUserService, private networkUtils: NetworkUtilsService) { }
 
-  isUserActive(email: string, mobile: string, name: string, city?: string, uuid?: string): Observable<any>{
-    return this.networkUtils.isUserActive(email, mobile, name, city, uuid);
+  isUserActive(email: string, mobile: string, name: string, city?: string): Observable<any>{
+    return this.networkUtils.isUserActive(email, mobile, name, city);
   }
 
 }

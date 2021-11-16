@@ -26,11 +26,18 @@ export class ProfileLogicService {
     this.userService.setUserValue(key, value);
   }
 
+  getUser(): User{
+    return this.userService.getUser();
+  }
+
   isUserActive(): Observable<any>{
     const user = this.userService.getUser();
+
     return this.repository.isUserActive(user.email, user.phone, user.fullName).pipe(
-        map(x => x[0]),
-        map(x => ({[ProfileElement.EMAIL_KEY]: x.activate_email === '1', [ProfileElement.PHONE_KEY]: x.activate_sms === '1'}))
+        map(x => ({
+          [ProfileElement.EMAIL_KEY]: x[1].activate_email === '1',
+          [ProfileElement.PHONE_KEY]: x[0].activate_sms === '1'
+        }))
     );
   }
 }

@@ -2,13 +2,13 @@
 
 <div class="general-text">{{otherRequestsTxt}}</div>
 
-<div class="horizontal-line"></div>
+<app-divider></app-divider>
 
 <ion-content>
     <div *ngIf="!loading">
         <app-recommendation-card
                 *ngFor="let recommendation of recommendations" [recommendation]="recommendation"
-                (click)="cardClicked(recommendation)">
+                (click)="cardClicked(recommendation)" style="display: flex">
         </app-recommendation-card>
     </div>
 
@@ -17,7 +17,7 @@
     </div>
 
     <ion-fab vertical="bottom" horizontal="start" slot="fixed" *ngIf="!loading">
-        <ion-fab-button (click)="cardClicked(undefined)">
+        <ion-fab-button (click)="goBack()">
             <ion-icon name="chevron-back-sharp"></ion-icon>
             <span class="fab-span">{{noTxt}}</span>
         </ion-fab-button>

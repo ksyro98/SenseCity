@@ -27,7 +27,7 @@
 
 <ion-content>
 
-  <div [ngSwitch]="neighborhoodSegment">
+  <div [ngSwitch]="neighborhoodSegment" style="height: 100%;">
     <app-neighborhood-map *ngSwitchCase="0"></app-neighborhood-map>
     <app-neighborhood-messages *ngSwitchCase="1"></app-neighborhood-messages>
   </div>

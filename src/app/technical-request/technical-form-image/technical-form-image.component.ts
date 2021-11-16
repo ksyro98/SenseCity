@@ -2,8 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActionSheetController} from '@ionic/angular';
 import {CameraService} from '../../view-utils/camera-service/camera.service';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
-import {DomUtil} from 'leaflet';
-import setTransform = DomUtil.setTransform;
+
 
 @Component({
   selector: 'app-technical-form-image',
@@ -12,8 +11,8 @@ import setTransform = DomUtil.setTransform;
 })
 export class TechnicalFormImageComponent implements OnInit {
 
-  @Input() path: string;
-  @Output() pathChange = new EventEmitter<string>();
+  @Input() imageDataUrl: string;
+  @Output() imageDataUrlChange = new EventEmitter<string>();
   @Input() defaultImage: string;
   @Input() showHeader: boolean;
   @Input() imageHeight: number;
@@ -34,9 +33,13 @@ export class TechnicalFormImageComponent implements OnInit {
 
   addImage() {
     this.cameraService.showCameraActionSheet(res => {
-      this.path = res;
-      this.pathChange.emit(this.path);
+      this.imageDataUrl = res;
+      this.imageDataUrlChange.emit(this.imageDataUrl);
     });
+  }
+
+  imageExists(): boolean{
+    return this.imageDataUrl === undefined || this.imageDataUrl === null || this.imageDataUrl === '';
   }
 
   private setTranslationPairs(){

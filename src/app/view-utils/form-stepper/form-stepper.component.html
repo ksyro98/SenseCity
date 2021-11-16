@@ -20,11 +20,19 @@
     <ion-col size="1"></ion-col>
 
     <ion-col size="1.2" class="col-margin">
-      <ion-buttons (click)="nextStep()">
+
+      <ion-buttons *ngIf="currentStep !== steps -1; else final_step_content" (click)="nextStep()">
         <ion-spinner name="crescent" color="primary" *ngIf="loading"></ion-spinner>
-        <img src="../../../assets/svg-images/right-arrow.svg" alt="Next step arrow." *ngIf="!loading && currentStep !== steps - 1">
-        <img src="../../../assets/svg-images/check.svg" alt="Next step arrow." *ngIf="!loading && currentStep === steps - 1">
+        <img src="../../../assets/svg-images/right-arrow.svg" alt="Next step arrow." *ngIf="!loading">
       </ion-buttons>
+
+      <ng-template #final_step_content>
+        <ion-buttons (click)="submit()">
+          <ion-spinner name="crescent" color="primary" *ngIf="loading"></ion-spinner>
+          <img src="../../../assets/svg-images/check.svg" alt="Next step arrow." *ngIf="!loading">
+        </ion-buttons>
+      </ng-template>
+
     </ion-col>
 
   </ion-row>

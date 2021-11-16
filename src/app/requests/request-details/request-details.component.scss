@@ -31,7 +31,7 @@ ion-button {
 
 .details_body {
   margin-top: 0;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   margin-left: 30px;
 }
 
@@ -54,5 +54,13 @@ ion-button {
   margin-left: auto;
   margin-top: 30px;
   display: flex;
+  justify-content: center;
+}
+
+.full-screen-center-div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }

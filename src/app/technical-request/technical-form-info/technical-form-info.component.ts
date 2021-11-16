@@ -13,8 +13,8 @@ export class TechnicalFormInfoComponent implements OnInit {
   additionalDescription = 'Επιπλέον Παρατηρήσεις';
   comments = 'Σχόλια';
 
-  @Input() imagePath: string;
-  @Output() imagePathChange = new EventEmitter<string>();
+  @Input() imageDataUrl: string;
+  @Output() imageDataUrlChange = new EventEmitter<string>();
 
   @Input() userComments: string;
   @Output() userCommentsChange = new EventEmitter<string>();

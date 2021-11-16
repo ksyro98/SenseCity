@@ -33,10 +33,12 @@ let RecommendationsModalComponent = RecommendationsModalComponent_1 = class Reco
     }
     ngOnInit() {
         this.setTranslationPairs();
+        this.localTranslateService.translateLanguage();
     }
     cardClicked(recommendation) {
         if (!recommendation) {
             this.modalController.dismiss(undefined);
+            return;
         }
         this.loading = true;
         this.networkUtils.subscribeToIssue(recommendation.id, this.userService.getUser())
@@ -47,6 +49,9 @@ let RecommendationsModalComponent = RecommendationsModalComponent_1 = class Reco
                 this.modalController.dismiss(null);
             }
         }));
+    }
+    goBack() {
+        this.cardClicked(undefined);
     }
     setTranslationPairs() {
         this.localTranslateService.pairs.push({ key: 'recommendations', callback: (res) => this.recommendationsTxt = res });

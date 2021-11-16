@@ -1,49 +1,65 @@
-<app-back-arrow-header title="Αιτηση"></app-back-arrow-header>
+<app-back-arrow-header [title]='requestTxt'></app-back-arrow-header>
 
 <ion-content>
-    <ion-img src="../../assets/svg-images/bin_green.svg" class="details_top_image"></ion-img>
-    <ion-text class="center_text"><h4 style="margin-bottom: 0;" i18n>{{type}}</h4></ion-text>
-    <ion-text class="center_text"><p style="margin-top: 0;" i18n>{{subtype}}</p></ion-text>
 
-    <div>
-        <ion-text><p class="details_header" i18n>{{code}}</p></ion-text>
-        <ion-text><p class="details_body">#47123</p></ion-text>
+    <div *ngIf="(issue$ | async) as issue; else loading_content">
+        <ion-img
+                [src]="'../../assets/svg-images/technical-req-large/' + issue.service.translationKey + '.svg'"
+                class="details_top_image">
+        </ion-img>
+        <ion-text class="center_text"><h4 style="margin-bottom: 0;" i18n>{{issue.service.name}}</h4></ion-text>
+        <ion-text class="center_text"><p style="margin-top: 0;" i18n>{{issue.subService.name}}</p></ion-text>
+
+        <div>
+            <ion-text><p class="details_header" i18n>{{code}}</p></ion-text>
+            <ion-text><p class="details_body">{{'#' + issue.id}}</p></ion-text>
+        </div>
+
+        <div>
+            <ion-text><p class="details_header" i18n>{{status}}</p></ion-text>
+            <ion-text><p class="details_body" i18n>{{getStatusText(issue.status)}}</p></ion-text>
+        </div>
+
+        <div>
+            <ion-text><p class="details_header" i18n>{{reported}}</p></ion-text>
+            <ion-text><p class="details_body" i18n>{{getDateText(issue.createdAt)}}</p></ion-text>
+        </div>
+
+        <div>
+            <ion-text><p class="details_header" i18n>{{responsible}}</p></ion-text>
+            <ion-text><p class="details_body" i18n>{{issue.department}}</p></ion-text>
+        </div>
+
+        <div>
+            <ion-text><p class="details_header" i18n>{{comments}}</p></ion-text>
+            <ion-text>
+                <p class="details_body" i18n>
+                    {{getCommentsText(issue.comments)}}
+                </p>
+            </ion-text>
+        </div>
+
+        <div class="details_rate_button_container">
+<!--            <ion-button *ngIf="completed"-->
+            <ion-button *ngIf="false"
+                        routerLink="/request-rating" routerLinkActive="active"
+                        [queryParams]="{ stars: '-1'}">
+                {{ratingTxt}}
+            </ion-button>
+        </div>
+
+        <app-details-bottom-bar
+                [text]="issue.cityAddress"
+                [isHidden]="true"
+                [twoLines]="true"
+                (click)="presentMapModal(issue.location, issue.cityAddress)">
+        </app-details-bottom-bar>
     </div>
 
-    <div>
-        <ion-text><p class="details_header" i18n>{{status}}</p></ion-text>
-        <ion-text><p class="details_body" i18n>{{statusValue}}</p></ion-text>
-    </div>
-
-    <div>
-        <ion-text><p class="details_header" i18n>{{reported}}</p></ion-text>
-        <ion-text><p class="details_body" i18n>{{reportDate}}</p></ion-text>
-    </div>
-
-    <div>
-        <ion-text><p class="details_header" i18n>{{responsible}}</p></ion-text>
-        <ion-text><p class="details_body" i18n>{{department}}</p></ion-text>
-    </div>
-
-    <div>
-        <ion-text><p class="details_header" i18n>{{comments}}</p></ion-text>
-        <ion-text><p class="details_body" i18n>{{commentValue}}</p></ion-text>
-    </div>
-
-    <div class="details_rate_button_container">
-<!--        <ion-button *ngIf="completed"-->
-        <ion-button *ngIf="false"
-                    routerLink="/request-rating" routerLinkActive="active"
-                    [queryParams]="{ stars: '-1'}">
-            {{rating}}
-        </ion-button>
-    </div>
-
-    <app-details-bottom-bar
-            [text]="locationName"
-            [isHidden]="true"
-            [twoLines]="true"
-            (click)="presentMapModal()">
-    </app-details-bottom-bar>
+    <ng-template #loading_content>
+        <div class="full-screen-center-div">
+            <ion-spinner color="primary"></ion-spinner>
+        </div>
+    </ng-template>
 
 </ion-content>

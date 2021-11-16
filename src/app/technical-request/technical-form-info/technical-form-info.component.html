@@ -1,5 +1,5 @@
 <!-- The list is used to set the position of the header. -->
-<ion-list>
+<ion-list class="list">
     <ion-list-header class="header">
         <ion-label>{{details}}</ion-label>
     </ion-list-header>
@@ -7,7 +7,7 @@
 
 <app-technical-form-image
         defaultImage="../../assets/images/add_photo.png" [showHeader]="true" [imageHeight]="200"
-        [(path)]="imagePath" (pathChange)="imagePathChange.emit($event)">
+        [(imageDataUrl)]="imageDataUrl" (imageDataUrlChange)="imageDataUrlChange.emit($event)">
 </app-technical-form-image>
 
 <br><br>

@@ -1,11 +1,11 @@
 import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Location } from '@angular/common';
-import {AlertController} from '@ionic/angular';
 import {AlertService} from '../alert-service/alert.service';
-import { Plugins, KeyboardInfo } from '@capacitor/core';
+import {Plugins} from '@capacitor/core';
 import {LocalTranslateService} from '../local-translate-service/local-translate.service';
+import {PermissionFlag} from '../../entities/utils/PermissionFlag';
 
-const { Keyboard } = Plugins;
+const { Keyboard, Toast } = Plugins;
 
 @Component({
   selector: 'app-form-stepper',
@@ -14,12 +14,24 @@ const { Keyboard } = Plugins;
 })
 export class FormStepperComponent implements OnInit {
 
+  constructor(
+      private location: Location,
+      private alertService: AlertService,
+      private cdr: ChangeDetectorRef,
+      private localTranslateService: LocalTranslateService
+  ) {
+    this.currentStep = 0;
+    this.setTranslationPairs();
+  }
+
   static readonly CLOSE = -1;
   static readonly PREVIOUS = 0;
   static readonly NEXT = 1;
+  static readonly SUBMIT = 2;
 
   @Input() steps: number;
-  @Input() canProceed: boolean;
+  @Input() canProceed: PermissionFlag;
+  @Input() canSubmit: PermissionFlag;
   @Input() currentStep: number;
   @Input() loading: boolean;
   @Output() currentStepEvent = new EventEmitter<number>();
@@ -30,14 +42,10 @@ export class FormStepperComponent implements OnInit {
   completeRequestHead = 'Ολοκλήρωση Αίτησης';
   completeRequestBody = 'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;';
 
-  constructor(
-      private location: Location,
-      private alertService: AlertService,
-      private cdr: ChangeDetectorRef,
-      private localTranslateService: LocalTranslateService
-  ) {
-    this.currentStep = 0;
-    this.setTranslationPairs();
+  private static showToastIfNotEmpty(message: string){
+    if (message.length > 0) {
+      Toast.show({text: message});
+    }
   }
 
   ngOnInit() {
@@ -81,6 +89,15 @@ export class FormStepperComponent implements OnInit {
 
   public nextStep(){
     if (!this.canButtonBeClicked(FormStepperComponent.NEXT)){
+      FormStepperComponent.showToastIfNotEmpty(this.canProceed.reason);
+      return;
+    }
+    this.currentStepEvent.emit(this.currentStep + 1);
+  }
+
+  public submit(){
+    if (!this.canButtonBeClicked(FormStepperComponent.SUBMIT)){
+      FormStepperComponent.showToastIfNotEmpty(this.canSubmit.reason);
       return;
     }
     if (this.currentStep === this.steps - 1){
@@ -93,17 +110,22 @@ export class FormStepperComponent implements OnInit {
       );
       return;
     }
-    this.currentStepEvent.emit(this.currentStep + 1);
   }
 
   private canButtonBeClicked(which: number): boolean{
+    if (this.loading){
+      return false;
+    }
+
     switch (which) {
       case FormStepperComponent.CLOSE:
-        return !this.loading;
+        return true;
       case FormStepperComponent.PREVIOUS:
-        return this.canProceed && (this.currentStep !== 0) && !this.loading;
+        return this.currentStep !== 0;
       case FormStepperComponent.NEXT:
-        return this.canProceed && !this.loading;
+        return this.canProceed.permitted;
+      case FormStepperComponent.SUBMIT:
+        return this.canSubmit.permitted;
       default:
         return false;
     }

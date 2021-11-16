@@ -22,13 +22,13 @@
     </ion-segment-button>
 </ion-segment>
 
-<div style="width: 100%; height: 1px; background-color: #DCDEDB; margin: 0; padding: 0;"></div>
+<app-divider></app-divider>
 
 <ion-content>
 
-    <div [ngSwitch]="completedRequests">
-        <app-requests-list *ngSwitchCase="0" [completed]="false"></app-requests-list>
-        <app-requests-list *ngSwitchCase="1" [completed]="true"></app-requests-list>
+    <div [ngSwitch]="completedRequests" style="height: 100%">
+        <app-requests-list *ngSwitchCase="0" [completed]="false" style="height: 100%"></app-requests-list>
+        <app-requests-list *ngSwitchCase="1" [completed]="true" style="height: 100%"></app-requests-list>
     </div>
 
 </ion-content>

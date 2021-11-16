@@ -1,14 +1,22 @@
-<ion-item lines="{{isLast ? 'none' : 'full'}}" (click)="navigateToDetailsScreen()">
-  <div style="margin-top: 10px; margin-bottom: 10px; margin-left: 10px;" i18n>
-    {{text1}}<b>{{value1}}</b>{{text2 + value2 + (!completed ? text3 : text4)}}
-    <div style="margin: 7px;" *ngIf="!completed"></div>
-
-    <div [ngSwitch]="completed">
-      <div *ngSwitchCase="false">{{status}}<b>{{value3}}</b></div>
-      <div *ngSwitchCase="true">
-        <app-stars [fullScreen]="false" [(selectedStars)]="selectedStars" *ngIf="false"></app-stars>
+<ion-item lines="{{isLast ? 'none' : 'full'}}" (click)="navigateToDetailsScreen()" class="card-border-color">
+  <ion-row style="width: 100%">
+    <ion-col size="10">
+      <div class="title-div">
+        <span class="title-span">{{request.subServiceName + ' '}}</span>
+        <span class="code-span">{{'(#' + request.id + ')'}}</span>
       </div>
-    </div>
-  </div>
 
+      <div class="body-div">
+        <b class="text-color">{{getStatusText(request.status)}}</b>
+      </div>
+
+      <div class="body-div bottom-div">
+        {{request.cityAddress}}
+      </div>
+    </ion-col>
+
+    <ion-col class="icon-col" size="2">
+      <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+    </ion-col>
+  </ion-row>
 </ion-item>

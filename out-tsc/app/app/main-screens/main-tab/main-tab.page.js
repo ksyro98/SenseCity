@@ -21,12 +21,13 @@ let MainTabPage = class MainTabPage {
         this.changeCityTitle = 'Αλλαγή πόλης';
         this.selectedCityText = 'Η επιλγμένη πόλη είναι η';
         this.changeCityText = 'Μπορείς να την αλλάξεις πατώντας στις 3 τελειες, πάνω δεξιά.';
+        this.isSecondTime = false;
         this.setTranslationPairs();
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
             this.localTranslateService.translateLanguage();
-            const isSecondTime = yield this.storageCounter.isSecondTime();
+            this.isSecondTime = yield this.storageCounter.isSecondTime();
             this.route.queryParamMap.subscribe((params) => {
                 const polygon = CITY_POLYGONS[params.get('name')];
                 this.city = {
@@ -39,12 +40,13 @@ let MainTabPage = class MainTabPage {
                     cityKey: params.get('cityKey')
                 };
                 if (this.city.name !== null) {
-                    if (isSecondTime) {
+                    if (this.isSecondTime) {
                         this.alertService.showAlert({
                             head: this.changeCityTitle,
                             body: `${this.selectedCityText} ${this.city.name}. ${this.changeCityText}`
                         }, () => __awaiter(this, void 0, void 0, function* () {
                         }));
+                        this.isSecondTime = false;
                     }
                     else {
                         this.storageState.stateIsTrue().then(state => {

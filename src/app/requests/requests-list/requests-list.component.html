@@ -1,5 +1,21 @@
-<ion-list>
-  <app-request-card *ngFor="let i of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]"
-                    [isLast]="i === 15" [completed]="completed">
-  </app-request-card>
-</ion-list>
+<div *ngIf="(requests$ | async) as requests; else loading_content" style="height: 100%">
+  <ion-list *ngIf="requests.length > 0; else empty_list_content">
+    <app-request-card *ngFor="let request of requests; let i = index"
+                      [isLast]="i === requests.length-1" [completed]="completed" [request]="request">
+<!--                      [subServiceName]="request.subServiceName" [id]="request.id" [alias]="request['alias'][0]"-->
+<!--                      [status]="request.status" [address]="request['cf_city_address']">-->
+    </app-request-card>
+  </ion-list>
+  <ng-template #empty_list_content>
+    <div class="full-screen-center-div grey-text-div">
+      {{noRequestsTxt1 + (completed ? completedTxt : activeTxt) + noRequestsTxt2}}
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #loading_content>
+  <div class="full-screen-center-div">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+</ng-template>
+

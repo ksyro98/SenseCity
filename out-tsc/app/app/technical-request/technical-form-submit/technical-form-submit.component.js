@@ -15,8 +15,9 @@ let TechnicalFormSubmitComponent = class TechnicalFormSubmitComponent {
         this.acceptTerms1 = 'Αποδέχομαι τους ';
         this.acceptTerms2 = 'όρους χρήσης';
         this.acceptTerms3 = ' του SenseCity.';
-        this.imageChange = new EventEmitter();
+        this.imageDataUrlChange = new EventEmitter();
         this.namedClickedChange = new EventEmitter();
+        this.termsAcceptedClickedChange = new EventEmitter();
         this.setTranslationPairs();
     }
     ngOnInit() {
@@ -27,6 +28,9 @@ let TechnicalFormSubmitComponent = class TechnicalFormSubmitComponent {
     }
     onNamedClickChanged() {
         this.namedClickedChange.emit(this.namedClicked);
+    }
+    onTermsAcceptedClicked() {
+        this.termsAcceptedClickedChange.emit(this.termsAcceptedClicked);
     }
     setTranslationPairs() {
         this.localTranslateService.pairs.push({ key: 'submit', callback: (res) => this.submit = res });
@@ -49,11 +53,17 @@ __decorate([
     Input()
 ], TechnicalFormSubmitComponent.prototype, "namedClicked", void 0);
 __decorate([
+    Input()
+], TechnicalFormSubmitComponent.prototype, "termsAcceptedClicked", void 0);
+__decorate([
     Output()
-], TechnicalFormSubmitComponent.prototype, "imageChange", void 0);
+], TechnicalFormSubmitComponent.prototype, "imageDataUrlChange", void 0);
 __decorate([
     Output()
 ], TechnicalFormSubmitComponent.prototype, "namedClickedChange", void 0);
+__decorate([
+    Output()
+], TechnicalFormSubmitComponent.prototype, "termsAcceptedClickedChange", void 0);
 TechnicalFormSubmitComponent = __decorate([
     Component({
         selector: 'app-technical-form-submit',

@@ -7,7 +7,7 @@ let TechnicalFormInfoComponent = class TechnicalFormInfoComponent {
         this.details = 'Πληροφορίες';
         this.additionalDescription = 'Επιπλέον Παρατηρήσεις';
         this.comments = 'Σχόλια';
-        this.imagePathChange = new EventEmitter();
+        this.imageDataUrlChange = new EventEmitter();
         this.userCommentsChange = new EventEmitter();
         this.setTranslationPairs();
     }
@@ -25,10 +25,10 @@ let TechnicalFormInfoComponent = class TechnicalFormInfoComponent {
 };
 __decorate([
     Input()
-], TechnicalFormInfoComponent.prototype, "imagePath", void 0);
+], TechnicalFormInfoComponent.prototype, "imageDataUrl", void 0);
 __decorate([
     Output()
-], TechnicalFormInfoComponent.prototype, "imagePathChange", void 0);
+], TechnicalFormInfoComponent.prototype, "imageDataUrlChange", void 0);
 __decorate([
     Input()
 ], TechnicalFormInfoComponent.prototype, "userComments", void 0);

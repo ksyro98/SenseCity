@@ -1,7 +1,6 @@
 var VerifyModalComponent_1;
 import { __awaiter, __decorate } from "tslib";
 import { Component, HostListener, Input } from '@angular/core';
-import { ProfileElement } from '../../entities/ProfileElement';
 import { Plugins } from '@capacitor/core';
 const { Toast } = Plugins;
 let VerifyModalComponent = VerifyModalComponent_1 = class VerifyModalComponent {
@@ -82,7 +81,7 @@ let VerifyModalComponent = VerifyModalComponent_1 = class VerifyModalComponent {
     }
     activate(code) {
         this.startLoading();
-        this.verificationSubscription = this.logic.activateUser(ProfileElement.EMAIL_KEY, code)
+        this.verificationSubscription = this.logic.activateUser(this.profileElement.key, code)
             .subscribe({
             next: value => {
                 console.log(value);

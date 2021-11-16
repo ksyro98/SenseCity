@@ -12,8 +12,10 @@ import {VerifyModalComponent} from '../../profile/verify-modal/verify-modal.comp
 import {AlertService} from '../../view-utils/alert-service/alert.service';
 import {Plugins} from '@capacitor/core';
 import {Recommendation} from '../../entities/Recommendation';
+import {PermissionFlag} from '../../entities/utils/PermissionFlag';
+import {ProfileElement} from '../../entities/ProfileElement';
 
-const { Toast } = Plugins;
+const { Toast, Device } = Plugins;
 
 @Component({
   selector: 'app-technical-form',
@@ -23,13 +25,15 @@ const { Toast } = Plugins;
 
 export class TechnicalFormComponent implements OnInit {
 
-  public canProceed = true;
+  public canProceed = new PermissionFlag(true, '');
+  public canSubmit = new PermissionFlag(true, '');
   public currentStep = 0;
   public loading = false;
   private anonymousAllowed = false;
   unverifiedEmailAllowed = true;
   unverifiedSmsAllowed = true;
   namedClicked: boolean;
+  termsAcceptedClicked = true;
 
   newRequestTxt = 'Νέα Αίτηση';
   verifyTxt = 'Επιβεβαίωση';
@@ -43,6 +47,10 @@ export class TechnicalFormComponent implements OnInit {
   needToVerify3Txt = ' για να υποβάλει αυτό το αίτημα.';
   emailTxt = 'email';
   mobilePhoneTxt = 'τηλέφωνο';
+
+  private verificationNeededTxt = '';
+  private anonymousNotAllowedTxt = '';
+  private termsNotAcceptedTxt = '';
 
   constructor(
       private router: ActivatedRoute,
@@ -64,7 +72,7 @@ export class TechnicalFormComponent implements OnInit {
         translationKey: params.service_translation_key
       };
 
-      const defaultSubService = Service.getSubService(selectedService.id)[0];
+      const defaultSubService = Service.getSubServices(selectedService.id)[0];
 
       this.logic.request = new TechnicalRequest(
           selectedService, defaultSubService, '', '', {type: 'point', coordinates: []}, false);
@@ -73,15 +81,19 @@ export class TechnicalFormComponent implements OnInit {
     });
   }
 
-  setCanProceed(canProceed: boolean){
-    this.canProceed = canProceed;
+  onCommentsChange(comments: string){
+    this.logic.request.comments = comments;
+  }
+
+  onLocationChange(latlng: number[]){
+    this.logic.request.location = {type: 'Point', coordinates: latlng};
   }
 
   goToNextStep(nextStep: number){
     this.loading = true;
     this.doActionBeforeStepChange(nextStep).subscribe(new Subscriber({
       next: (x) => {
-        this.manageNexStepMapResponse(x);
+        this.manageNexStepResponse(x);
       },
       error: (err) => console.log(err),
       complete: () => {
@@ -91,21 +103,25 @@ export class TechnicalFormComponent implements OnInit {
     }));
   }
 
-  manageNexStepMapResponse(response){
+  private manageNexStepResponse(response){
     switch (response.type) {
       case TechnicalRequestLogicService.POLICY_EMAIL_SMS_REQUEST:
         this.unverifiedEmailAllowed = response.value[0].mandatory_email === 'false';
         this.unverifiedSmsAllowed = response.value[0].mandatory_sms === 'false';
+        this.setCanSubmit();
         break;
       case TechnicalRequestLogicService.POLICY_ANONYMITY_REQUEST:
         this.anonymousAllowed = response.value[0].anonymous ? (response.value[0].anonymous === 'true') : undefined;
         if (this.namedClicked === undefined) {
           this.namedClicked = !this.anonymousAllowed && this.anonymousAllowed !== undefined;
         }
+        this.setCanSubmit();
         break;
       case TechnicalRequestLogicService.RECOMMENDATIONS_REQUEST:
-        const recommendations = response.value[0].bugs.map((e) => new Recommendation(e));
-        this.showRecommendations(recommendations);
+        const recommendations = response.value;
+        if (recommendations.length > 0 && !this.isVerificationNeeded()) {
+          this.showRecommendations(recommendations);
+        }
         break;
       case TechnicalRequestLogicService.NEW_ISSUE_REQUEST:
         if (response.value.description === 'ok'){
@@ -119,14 +135,6 @@ export class TechnicalFormComponent implements OnInit {
     }
   }
 
-  onCommentsChange(comments: string){
-    this.logic.request.comments = comments;
-  }
-
-  onLocationChange(latlng: number[]){
-    this.logic.request.location = {type: 'Point', coordinates: latlng};
-  }
-
   private doActionBeforeStepChange(nextStep: number): Observable<any>{
     if (nextStep === 3){
       const policyAboutEmailsSms$: Observable<any> = this.logic.getPolicyAboutEmailsSms();
@@ -136,21 +144,7 @@ export class TechnicalFormComponent implements OnInit {
       return merge(policyAboutEmailsSms$, policyAboutAnonymity$, recommendations$);
     }
     else if (nextStep === 4){
-      if (!this.anonymousAllowed && !this.namedClicked){
-        this.alertService.show(
-            {
-              head: this.warningTxt,
-              body: this.sendNamedTxt
-            },
-            () => {},
-            true,
-            true
-            );
-        return new Observable<any>(subscriber => subscriber.complete());
-      }
-      else{
-        return this.logic.addNewIssue();
-      }
+      return this.logic.addNewIssue();
     }
     else{
       return new Observable<any>(subscriber => subscriber.complete());
@@ -169,7 +163,22 @@ export class TechnicalFormComponent implements OnInit {
     });
   }
 
-  shouldShowVerificationSnackBar(): boolean {
+  setCanSubmit(){
+    if (this.isVerificationNeeded()){
+      this.canSubmit = new PermissionFlag(false, this.verificationNeededTxt);
+    }
+    else if (!this.anonymousAllowed && !this.namedClicked){
+      this.canSubmit = new PermissionFlag(false, this.anonymousNotAllowedTxt);
+    }
+    else if (!this.termsAcceptedClicked){
+      this.canSubmit = new PermissionFlag(false, this.termsNotAcceptedTxt);
+    }
+    else{
+      this.canSubmit = new PermissionFlag(true, '');
+    }
+  }
+
+  isVerificationNeeded(): boolean {
     return (!this.unverifiedEmailAllowed && !this.logic.isEmailVerified()) ||
         (!this.unverifiedSmsAllowed && !this.logic.isPhoneVerified());
   }
@@ -179,6 +188,12 @@ export class TechnicalFormComponent implements OnInit {
     const emailNeeded = !this.unverifiedEmailAllowed && !this.logic.isEmailVerified();
     const phoneNeeded = !this.unverifiedSmsAllowed && !this.logic.isPhoneVerified();
 
+    console.log('---');
+    console.log(this.unverifiedSmsAllowed);
+    console.log(this.logic.isPhoneVerified());
+    console.log(phoneNeeded);
+    console.log('---');
+
     text += emailNeeded ? this.emailTxt : '';
     text += (emailNeeded && phoneNeeded) ? this.needToVerify2Txt : '';
     text += phoneNeeded ? this.mobilePhoneTxt : '';
@@ -187,9 +202,20 @@ export class TechnicalFormComponent implements OnInit {
   }
 
   presentVerificationModal(){
+    let profileElement: ProfileElement;
+    if (!this.unverifiedEmailAllowed && !this.logic.isEmailVerified()){
+      profileElement = this.logic.getEmailProfileElement();
+    }
+    else if (!this.unverifiedSmsAllowed && !this.logic.isPhoneVerified()){
+      profileElement = this.logic.getPhoneProfileElement();
+    }
+    else {
+      return;
+    }
+
     VerifyModalComponent.present(
         this.modalController,
-        this.logic.getEmailProfileElement(),
+        profileElement,
         (result: boolean) => {
           if (result) {
             this.logic.setIsUserActive();
@@ -210,6 +236,9 @@ export class TechnicalFormComponent implements OnInit {
     this.localTranslateService.pairs.push({key: 'need-to-verify-3', callback: (res: string) => this.needToVerify3Txt = res});
     this.localTranslateService.pairs.push({key: 'email-lc', callback: (res: string) => this.emailTxt = res});
     this.localTranslateService.pairs.push({key: 'phone-number-lc', callback: (res: string) => this.mobilePhoneTxt = res});
+    this.localTranslateService.pairs.push({key: 'verification-needed', callback: (res: string) => this.verificationNeededTxt = res});
+    this.localTranslateService.pairs.push({key: 'anonymous-not-allowed', callback: (res: string) => this.anonymousNotAllowedTxt = res});
+    this.localTranslateService.pairs.push({key: 'terms-not-accepted', callback: (res: string) => this.termsNotAcceptedTxt = res});
     this.localTranslateService.pairs.push({key: this.logic.request.subService.translationKey,
       callback: (res: string) => this.logic.request.subService.name = res});
   }

@@ -22,21 +22,21 @@ export class TechnicalRequestRepositoryService {
     return this.networkUtils.getIssueRecommendations(issue, lat, long);
   }
 
-  isUserActive(email: string, mobile: string, name: string, city?: string, uuid?: string): Observable<any>{
-    return this.networkUtils.isUserActive(email, mobile, name, city, uuid);
+  isUserActive(email: string, mobile: string, name: string, city?: string): Observable<any>{
+    return this.networkUtils.isUserActive(email, mobile, name, city);
   }
 
-  sendActivationEmail(userEmail: string, userUuid?: string): Observable<any>{
-    return this.networkUtils.sendActivationEmail(userEmail, userUuid);
+  sendActivationEmail(userEmail: string): Observable<any>{
+    return this.networkUtils.sendActivationEmail(userEmail);
   }
 
   sendActivationMobileMessage(
-      userMobile: string, userName: string, userUuid?: string, lat?: number, long?: number, city?: string
+      userMobile: string, userName: string, lat?: number, long?: number, city?: string
   ): Observable<any>{
-    return this.networkUtils.sendActivationMobileMessage(userMobile, userName, userUuid, lat, long, city);
+    return this.networkUtils.sendActivationMobileMessage(userMobile, userName, lat, long, city);
   }
 
-  addNewIssue(request: TechnicalRequest, user: User, userDeviceId: string, userId: string): Observable<any>{
-    return this.networkUtils.addNewIssue(request, user, userDeviceId, userId);
+  addNewIssue(request: TechnicalRequest, user: User, userDeviceId: string): Observable<any>{
+    return this.networkUtils.addNewIssue(request, user, userDeviceId);
   }
 }

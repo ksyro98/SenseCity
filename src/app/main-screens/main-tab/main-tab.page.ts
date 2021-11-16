@@ -36,6 +36,8 @@ export class MainTabPage implements OnInit {
   private selectedCityText = 'Η επιλγμένη πόλη είναι η';
   private changeCityText = 'Μπορείς να την αλλάξεις πατώντας στις 3 τελειες, πάνω δεξιά.';
 
+  private isSecondTime = false;
+
   constructor(
       public popoverController: PopoverController,
       public modalController: ModalController,
@@ -51,7 +53,7 @@ export class MainTabPage implements OnInit {
   async ngOnInit() {
     this.localTranslateService.translateLanguage();
 
-    const isSecondTime = await this.storageCounter.isSecondTime();
+    this.isSecondTime = await this.storageCounter.isSecondTime();
 
     this.route.queryParamMap.subscribe((params) => {
       const polygon = CITY_POLYGONS[params.get('name')];
@@ -66,7 +68,7 @@ export class MainTabPage implements OnInit {
       };
 
       if (this.city.name !== null) {
-        if (isSecondTime) {
+        if (this.isSecondTime) {
           this.alertService.showAlert(
               {
                 head: this.changeCityTitle,
@@ -74,6 +76,7 @@ export class MainTabPage implements OnInit {
               },
               async () => {
               });
+          this.isSecondTime = false;
         } else {
           this.storageState.stateIsTrue().then(state => {
             if (!state){

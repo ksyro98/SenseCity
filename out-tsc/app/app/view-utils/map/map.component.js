@@ -37,7 +37,6 @@ let MapComponent = class MapComponent {
         this.updateLocation(38.246242, 21.7350847);
         this.map.addEventListener('click', (event) => {
             this.locationMarker.setLatLng(event.latlng);
-            console.log(event.latlng);
             this.updateLocation(event.latlng.lat, event.latlng.lng);
         });
     }

@@ -1,11 +1,11 @@
-<ion-list>
+<ion-list class="list">
   <ion-radio-group value="{{category.id}}">
     <ion-list-header class="header">
       <ion-label>{{ service.name }}</ion-label>
     </ion-list-header>
 
     <div *ngFor="let category of categories;">
-      <ion-item (click)="onItemClick(category)">
+      <ion-item (click)="onItemClick(category)" class="item">
         <ion-label class="dark-grey-font">{{ category.name }}</ion-label>
         <ion-radio slot="start" value="{{ category.id }}"></ion-radio>
       </ion-item>

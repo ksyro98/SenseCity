@@ -57,13 +57,13 @@ let ProfileComponent = class ProfileComponent {
     }
     onFocusLost(key, value) {
         this.logic.setUserValue(key, value);
+        this.elements = ProfileElement.getProfileElementsFromUser(this.logic.getUser());
         if (key === ProfileElement.EMAIL_KEY || key === ProfileElement.PHONE_KEY) {
             this.isActive$ = this.logic.isUserActive();
         }
     }
     presentVerifyModal(element) {
         VerifyModalComponent.present(this.modalController, element, (result) => {
-            // TODO this doesn't work
             if (result) {
                 this.isActive$ = this.logic.isUserActive();
             }

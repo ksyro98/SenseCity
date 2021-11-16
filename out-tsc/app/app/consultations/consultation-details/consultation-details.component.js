@@ -24,32 +24,32 @@ let ConsultationDetailsComponent = class ConsultationDetailsComponent {
                 if (liked) {
                     this.consultation.dislikes--;
                     this.consultation.likes++;
-                    this.consultation.rating = 1;
+                    this.consultation.ratingTx = 1;
                 }
                 else {
                     this.consultation.dislikes--;
-                    this.consultation.rating = 0;
+                    this.consultation.ratingTx = 0;
                 }
                 break;
             case 0:
                 if (liked) {
                     this.consultation.likes++;
-                    this.consultation.rating = 1;
+                    this.consultation.ratingTx = 1;
                 }
                 else {
                     this.consultation.dislikes++;
-                    this.consultation.rating = -1;
+                    this.consultation.ratingTx = -1;
                 }
                 break;
             case 1:
                 if (!liked) {
                     this.consultation.likes--;
                     this.consultation.dislikes++;
-                    this.consultation.rating = -1;
+                    this.consultation.ratingTx = -1;
                 }
                 else {
                     this.consultation.likes--;
-                    this.consultation.rating = 0;
+                    this.consultation.ratingTx = 0;
                 }
         }
     }

@@ -11,7 +11,6 @@
   color: $dark-grey;
 }
 
-//ion-label {
-//  color: #0b746a;
-//  color: $dark-grey;
-//}
+.item {
+  --background: var(--ion-background-color);
+}

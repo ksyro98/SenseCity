@@ -2,33 +2,34 @@ import {Injectable} from '@angular/core';
 import {CameraResultType, CameraSource, Plugins} from '@capacitor/core';
 import {ActionSheetController} from '@ionic/angular';
 
-const { Camera, Filesystem, Storage } = Plugins;
+const { Camera } = Plugins;
 
 @Injectable({
   providedIn: 'root'
 })
 export class CameraService {
 
+
   constructor(public actionSheetController: ActionSheetController) { }
 
-  public async takeNewPhoto() {
+  private static async takeNewPhoto(): Promise<string> {
     const capturedPhoto = await Camera.getPhoto({
-      resultType: CameraResultType.Uri,
+      resultType: CameraResultType.DataUrl,
       source: CameraSource.Camera,
-      quality: 100
+      quality: 40,
     });
 
-    return capturedPhoto.webPath;
+    return capturedPhoto.dataUrl;
   }
 
-  public async openGallery(){
+  private static async openGallery(): Promise<string>{
     const galleryPhoto = await Camera.getPhoto({
-      resultType: CameraResultType.Uri,
+      resultType: CameraResultType.DataUrl,
       source: CameraSource.Photos,
-      quality: 100
+      quality: 40
     });
 
-    return galleryPhoto.webPath;
+    return galleryPhoto.dataUrl;
   }
 
   async showCameraActionSheet(callback: (res: string) => void){
@@ -40,16 +41,14 @@ export class CameraService {
         icon: 'camera',
         cssClass: 'camera-sheet-button',
         handler: () => {
-          this.takeNewPhoto()
-              .then(res => callback(res));
+          CameraService.takeNewPhoto().then(res => callback(res));
         }
       }, {
         text: 'Συλλογή',
         icon: 'image',
         cssClass: 'camera-sheet-button',
         handler: () => {
-          this.openGallery()
-              .then(res => callback(res));
+          CameraService.openGallery().then(res => callback(res));
         }
       } ]
     });

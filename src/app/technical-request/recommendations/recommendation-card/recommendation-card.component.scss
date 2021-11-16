@@ -1,9 +1,9 @@
 @import "../../../../theme/variables";
 
 .card-col {
-  background-color: white;
-  border-top: $light-grey solid 1px;
-  border-bottom: $light-grey solid 1px;
+  background-color: var(--ion-card-background);
+  //border-top: var(--ion-color-lines) solid 1px;
+  border-bottom: var(--ion-color-lines) solid 1px;
 }
 
 .general-text {
@@ -19,7 +19,7 @@
 }
 
 .header-text {
-  color: $dark-grey;
+  //color: $dark-grey;
   font-size: 18px;
 }
 

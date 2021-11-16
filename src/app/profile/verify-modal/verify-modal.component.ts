@@ -118,7 +118,7 @@ export class VerifyModalComponent implements OnInit {
 
   private activate(code: string){
     this.startLoading();
-    this.verificationSubscription = this.logic.activateUser(ProfileElement.EMAIL_KEY, code)
+    this.verificationSubscription = this.logic.activateUser(this.profileElement.key, code)
         .subscribe({
           next: value => {
             console.log(value);

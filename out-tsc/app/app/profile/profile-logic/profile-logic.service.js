@@ -20,9 +20,15 @@ let ProfileLogicService = class ProfileLogicService {
     setUserValue(key, value) {
         this.userService.setUserValue(key, value);
     }
+    getUser() {
+        return this.userService.getUser();
+    }
     isUserActive() {
         const user = this.userService.getUser();
-        return this.repository.isUserActive(user.email, user.phone, user.fullName).pipe(map(x => x[0]), map(x => ({ [ProfileElement.EMAIL_KEY]: x.activate_email === '1', [ProfileElement.PHONE_KEY]: x.activate_sms === '1' })));
+        return this.repository.isUserActive(user.email, user.phone, user.fullName).pipe(map(x => ({
+            [ProfileElement.EMAIL_KEY]: x[1].activate_email === '1',
+            [ProfileElement.PHONE_KEY]: x[0].activate_sms === '1'
+        })));
     }
 };
 ProfileLogicService = __decorate([

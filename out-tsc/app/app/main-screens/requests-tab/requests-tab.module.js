@@ -8,6 +8,7 @@ import { RequestsTabPage } from './requests-tab.page';
 import { RequestCardComponent } from '../../requests/request-card/request-card.component';
 import { RequestsListComponent } from '../../requests/requests-list/requests-list.component';
 import { StarsComponent } from '../../view-utils/stars/stars.component';
+import { DividerComponent } from '../../view-utils/divider/divider.component';
 let RequestsTabPageModule = class RequestsTabPageModule {
 };
 RequestsTabPageModule = __decorate([
@@ -19,9 +20,10 @@ RequestsTabPageModule = __decorate([
             RequestsTabPageRoutingModule
         ],
         exports: [
-            StarsComponent
+            StarsComponent,
+            DividerComponent
         ],
-        declarations: [RequestsTabPage, RequestCardComponent, RequestsListComponent, StarsComponent]
+        declarations: [RequestsTabPage, RequestCardComponent, RequestsListComponent, StarsComponent, DividerComponent]
     })
 ], RequestsTabPageModule);
 export { RequestsTabPageModule };

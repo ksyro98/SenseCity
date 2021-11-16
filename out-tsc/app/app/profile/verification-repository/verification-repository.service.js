@@ -5,16 +5,16 @@ let VerificationRepositoryService = class VerificationRepositoryService {
         this.storageUserService = storageUserService;
         this.networkUtils = networkUtils;
     }
-    sendActivationEmail(userEmail, userUuid) {
-        return this.networkUtils.sendActivationEmail(userEmail, userUuid);
+    sendActivationEmail(userEmail) {
+        return this.networkUtils.sendActivationEmail(userEmail);
     }
-    sendActivationMobileMessage(userMobile, userName, userUuid, lat, long, city) {
-        return this.networkUtils.sendActivationMobileMessage(userMobile, userName, userUuid, lat, long, city);
+    sendActivationMobileMessage(userMobile, userName, lat, long, city) {
+        return this.networkUtils.sendActivationMobileMessage(userMobile, userName, lat, long, city);
     }
-    activateEmail(userEmail, emailCode, userUuid) {
+    activateEmail(userEmail, emailCode) {
         return this.networkUtils.activateEmail(userEmail, emailCode);
     }
-    activateMobile(userPhone, emailCode, userUuid) {
+    activateMobile(userPhone, emailCode) {
         return this.networkUtils.activateEmail(userPhone, emailCode);
     }
 };

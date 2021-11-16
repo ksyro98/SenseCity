@@ -17,6 +17,10 @@ ion-checkbox {
   margin-bottom: 0;
 }
 
+b {
+  color: var(--ion-text-color);
+}
+
 .smaller-font {
   font-size: 13px;
 }
@@ -26,4 +30,5 @@ ion-checkbox {
   margin: 0 0 0 15px !important;
   --ripple-color: transparent;
   --background-activated: transparent;
+  --background: var(--ion-background-color);
 }

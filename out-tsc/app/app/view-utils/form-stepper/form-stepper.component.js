@@ -2,7 +2,7 @@ var FormStepperComponent_1;
 import { __decorate } from "tslib";
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Plugins } from '@capacitor/core';
-const { Keyboard } = Plugins;
+const { Keyboard, Toast } = Plugins;
 let FormStepperComponent = FormStepperComponent_1 = class FormStepperComponent {
     constructor(location, alertService, cdr, localTranslateService) {
         this.location = location;
@@ -16,6 +16,11 @@ let FormStepperComponent = FormStepperComponent_1 = class FormStepperComponent {
         this.completeRequestBody = 'Είσαι σίγουρος ότι θέλεις να στείλεις αυτή την αίτηση;';
         this.currentStep = 0;
         this.setTranslationPairs();
+    }
+    static showToastIfNotEmpty(message) {
+        if (message.length > 0) {
+            Toast.show({ text: message });
+        }
     }
     ngOnInit() {
         this.localTranslateService.translateLanguage();
@@ -46,6 +51,14 @@ let FormStepperComponent = FormStepperComponent_1 = class FormStepperComponent {
     }
     nextStep() {
         if (!this.canButtonBeClicked(FormStepperComponent_1.NEXT)) {
+            FormStepperComponent_1.showToastIfNotEmpty(this.canProceed.reason);
+            return;
+        }
+        this.currentStepEvent.emit(this.currentStep + 1);
+    }
+    submit() {
+        if (!this.canButtonBeClicked(FormStepperComponent_1.SUBMIT)) {
+            FormStepperComponent_1.showToastIfNotEmpty(this.canSubmit.reason);
             return;
         }
         if (this.currentStep === this.steps - 1) {
@@ -55,16 +68,20 @@ let FormStepperComponent = FormStepperComponent_1 = class FormStepperComponent {
             }, () => this.submitEvent.emit());
             return;
         }
-        this.currentStepEvent.emit(this.currentStep + 1);
     }
     canButtonBeClicked(which) {
+        if (this.loading) {
+            return false;
+        }
         switch (which) {
             case FormStepperComponent_1.CLOSE:
-                return !this.loading;
+                return true;
             case FormStepperComponent_1.PREVIOUS:
-                return this.canProceed && (this.currentStep !== 0) && !this.loading;
+                return this.currentStep !== 0;
             case FormStepperComponent_1.NEXT:
-                return this.canProceed && !this.loading;
+                return this.canProceed.permitted;
+            case FormStepperComponent_1.SUBMIT:
+                return this.canSubmit.permitted;
             default:
                 return false;
         }
@@ -77,12 +94,16 @@ let FormStepperComponent = FormStepperComponent_1 = class FormStepperComponent {
 FormStepperComponent.CLOSE = -1;
 FormStepperComponent.PREVIOUS = 0;
 FormStepperComponent.NEXT = 1;
+FormStepperComponent.SUBMIT = 2;
 __decorate([
     Input()
 ], FormStepperComponent.prototype, "steps", void 0);
 __decorate([
     Input()
 ], FormStepperComponent.prototype, "canProceed", void 0);
+__decorate([
+    Input()
+], FormStepperComponent.prototype, "canSubmit", void 0);
 __decorate([
     Input()
 ], FormStepperComponent.prototype, "currentStep", void 0);

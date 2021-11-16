@@ -24,8 +24,10 @@ export class TechnicalFormSubmitComponent implements OnInit {
 
   @Input() finalRequest: TechnicalRequest;
   @Input() namedClicked: boolean;
-  @Output() imageChange = new EventEmitter<string>();
+  @Input() termsAcceptedClicked: boolean;
+  @Output() imageDataUrlChange = new EventEmitter<string>();
   @Output() namedClickedChange = new EventEmitter<boolean>();
+  @Output() termsAcceptedClickedChange = new EventEmitter<boolean>();
 
   constructor(private localTranslateService: LocalTranslateService) {
     this.setTranslationPairs();
@@ -41,6 +43,10 @@ export class TechnicalFormSubmitComponent implements OnInit {
 
   onNamedClickChanged(){
     this.namedClickedChange.emit(this.namedClicked);
+  }
+
+  onTermsAcceptedClicked(){
+    this.termsAcceptedClickedChange.emit(this.termsAcceptedClicked);
   }
 
   private setTranslationPairs(){

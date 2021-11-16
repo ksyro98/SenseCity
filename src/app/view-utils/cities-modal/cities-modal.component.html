@@ -8,12 +8,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list>
+  <ion-list class="cities-list">
     <div *ngFor="let city of cities">
       <ion-item
               *ngIf="query.length === 0 || city.name.toLowerCase().includes(query)"
               lines="full"
-              (click)="dismiss(city)">
+              (click)="dismiss(city)"
+              class="cities-item">
         {{city.name}}
       </ion-item>
     </div>

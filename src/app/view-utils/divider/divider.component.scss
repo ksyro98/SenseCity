@@ -1,0 +1,9 @@
+@import "../../../theme/variables";
+
+.divider{
+  width: 100%;
+  height: 1px;
+  background-color: var(--ion-color-lines);
+  margin: 0;
+  padding: 0;
+}

@@ -54,11 +54,13 @@ export class RecommendationsModalComponent implements OnInit {
 
   ngOnInit() {
     this.setTranslationPairs();
+    this.localTranslateService.translateLanguage();
   }
 
   cardClicked(recommendation: Recommendation){
     if (!recommendation){
       this.modalController.dismiss(undefined);
+      return;
     }
 
     this.loading = true;
@@ -70,6 +72,10 @@ export class RecommendationsModalComponent implements OnInit {
                 this.modalController.dismiss(null);
               }
         }));
+  }
+
+  goBack(){
+    this.cardClicked(undefined);
   }
 
   private setTranslationPairs(){

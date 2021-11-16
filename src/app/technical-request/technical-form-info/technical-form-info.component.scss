@@ -22,7 +22,8 @@ ion-img {
 }
 
 ion-textarea {
-  background: $light-grey2;
+  //background: $light-grey2;
+  background: var(--ion-textarea-background);
   border-radius: 5px;
 }
 

@@ -13,3 +13,49 @@ ion-img {
   padding-left: 2px;
   padding-top: 2px;
 }
+
+.card-border-color {
+  --border-color: var(--ion-color-lines);
+}
+
+.title-div {
+  margin-top: 6px;
+  margin-bottom: 10px;
+}
+
+.title-span {
+  color: var(--ion-text-color);
+  font-size: 18px;
+}
+
+.text-color {
+  color: var(--ion-text-color) !important;
+}
+
+.code-span {
+  color: $light-grey-text;
+  font-size: 14px;
+}
+
+.body-div {
+  margin-left: 8px;
+  margin-top: 3px;
+  max-width: 70%;
+  color: $dark-grey;
+  font-size: 14px;
+}
+
+.bottom-div {
+  margin-bottom: 8px !important;
+}
+
+.icon-col {
+  align-items: center;
+  justify-content: flex-end;
+  display: flex;
+}
+
+.arrow-icon {
+  margin-top: 2px;
+  font-size: 22px;
+}

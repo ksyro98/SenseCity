@@ -6,7 +6,4 @@ export class Recommendation {
         this.id = jsonObj.id;
     }
 }
-Recommendation.CONFIRMED = 'CONFIRMED';
-Recommendation.IN_PROGRESS = 'IN_PROGRESS';
-Recommendation.RESOLVED = 'RESOLVED';
 //# sourceMappingURL=Recommendation.js.map

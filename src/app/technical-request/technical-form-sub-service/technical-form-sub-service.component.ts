@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, OnChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Service} from '../../entities/Service';
 import {SubService} from '../../entities/SubService';
 import {isOtherCategory, OtherCategory} from '../../entities/OtherCategory';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
+import {PermissionFlag} from '../../entities/utils/PermissionFlag';
 
 @Component({
   selector: 'app-technical-form-subcategory',
@@ -13,7 +14,7 @@ export class TechnicalFormSubServiceComponent implements OnInit {
 
   @Input() service: Service;
   canProceed: boolean;
-  @Output() canProceedEvent = new EventEmitter<boolean>();
+  @Output() canProceedEvent = new EventEmitter<PermissionFlag>();
   @Input() category: SubService;
   @Output() categoryChange = new EventEmitter<SubService>();
   categories: SubService[];
@@ -21,11 +22,12 @@ export class TechnicalFormSubServiceComponent implements OnInit {
   value: string;
 
   shortDescription = 'Συντομη περιγραφη (εως 40 χαρ.)';
+  private categoryNotSelectedTxt = '';
 
   constructor(private localTranslateService: LocalTranslateService) {}
 
   ngOnInit() {
-    this.categories = Service.getSubService(this.service.id);
+    this.categories = Service.getSubServices(this.service.id);
     this.setOtherPressed(this.category.id === -1);
     this.value = this.getCategoryDescription();
 
@@ -48,7 +50,8 @@ export class TechnicalFormSubServiceComponent implements OnInit {
 
   setCanProceed(canProceed: boolean){
     this.canProceed = canProceed;
-    this.canProceedEvent.emit(this.canProceed);
+    const reason = this.canProceed ? '' : this.categoryNotSelectedTxt;
+    this.canProceedEvent.emit(new PermissionFlag(this.canProceed, reason));
   }
 
   setCategory(category: SubService){
@@ -68,5 +71,6 @@ export class TechnicalFormSubServiceComponent implements OnInit {
       this.localTranslateService.pairs.push({key: category.translationKey, callback: (res: string) => category.name = res});
     });
     this.localTranslateService.pairs.push({key: 'short-description', callback: (res: string) => this.shortDescription = res});
+    this.localTranslateService.pairs.push({key: 'description-not-set', callback: (res: string) => this.categoryNotSelectedTxt = res});
   }
 }

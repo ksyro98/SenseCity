@@ -16,3 +16,12 @@ p {
   margin-top: 20px;
   margin-bottom: 14px;
 }
+
+.cities-list {
+  background-color: var(--ion-background-color);
+}
+
+.cities-item {
+  --background: var(--ion-background-color);
+  --border-color: var(--ion-color-lines);
+}

@@ -5,8 +5,8 @@ let ProfileRepositoryService = class ProfileRepositoryService {
         this.storageUserService = storageUserService;
         this.networkUtils = networkUtils;
     }
-    isUserActive(email, mobile, name, city, uuid) {
-        return this.networkUtils.isUserActive(email, mobile, name, city, uuid);
+    isUserActive(email, mobile, name, city) {
+        return this.networkUtils.isUserActive(email, mobile, name, city);
     }
 };
 ProfileRepositoryService = __decorate([

@@ -4,11 +4,11 @@ let TechnicalFormImageComponent = class TechnicalFormImageComponent {
     constructor(actionSheetController, cameraService) {
         this.actionSheetController = actionSheetController;
         this.cameraService = cameraService;
-        this.path = '';
+        this.imageDataUrl = '';
     }
     ngOnInit() { }
     addImage() {
-        this.cameraService.showCameraActionSheet(res => this.path = res);
+        this.cameraService.showCameraActionSheet(res => this.imageDataUrl = res);
     }
 };
 __decorate([

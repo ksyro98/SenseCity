@@ -1,6 +1,6 @@
 <div class="center_short">
   <div *ngIf="showHeader" class="small_header">{{photograph}}</div>
-  <ion-img [src]="path === '' ? defaultImage : path"
+  <ion-img [src]="imageExists() ? defaultImage : imageDataUrl"
            [style]="'height: ' + imageHeight.toString() + 'px;'"
            (click)="addImage()">
   </ion-img>

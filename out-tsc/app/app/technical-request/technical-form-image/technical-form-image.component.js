@@ -5,7 +5,7 @@ let TechnicalFormImageComponent = class TechnicalFormImageComponent {
         this.actionSheetController = actionSheetController;
         this.cameraService = cameraService;
         this.localTranslateService = localTranslateService;
-        this.pathChange = new EventEmitter();
+        this.imageDataUrlChange = new EventEmitter();
         this.photograph = 'Φωτογραφία';
         this.setTranslationPairs();
     }
@@ -14,9 +14,12 @@ let TechnicalFormImageComponent = class TechnicalFormImageComponent {
     }
     addImage() {
         this.cameraService.showCameraActionSheet(res => {
-            this.path = res;
-            this.pathChange.emit(this.path);
+            this.imageDataUrl = res;
+            this.imageDataUrlChange.emit(this.imageDataUrl);
         });
+    }
+    imageExists() {
+        return this.imageDataUrl === undefined || this.imageDataUrl === null || this.imageDataUrl === '';
     }
     setTranslationPairs() {
         this.localTranslateService.pairs.push({ key: 'photograph', callback: (res) => this.photograph = res });
@@ -24,10 +27,10 @@ let TechnicalFormImageComponent = class TechnicalFormImageComponent {
 };
 __decorate([
     Input()
-], TechnicalFormImageComponent.prototype, "path", void 0);
+], TechnicalFormImageComponent.prototype, "imageDataUrl", void 0);
 __decorate([
     Output()
-], TechnicalFormImageComponent.prototype, "pathChange", void 0);
+], TechnicalFormImageComponent.prototype, "imageDataUrlChange", void 0);
 __decorate([
     Input()
 ], TechnicalFormImageComponent.prototype, "defaultImage", void 0);

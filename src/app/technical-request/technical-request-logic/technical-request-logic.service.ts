@@ -6,6 +6,7 @@ import {map} from 'rxjs/operators';
 import {UserService} from '../../user-service/user.service';
 import {ProfileElement} from '../../entities/ProfileElement';
 import {User} from '../../entities/User';
+import {Recommendation} from '../../entities/Recommendation';
 
 
 @Injectable({
@@ -33,13 +34,17 @@ export class TechnicalRequestLogicService {
   setIsUserActive(){
     const user = this.userService.getUser();
     this.repository.isUserActive(user.email, user.phone, user.fullName).subscribe(x => {
-      this.verifiedEmail = x[0].activate_email === '1';
+      this.verifiedEmail = x[1].activate_email === '1';
       this.verifiedPhone = x[0].activate_sms === '1';
     });
   }
 
   getEmailProfileElement(): ProfileElement {
-    return ProfileElement.getProfileElementsFromUser(this.userService.getUser())[1];
+    return ProfileElement.getProfileElementsFromUser(this.userService.getUser())[1];  // 1 --> email
+  }
+
+  getPhoneProfileElement(): ProfileElement {
+    return ProfileElement.getProfileElementsFromUser(this.userService.getUser())[2];  // 2 --> phone
   }
 
   getPolicyAboutEmailsSms(): Observable<any>{
@@ -85,6 +90,7 @@ export class TechnicalRequestLogicService {
     const long = this.request.location.coordinates[1];
 
     return this.repository.getRecommendations(issueKey, lat, long).pipe(
+        map( x => x.length > 0 ? x[0].bugs.map(e => new Recommendation(e)) : []),
         map(x => ({
           type: TechnicalRequestLogicService.RECOMMENDATIONS_REQUEST,
           value: x
@@ -115,7 +121,7 @@ export class TechnicalRequestLogicService {
     if (this.userService.getUser().fullName === '' || this.userService.getUser().fullName === undefined){
       return this.getErrorObservable('No user name.');
     }
-    return this.repository.addNewIssue(this.request, this.userService.getUser(), '', '').pipe(
+    return this.repository.addNewIssue(this.request, this.userService.getUser(), '').pipe(
         map(x => ({
           type: TechnicalRequestLogicService.NEW_ISSUE_REQUEST,
           value: x

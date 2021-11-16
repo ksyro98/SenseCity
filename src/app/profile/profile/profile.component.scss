@@ -2,6 +2,7 @@
 
 ion-list {
   padding-top: 2px;
+  background-color: var(--ion-background-color);
 }
 
 ion-item {
@@ -10,7 +11,8 @@ ion-item {
   margin-top: 2px;
   margin-bottom: 2px;
 
-  --border-color: var(--ion-background-color)
+  --border-color: var(--ion-background-color);
+  --background: var(--ion-background-color);
 }
 
 ion-text {
@@ -31,6 +33,10 @@ div {
   text-align:center;
 }
 
+.grey-label {
+  --color: $light-grey-text;
+}
+
 .short_item_no_ripple {
   height: 40px;
   margin-left: 15px;
@@ -44,7 +50,7 @@ div {
 }
 
 .negative-warning-div{
-  color: red;
+  color: $dark-red;
   font-size: 14px;
   text-align: start;
   margin-left: 40px;
@@ -52,7 +58,7 @@ div {
 }
 
 .negative-link{
-  color: red;
+  color: $dark-red;
   font-size: 14px;
 }
 

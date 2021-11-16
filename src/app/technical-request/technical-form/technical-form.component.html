@@ -4,12 +4,12 @@
     <div ngSwitch="{{currentStep}}">
         <app-technical-form-subcategory
                 *ngSwitchCase="0" [service]="logic.request.service"
-                (canProceedEvent)="setCanProceed($event)"
+                (canProceedEvent)="canProceed = $event"
                 [(category)]="logic.request.subService">
         </app-technical-form-subcategory>
 
         <app-technical-form-info *ngSwitchCase="1"
-                                 [(imagePath)]="logic.request.image"
+                                 [(imageDataUrl)]="logic.request.imageDataUrl"
                                  [(userComments)]="logic.request.comments">
         </app-technical-form-info>
 
@@ -17,20 +17,22 @@
         </app-technical-form-map>
 
         <app-technical-form-submit *ngSwitchCase="3" [finalRequest]="logic.request"
-                                   (imageChange)="logic.request.image = $event"
-                                   [(namedClicked)]="namedClicked">
+                                   (imageDataUrlChange)="logic.request.imageDataUrl = $event"
+                                   [(namedClicked)]="namedClicked" (namedClickedChange)="setCanSubmit()"
+                                   [(termsAcceptedClicked)]="termsAcceptedClicked"
+                                   (termsAcceptedClickedChange)="setCanSubmit()">
         </app-technical-form-submit>
     </div>
 </ion-content>
 
 <app-form-stepper
-        [steps]="4" [canProceed]="canProceed" [currentStep]="currentStep"
+        [steps]="4" [canProceed]="canProceed" [currentStep]="currentStep" [canSubmit]="canSubmit"
         (currentStepEvent)="goToNextStep($event)" [loading]="loading" (submitEvent)="goToNextStep(4)"
         class="bottom-stepper">
 </app-form-stepper>
 
 <app-snackbar
-        *ngIf="shouldShowVerificationSnackBar()"
+        *ngIf="isVerificationNeeded()"
         [text]="getVerificationSnackBarText()" [buttonText]="verifyTxt"
         (click)="presentVerificationModal()"
         style="z-index: 10">

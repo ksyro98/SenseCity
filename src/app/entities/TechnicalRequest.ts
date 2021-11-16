@@ -3,20 +3,38 @@ import {Service} from './Service';
 import {RequestLocation} from './RequestLocation';
 
 export class TechnicalRequest{
+    public static readonly CONFIRMED = 'CONFIRMED';
+    public static readonly IN_PROGRESS = 'IN_PROGRESS';
+    public static readonly RESOLVED = 'RESOLVED';
+
     service: Service;
     subService: SubService;
     comments: string;
-    image: string; // find out how images will be stored
+    imageDataUrl: string;
     location: RequestLocation;
     named: boolean;
 
-    constructor(service, subService, comments, image, location, named) {
+    id: number;
+    status: string;
+    cityAddress: string;
+    department: string;
+    municipality: string;
+    createdAt: string;
+
+    constructor(service, subService, comments, image, location, named, id?, status?, cityAddress?, department?, municipality?, createdAt?) {
         this.service = service;
         this.subService = subService;
         this.comments = comments;
-        this.image = image;
+        this.imageDataUrl = image;
         this.location = location;
         this.named = named;
+
+        this.id = id;
+        this.status = status;
+        this.cityAddress = cityAddress;
+        this.department = department;
+        this.municipality = municipality;
+        this.createdAt = createdAt;
     }
 
     getIssue(): string{

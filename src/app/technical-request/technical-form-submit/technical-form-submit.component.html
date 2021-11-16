@@ -1,5 +1,5 @@
 <!-- The list is used to set the position of the header. -->
-<ion-list>
+<ion-list class="list">
   <ion-list-header class="header">
     <ion-label>{{submit}}</ion-label>
   </ion-list-header>
@@ -7,7 +7,7 @@
 
 <app-technical-form-image
         defaultImage="../../assets/svg-images/no_photo.svg" [showHeader]="false" [imageHeight]="150"
-        [path]="finalRequest.image" (pathChange)="imageChange.emit($event)">
+        [imageDataUrl]="finalRequest.imageDataUrl" (imageDataUrlChange)="imageDataUrlChange.emit($event)">
 </app-technical-form-image>
 
 <div class="center_short">
@@ -47,7 +47,7 @@
         {{acceptTerms1}}<a href="https://sense.city/terms.html">{{acceptTerms2}}</a>{{acceptTerms3}}
       </p>
     </ion-label>
-    <ion-checkbox slot="start" checked="true"></ion-checkbox>
+    <ion-checkbox slot="start" [(ngModel)]="termsAcceptedClicked" (ionChange)="onTermsAcceptedClicked()"></ion-checkbox>
   </ion-item>
 </div>
 

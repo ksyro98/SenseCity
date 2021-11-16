@@ -1,29 +1,30 @@
+var CameraService_1;
 import { __awaiter, __decorate } from "tslib";
 import { Injectable } from '@angular/core';
 import { CameraResultType, CameraSource, Plugins } from '@capacitor/core';
-const { Camera, Filesystem, Storage } = Plugins;
-let CameraService = class CameraService {
+const { Camera } = Plugins;
+let CameraService = CameraService_1 = class CameraService {
     constructor(actionSheetController) {
         this.actionSheetController = actionSheetController;
     }
-    takeNewPhoto() {
+    static takeNewPhoto() {
         return __awaiter(this, void 0, void 0, function* () {
             const capturedPhoto = yield Camera.getPhoto({
-                resultType: CameraResultType.Uri,
+                resultType: CameraResultType.DataUrl,
                 source: CameraSource.Camera,
-                quality: 100
+                quality: 40,
             });
-            return capturedPhoto.webPath;
+            return capturedPhoto.dataUrl;
         });
     }
-    openGallery() {
+    static openGallery() {
         return __awaiter(this, void 0, void 0, function* () {
             const galleryPhoto = yield Camera.getPhoto({
-                resultType: CameraResultType.Uri,
+                resultType: CameraResultType.DataUrl,
                 source: CameraSource.Photos,
-                quality: 100
+                quality: 40
             });
-            return galleryPhoto.webPath;
+            return galleryPhoto.dataUrl;
         });
     }
     showCameraActionSheet(callback) {
@@ -36,16 +37,14 @@ let CameraService = class CameraService {
                         icon: 'camera',
                         cssClass: 'camera-sheet-button',
                         handler: () => {
-                            this.takeNewPhoto()
-                                .then(res => callback(res));
+                            CameraService_1.takeNewPhoto().then(res => callback(res));
                         }
                     }, {
                         text: 'Συλλογή',
                         icon: 'image',
                         cssClass: 'camera-sheet-button',
                         handler: () => {
-                            this.openGallery()
-                                .then(res => callback(res));
+                            CameraService_1.openGallery().then(res => callback(res));
                         }
                     }]
             });
@@ -53,7 +52,7 @@ let CameraService = class CameraService {
         });
     }
 };
-CameraService = __decorate([
+CameraService = CameraService_1 = __decorate([
     Injectable({
         providedIn: 'root'
     })

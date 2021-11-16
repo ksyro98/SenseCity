@@ -13,17 +13,17 @@ let TechnicalRequestRepositoryService = class TechnicalRequestRepositoryService 
     getRecommendations(issue, lat, long) {
         return this.networkUtils.getIssueRecommendations(issue, lat, long);
     }
-    isUserActive(email, mobile, name, city, uuid) {
-        return this.networkUtils.isUserActive(email, mobile, name, city, uuid);
+    isUserActive(email, mobile, name, city) {
+        return this.networkUtils.isUserActive(email, mobile, name, city);
     }
-    sendActivationEmail(userEmail, userUuid) {
-        return this.networkUtils.sendActivationEmail(userEmail, userUuid);
+    sendActivationEmail(userEmail) {
+        return this.networkUtils.sendActivationEmail(userEmail);
     }
-    sendActivationMobileMessage(userMobile, userName, userUuid, lat, long, city) {
-        return this.networkUtils.sendActivationMobileMessage(userMobile, userName, userUuid, lat, long, city);
+    sendActivationMobileMessage(userMobile, userName, lat, long, city) {
+        return this.networkUtils.sendActivationMobileMessage(userMobile, userName, lat, long, city);
     }
-    addNewIssue(request, user, userDeviceId, userId) {
-        return this.networkUtils.addNewIssue(request, user, userDeviceId, userId);
+    addNewIssue(request, user, userDeviceId) {
+        return this.networkUtils.addNewIssue(request, user, userDeviceId);
     }
 };
 TechnicalRequestRepositoryService = __decorate([

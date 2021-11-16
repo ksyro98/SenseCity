@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProfileElement } from '../../entities/ProfileElement';
+import { Recommendation } from '../../entities/Recommendation';
 let TechnicalRequestLogicService = TechnicalRequestLogicService_1 = class TechnicalRequestLogicService {
     constructor(userService, repository) {
         this.userService = userService;
@@ -17,12 +18,15 @@ let TechnicalRequestLogicService = TechnicalRequestLogicService_1 = class Techni
     setIsUserActive() {
         const user = this.userService.getUser();
         this.repository.isUserActive(user.email, user.phone, user.fullName).subscribe(x => {
-            this.verifiedEmail = x[0].activate_email === '1';
+            this.verifiedEmail = x[1].activate_email === '1';
             this.verifiedPhone = x[0].activate_sms === '1';
         });
     }
     getEmailProfileElement() {
-        return ProfileElement.getProfileElementsFromUser(this.userService.getUser())[1];
+        return ProfileElement.getProfileElementsFromUser(this.userService.getUser())[1]; // 1 --> email
+    }
+    getPhoneProfileElement() {
+        return ProfileElement.getProfileElementsFromUser(this.userService.getUser())[2]; // 2 --> phone
     }
     getPolicyAboutEmailsSms() {
         if (this.isLocationUndefined()) {
@@ -54,7 +58,7 @@ let TechnicalRequestLogicService = TechnicalRequestLogicService_1 = class Techni
         const issueKey = this.request.service.translationKey;
         const lat = this.request.location.coordinates[0];
         const long = this.request.location.coordinates[1];
-        return this.repository.getRecommendations(issueKey, lat, long).pipe(map(x => ({
+        return this.repository.getRecommendations(issueKey, lat, long).pipe(map(x => x.length > 0 ? x[0].bugs.map(e => new Recommendation(e)) : []), map(x => ({
             type: TechnicalRequestLogicService_1.RECOMMENDATIONS_REQUEST,
             value: x
         })));
@@ -78,7 +82,7 @@ let TechnicalRequestLogicService = TechnicalRequestLogicService_1 = class Techni
         if (this.userService.getUser().fullName === '' || this.userService.getUser().fullName === undefined) {
             return this.getErrorObservable('No user name.');
         }
-        return this.repository.addNewIssue(this.request, this.userService.getUser(), '', '').pipe(map(x => ({
+        return this.repository.addNewIssue(this.request, this.userService.getUser(), '').pipe(map(x => ({
             type: TechnicalRequestLogicService_1.NEW_ISSUE_REQUEST,
             value: x
         })));

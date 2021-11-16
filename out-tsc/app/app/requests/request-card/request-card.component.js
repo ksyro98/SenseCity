@@ -1,22 +1,30 @@
 import { __decorate } from "tslib";
 import { Component, Input } from '@angular/core';
+import { TechnicalRequest } from '../../entities/TechnicalRequest';
 let RequestCardComponent = class RequestCardComponent {
     constructor(router, localTranslateService) {
         this.router = router;
         this.localTranslateService = localTranslateService;
         this.selectedStars = -1;
-        this.text1 = 'Το αίτημα σας (';
-        this.text2 = ') με κωδικό #';
-        this.text3 = 'είναι σε εξέλειξη';
-        this.text4 = ' ολοκληρώθηκε.';
-        this.status = 'Κατάσταση: ';
-        this.value1 = 'Καθαριότητα';
-        this.value2 = '47123';
-        this.value3 = 'Επιβεβαιωμένο';
+        this.inProgressTxt = 'Σε Εξέλειξη';
+        this.confirmedTxt = 'Επιβεβαιώθηκε';
+        this.resolvedTxt = 'Επιλύθηκε';
+        this.unknownTxt = 'Άγνωστο';
         this.setTranslationPairs();
     }
     ngOnInit() {
         this.localTranslateService.translateLanguage();
+    }
+    getStatusText(status) {
+        switch (status) {
+            case TechnicalRequest.IN_PROGRESS:
+                return this.inProgressTxt;
+            case TechnicalRequest.CONFIRMED:
+                return this.confirmedTxt;
+            case TechnicalRequest.RESOLVED:
+                return this.resolvedTxt;
+        }
+        return this.unknownTxt;
     }
     areStarsPressed() {
         return !(this.selectedStars === -1);
@@ -26,17 +34,13 @@ let RequestCardComponent = class RequestCardComponent {
             this.selectedStars = -1;
             return;
         }
-        this.router.navigate(['/request-details'], { queryParams: { completed: this.completed } });
+        this.router.navigate(['/request-details'], { queryParams: { alias: this.request.alias, completed: this.completed } });
     }
     setTranslationPairs() {
-        this.localTranslateService.pairs.push({ key: 'text-request-card-1', callback: (res) => this.text1 = res });
-        this.localTranslateService.pairs.push({ key: 'text-request-card-2', callback: (res) => this.text2 = res });
-        this.localTranslateService.pairs.push({ key: 'text-request-card-3', callback: (res) => this.text3 = res });
-        this.localTranslateService.pairs.push({ key: 'text-request-card-4', callback: (res) => this.text4 = res });
-        this.localTranslateService.pairs.push({ key: 'status-request-card', callback: (res) => this.status = res });
-        this.localTranslateService.pairs.push({ key: '_value-request-card-1', callback: (res) => this.value1 = res });
-        this.localTranslateService.pairs.push({ key: '_value-request-card-2', callback: (res) => this.value2 = res });
-        this.localTranslateService.pairs.push({ key: '_value-request-card-3', callback: (res) => this.value3 = res });
+        this.localTranslateService.pairs.push({ key: 'in-progress-lc', callback: (res) => this.inProgressTxt = res });
+        this.localTranslateService.pairs.push({ key: 'confirmed', callback: (res) => this.confirmedTxt = res });
+        this.localTranslateService.pairs.push({ key: 'resolved', callback: (res) => this.resolvedTxt = res });
+        this.localTranslateService.pairs.push({ key: 'unknown', callback: (res) => this.unknownTxt = res });
     }
 };
 __decorate([
@@ -45,6 +49,9 @@ __decorate([
 __decorate([
     Input()
 ], RequestCardComponent.prototype, "completed", void 0);
+__decorate([
+    Input()
+], RequestCardComponent.prototype, "request", void 0);
 RequestCardComponent = __decorate([
     Component({
         selector: 'app-request-card',
