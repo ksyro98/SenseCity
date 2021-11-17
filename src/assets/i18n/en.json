@@ -228,6 +228,8 @@
 	"description-not-set": "Description not set",
 	"verification-needed": "Verification needed",
 	"anonymous-not-allowed": "Anonymous requests are not allowed",
-	"terms-not-accepted": "You need to accept the terms of use"
+	"terms-not-accepted": "You need to accept the terms of use",
+	"email-phone-not-set": "Email and phone number aren't set",
+	"refresh": "Refresh"
 }
 

@@ -10,12 +10,17 @@ ion-list {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .grey-text-div {
   color: $dark-grey;
+  padding-bottom: 16px;
+  text-align: center;
+}
+
+.link-div {
+  color: var(--ion-color-primary);
   padding-bottom: 48px;
-  padding-right: 64px;
-  padding-left: 64px;
   text-align: center;
 }

@@ -227,6 +227,8 @@
 	"description-not-set": "Η περιγραφή δεν έχει οριστεί",
 	"verification-needed": "Χρειάζεται επιβεβαίωση",
 	"anonymous-not-allowed": "Δεν επιτρέπονται οι ανώνυμες αναφορές",
-	"terms-not-accepted": "Πρέπει να αποδεχτείτε τους όρους χρήσης"
+	"terms-not-accepted": "Πρέπει να αποδεχτείτε τους όρους χρήσης",
+	"email-phone-not-set": "Το email και ο αριθμός τηλεφώνου δεν έχουν οριστεί",
+	"refresh": "Ανανέωση"
 }
 

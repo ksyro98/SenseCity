@@ -2,13 +2,16 @@
   <ion-list *ngIf="requests.length > 0; else empty_list_content">
     <app-request-card *ngFor="let request of requests; let i = index"
                       [isLast]="i === requests.length-1" [completed]="completed" [request]="request">
-<!--                      [subServiceName]="request.subServiceName" [id]="request.id" [alias]="request['alias'][0]"-->
-<!--                      [status]="request.status" [address]="request['cf_city_address']">-->
     </app-request-card>
   </ion-list>
   <ng-template #empty_list_content>
-    <div class="full-screen-center-div grey-text-div">
-      {{noRequestsTxt1 + (completed ? completedTxt : activeTxt) + noRequestsTxt2}}
+    <div class="full-screen-center-div">
+      <div class="grey-text-div">
+        {{noRequestsTxt1 + (completed ? completedTxt : activeTxt) + noRequestsTxt2}}
+      </div>
+      <div class="link-div">
+        <u (click)="updateRequests()">{{refreshTxt}}</u>
+      </div>
     </div>
   </ng-template>
 </div>
