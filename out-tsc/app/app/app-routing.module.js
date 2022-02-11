@@ -9,6 +9,7 @@ import { NeighborhoodComponent } from './neighborhood/neighborhood/neighborhood.
 import { AdministrativeFormComponent } from './administrative-request/administrative-form/administrative-form.component';
 import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
 import { SelectCityAtStartComponent } from './starting-screens/select-city-modal/select-city-at-start.component';
+import { NoInternetComponent } from './starting-screens/no-internet/no-internet.component';
 const routes = [
     {
         path: '',
@@ -57,6 +58,9 @@ const routes = [
     {
         path: 'neighborhood-tab-old',
         loadChildren: () => import('./main-screens/neighborhood-tab/neighborhood-tab.module').then(m => m.NeighborhoodTabPageModule)
+    },
+    {
+        path: 'no-internet', component: NoInternetComponent
     }
 ];
 let AppRoutingModule = class AppRoutingModule {

@@ -15,3 +15,37 @@
   padding-left: 64px;
   text-align: center;
 }
+
+.list {
+  padding: 0;
+}
+
+.title-div {
+  color: var(--ion-darker-grey-text-color);
+  font-size: large;
+  padding-top: 5px;
+  padding-bottom: 4px;
+  padding-left: 6px;
+}
+
+.body-div {
+  color: $dark-grey;
+  padding-bottom: 4px;
+  padding-left: 6px;
+}
+
+.time-div {
+  color: $light-grey-text;
+  text-align: end;
+  font-size: 10px;
+}
+
+.card-colors {
+  --border-color: var(--ion-color-lines);
+  --ion-background-color: var(--ion-row-item-color);
+  --background: var(--ion-row-item-color);
+}
+
+.item-col {
+  padding-right: 0 !important;
+}

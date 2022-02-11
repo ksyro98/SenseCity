@@ -1,9 +1,9 @@
 import { __awaiter, __decorate } from "tslib";
 import { Component } from '@angular/core';
-import { FeedbackModalComponent } from './starting-screens/feedback-modal/feedback-modal.component';
 import { Plugins } from '@capacitor/core';
 import { getCityFromPoint } from './constants/Cities';
-const { Geolocation, SplashScreen } = Plugins;
+import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic';
+const { Geolocation, SplashScreen, Network } = Plugins;
 let AppComponent = class AppComponent {
     constructor(platform, 
     // private splashScreen: SplashScreen,
@@ -37,32 +37,52 @@ let AppComponent = class AppComponent {
             yield this.storageCounter.updateCounter();
             yield this.storageState.setState(false);
             this.localTranslateService.translate = this.translate;
-            try {
-                const currentPosition = yield Geolocation.getCurrentPosition();
-                const lat = currentPosition.coords.latitude;
-                const long = currentPosition.coords.longitude;
-                const moreThanSecondTime = yield this.storageCounter.isMoreThanSecondTime();
-                const showDialog = yield this.storageFeedbackCounter.showDialog();
-                if (moreThanSecondTime && showDialog) {
-                    yield FeedbackModalComponent
-                        .present(this.modalController, () => { });
+            yield FCM.requestPushPermission({
+                ios9Support: {
+                    timeout: 10,
+                    interval: 0.3
                 }
-                const city = getCityFromPoint(lat, long);
-                if (city === undefined) {
-                    // here we present the 'select a city modal'
+            });
+            // MOVE THIS OUT OF HERE
+            // const moreThanSecondTime = await this.storageCounter.isMoreThanSecondTime();
+            // const showDialog = await this.storageFeedbackCounter.showDialog();
+            // if (moreThanSecondTime && showDialog) {
+            //     await FeedbackModalComponent.present(this.modalController, () => { });
+            // }
+            const isConnectedToNetwork = (yield Network.getStatus()).connected;
+            const isFirstTime = yield this.storageCounter.isFirstTime();
+            if (!isConnectedToNetwork) {
+                yield this.router.navigate(['no-internet'], { relativeTo: this.route });
+            }
+            else {
+                try {
+                    let city;
+                    if (!isFirstTime) {
+                        const currentPosition = yield Geolocation.getCurrentPosition();
+                        const lat = currentPosition.coords.latitude;
+                        const long = currentPosition.coords.longitude;
+                        city = getCityFromPoint(lat, long);
+                    }
+                    if (city === undefined || city === null) {
+                        // here we present the 'select a city modal'
+                        yield this.router.navigate(['select-city'], { relativeTo: this.route });
+                    }
+                    else {
+                        // here we set the current city as the user's city
+                        yield this.cityParamsService.navigate(this.getTranslatedCity(city));
+                    }
+                }
+                catch (error) {
                     yield this.router.navigate(['select-city'], { relativeTo: this.route });
                 }
-                else {
-                    // here we set the current city as the user's city
-                    yield this.cityParamsService.navigate(city);
-                }
-            }
-            catch (error) {
-                yield this.router.navigate(['select-city'], { relativeTo: this.route });
             }
             yield SplashScreen.hide();
-            // this.splashScreen.hide();
         });
+    }
+    getTranslatedCity(city) {
+        this.localTranslateService.pairs.push({ key: city.cityKey, callback: (res) => city.name = res });
+        this.localTranslateService.translateLanguage();
+        return city;
     }
 };
 AppComponent = __decorate([

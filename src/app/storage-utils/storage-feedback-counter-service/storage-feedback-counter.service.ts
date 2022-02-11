@@ -25,7 +25,6 @@ export class StorageFeedbackCounterService {
       return;
     }
 
-    // let val: number = + await Storage.get({key: this.storageKey});
     let val = parseInt(strVal.value, 10);
     val++;
     await Storage.set({

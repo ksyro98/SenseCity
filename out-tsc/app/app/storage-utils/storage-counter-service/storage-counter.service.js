@@ -9,7 +9,6 @@ let StorageCounterService = class StorageCounterService {
     updateCounter() {
         return __awaiter(this, void 0, void 0, function* () {
             const strVal = yield Storage.get({ key: this.storageKey });
-            console.log(strVal);
             if (strVal.value === null || isNaN(Number(strVal.value))) {
                 yield Storage.set({
                     key: this.storageKey,
@@ -17,7 +16,6 @@ let StorageCounterService = class StorageCounterService {
                 });
                 return;
             }
-            // let val: number = + await Storage.get({key: this.storageKey});
             let val = parseInt(strVal.value, 10);
             val++;
             yield Storage.set({
@@ -26,10 +24,15 @@ let StorageCounterService = class StorageCounterService {
             });
         });
     }
+    isFirstTime() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const val = +((yield Storage.get({ key: this.storageKey })).value);
+            return val === 0;
+        });
+    }
     isSecondTime() {
         return __awaiter(this, void 0, void 0, function* () {
-            const strVal = yield Storage.get({ key: this.storageKey });
-            const val = +strVal.value;
+            const val = +(yield Storage.get({ key: this.storageKey }));
             return val === 1;
         });
     }

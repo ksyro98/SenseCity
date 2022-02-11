@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {ModalController, Platform} from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import {FeedbackModalComponent} from './starting-screens/feedback-modal/feedback-modal.component';
 import {Plugins} from '@capacitor/core';
 import {getCityFromPoint} from './constants/Cities';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -13,8 +12,9 @@ import {StorageFeedbackCounterService} from './storage-utils/storage-feedback-co
 import {TranslateService} from '@ngx-translate/core';
 import {LocalTranslateService} from './view-utils/local-translate-service/local-translate.service';
 import {UserService} from './user-service/user.service';
+import {FCM} from 'cordova-plugin-fcm-with-dependecy-updated/ionic';
 
-const {Geolocation, SplashScreen} = Plugins;
+const {Geolocation, SplashScreen, Network} = Plugins;
 
 @Component({
   selector: 'app-root',
@@ -59,33 +59,57 @@ export class AppComponent {
 
       this.localTranslateService.translate = this.translate;
 
-      try {
-          const currentPosition = await Geolocation.getCurrentPosition();
-          const lat = currentPosition.coords.latitude;
-          const long = currentPosition.coords.longitude;
-
-          const moreThanSecondTime = await this.storageCounter.isMoreThanSecondTime();
-          const showDialog = await this.storageFeedbackCounter.showDialog();
-          if (moreThanSecondTime && showDialog) {
-              await FeedbackModalComponent
-                  .present(this.modalController, () => { });
+      await FCM.requestPushPermission({
+          ios9Support: {
+              timeout: 10,
+              interval: 0.3
           }
+      });
 
-          const city = getCityFromPoint(lat, long);
-          if (city === undefined) {
-              // here we present the 'select a city modal'
-              await this.router.navigate(['select-city'], {relativeTo: this.route});
-          } else {
-              // here we set the current city as the user's city
-              await this.cityParamsService.navigate(city);
-          }
+      // MOVE THIS OUT OF HERE
+      // const moreThanSecondTime = await this.storageCounter.isMoreThanSecondTime();
+      // const showDialog = await this.storageFeedbackCounter.showDialog();
+      // if (moreThanSecondTime && showDialog) {
+      //     await FeedbackModalComponent.present(this.modalController, () => { });
+      // }
+
+      const isConnectedToNetwork = (await Network.getStatus()).connected;
+      const isFirstTime = await this.storageCounter.isFirstTime();
+
+      if (!isConnectedToNetwork){
+          await this.router.navigate(['no-internet'], {relativeTo: this.route});
       }
-      catch (error) {
-          await this.router.navigate(['select-city'], {relativeTo: this.route});
+      else {
+          try {
+              let city;
+              if (!isFirstTime) {
+                  const currentPosition = await Geolocation.getCurrentPosition();
+                  const lat = currentPosition.coords.latitude;
+                  const long = currentPosition.coords.longitude;
+
+                  city = getCityFromPoint(lat, long);
+              }
+
+              if (city === undefined || city === null) {
+                  // here we present the 'select a city modal'
+                  await this.router.navigate(['select-city'], {relativeTo: this.route});
+              } else {
+                  // here we set the current city as the user's city
+                  await this.cityParamsService.navigate(this.getTranslatedCity(city));
+              }
+          } catch (error) {
+              await this.router.navigate(['select-city'], {relativeTo: this.route});
+          }
       }
 
       await SplashScreen.hide();
-      // this.splashScreen.hide();
+  }
+
+  private getTranslatedCity(city){
+      this.localTranslateService.pairs.push({key: city.cityKey, callback: (res: string) => city.name = res});
+      this.localTranslateService.translateLanguage();
+      return city;
   }
 
 }
+

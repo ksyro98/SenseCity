@@ -1,14 +1,13 @@
-import { __awaiter, __decorate, __param } from "tslib";
-import { Component, Inject, Input } from '@angular/core';
-import { GET_SERVICES_INTERFACE_DI_TOKEN } from '../../interface-adapters/GetServicesInterface';
+import { __awaiter, __decorate } from "tslib";
+import { Component, Input } from '@angular/core';
+import { ADMINISTRATIVE_SERVICES_LIST } from '../../entities/Service';
 let AdministrativeServicesListComponent = class AdministrativeServicesListComponent {
-    constructor(getServicesInterface, localTranslateService) {
-        this.getServicesInterface = getServicesInterface;
+    constructor(localTranslateService) {
         this.localTranslateService = localTranslateService;
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.administrativeServices = yield this.getServicesInterface.getServices(1);
+            this.administrativeServices = ADMINISTRATIVE_SERVICES_LIST;
             this.setTranslationPairs();
             this.localTranslateService.translateLanguage();
         });
@@ -29,8 +28,7 @@ AdministrativeServicesListComponent = __decorate([
         selector: 'app-administrative-services-list',
         templateUrl: './administrative-services-list.component.html',
         styleUrls: ['./administrative-services-list.component.scss'],
-    }),
-    __param(0, Inject(GET_SERVICES_INTERFACE_DI_TOKEN))
+    })
 ], AdministrativeServicesListComponent);
 export { AdministrativeServicesListComponent };
 //# sourceMappingURL=administrative-services-list.component.js.map

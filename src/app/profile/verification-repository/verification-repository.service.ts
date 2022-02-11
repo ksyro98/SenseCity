@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {StorageUserService} from '../../storage-utils/storage-user-service/storage-user.service';
-import {User} from '../../entities/User';
 import {NetworkUtilsService} from '../../network-utils/network-utils.service';
 import {Observable} from 'rxjs';
 
@@ -26,6 +25,6 @@ export class VerificationRepositoryService {
   }
 
   activateMobile(userPhone: string, emailCode: string): Observable<any>{
-    return this.networkUtils.activateEmail(userPhone, emailCode);
+    return this.networkUtils.activateMobile(userPhone, emailCode);
   }
 }

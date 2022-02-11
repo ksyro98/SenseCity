@@ -1,13 +1,11 @@
-import {element} from 'protractor';
 import {SubService} from './SubService';
-import {OtherCategory} from './OtherCategory';
 
 const ICONS_PATH = '/assets/svg-images/technical-req-icons/';
 
 export class Service {
     id: number;
     name: string;
-    icon: string;   // check how the icon will be stored; empty string for administrative services
+    icon: string;   // empty string for administrative services
     translationKey: string;
 
     static getSubServices(id: number): SubService[]{

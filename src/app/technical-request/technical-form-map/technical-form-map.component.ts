@@ -15,8 +15,8 @@ export class TechnicalFormMapComponent implements OnInit {
   private map;
   private locationMarker;
   city = CITIES[4];
-  @Input() locationLatLng: RequestLocation;
-  @Output() locationLatLngChange = new EventEmitter<RequestLocation>();
+  @Input() requestLocation: RequestLocation;
+  @Output() requestLocationChange = new EventEmitter<RequestLocation>();
 
   location = 'Τοποθεσία';
   changeCity = 'Αλλαγή πόλης';
@@ -29,11 +29,16 @@ export class TechnicalFormMapComponent implements OnInit {
     this.localTranslateService.translateLanguage();
   }
 
+  setLocation(location: RequestLocation) {
+    this.requestLocation = location;
+    this.requestLocationChange.emit(this.requestLocation);
+  }
+
   async presentCitiesModal(){
     CitiesModalComponent.present(this.modalController, (city) => {
       this.city = city;
-      this.locationLatLng = {type: 'Point', coordinates: [city.lat, city.long]};
-      this.locationLatLngChange.emit(this.locationLatLng);
+      this.requestLocation = {type: 'Point', coordinates: [city.long, city.lat]};
+      this.requestLocationChange.emit(this.requestLocation);
     });
   }
 

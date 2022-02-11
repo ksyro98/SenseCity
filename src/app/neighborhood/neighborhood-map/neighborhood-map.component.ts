@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { AlertService } from '../../view-utils/alert-service/alert.service';
 import { Plugins } from '@capacitor/core';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
+import {RequestLocation} from '../../entities/RequestLocation';
 
 const { Toast } = Plugins;
 
@@ -12,10 +13,14 @@ const { Toast } = Plugins;
 })
 export class NeighborhoodMapComponent implements OnInit {
 
+  @Input() neighborhood: RequestLocation;
+  @Output() locationChange = new EventEmitter<RequestLocation>();
+  @Output() registerNeighborhood = new EventEmitter<void>();
+  @Output() unregisterNeighborhood = new EventEmitter<void>();
+
   receiveMessages = 'Ναι, θέλω να λαμβάνω ενημερώσεις για το σημείο ενδιαφέροντος που δήλωσα στον χάρτη!';
   delete = 'Διαγραφή';
   register = 'Καταχώρηση';
-  neighborhoodUpdated = 'Η γειτονιά σας ανανεώθηκε!';
   deleteNeighborhoodHead = 'Διαγραφή Γειτονιάς';
   deleteNeighborhoodBody = 'Είσαι σίγουρος ότι θέλεις να σταματήσετε να λαμβάνετε μηνύματα για αυτή τη γειτονιά;';
 
@@ -28,13 +33,11 @@ export class NeighborhoodMapComponent implements OnInit {
   }
 
   async addNeighborhood(){
-    await Toast.show({
-      text: this.neighborhoodUpdated
-    });
+    this.registerNeighborhood.emit();
   }
 
   removeNeighborhood(){
-    this.showRemoveAlert(() => {});
+    this.showRemoveAlert(() => this.unregisterNeighborhood.emit());
   }
 
   showRemoveAlert(callback: () => void){
@@ -49,11 +52,14 @@ export class NeighborhoodMapComponent implements OnInit {
     );
   }
 
+  onLocationChange(location){
+    this.locationChange.emit(location);
+  }
+
   private setTranslationPairs(){
     this.localTranslateService.pairs.push({key: 'receive-messages', callback: (res: string) => this.receiveMessages = res});
     this.localTranslateService.pairs.push({key: 'delete', callback: (res: string) => this.delete = res});
     this.localTranslateService.pairs.push({key: 'register', callback: (res: string) => this.register = res});
-    this.localTranslateService.pairs.push({key: 'neighborhood-updated', callback: (res: string) => this.neighborhoodUpdated = res});
     this.localTranslateService.pairs.push({key: 'delete-neighborhood-head', callback: (res: string) => this.deleteNeighborhoodHead = res});
     this.localTranslateService.pairs.push({key: 'delete-neighborhood-body', callback: (res: string) => this.deleteNeighborhoodBody = res});
   }

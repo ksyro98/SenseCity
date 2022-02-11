@@ -1,7 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-
-import {GET_SERVICES_INTERFACE_DI_TOKEN, GetServicesInterface} from '../../interface-adapters/GetServicesInterface';
-import {Service} from '../../entities/Service';
+import {Component, OnInit} from '@angular/core';
+import {Service, TECHNICAL_SERVICES_LIST} from '../../entities/Service';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 @Component({
@@ -12,13 +10,8 @@ import {LocalTranslateService} from '../../view-utils/local-translate-service/lo
 export class TechnicalServicesListComponent implements OnInit {
 
   public technicalServices: Service[];
-  // private getServicesInterface: GetServicesInterface;
 
-  // TODO how can we remove the call to the ServicesCommunication
-  constructor(
-      @Inject(GET_SERVICES_INTERFACE_DI_TOKEN) private getServicesInterface: GetServicesInterface,
-      private localTranslateService: LocalTranslateService
-  ) { }
+  constructor(private localTranslateService: LocalTranslateService) { }
 
   async ngOnInit() {
     await this.updateServices();
@@ -27,7 +20,7 @@ export class TechnicalServicesListComponent implements OnInit {
   }
 
   private async updateServices() {
-    return this.technicalServices = await this.getServicesInterface.getServices(0);
+    this.technicalServices = TECHNICAL_SERVICES_LIST;
   }
 
   setTranslationPairs(){

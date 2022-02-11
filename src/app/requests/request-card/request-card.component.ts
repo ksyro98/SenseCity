@@ -13,11 +13,6 @@ export class RequestCardComponent implements OnInit {
 
   @Input() isLast: boolean;
   @Input() completed: boolean;
-  // @Input() subServiceName: string;
-  // @Input() id: number;
-  // @Input() alias: string;
-  // @Input() status: string;
-  // @Input() address: string;
   @Input() request: RequestSummary;
   selectedStars = -1;
 

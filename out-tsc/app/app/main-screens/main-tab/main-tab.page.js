@@ -6,13 +6,14 @@ import { Plugins } from '@capacitor/core';
 import { CITY_POLYGONS } from '../../constants/Cities';
 const { Toast } = Plugins;
 let MainTabPage = class MainTabPage {
-    constructor(popoverController, modalController, alertService, storageCounter, storageState, route, localTranslateService) {
+    constructor(popoverController, modalController, alertService, storageCounter, storageState, activatedRoute, router, localTranslateService) {
         this.popoverController = popoverController;
         this.modalController = modalController;
         this.alertService = alertService;
         this.storageCounter = storageCounter;
         this.storageState = storageState;
-        this.route = route;
+        this.activatedRoute = activatedRoute;
+        this.router = router;
         this.localTranslateService = localTranslateService;
         this.typeOfService = 0; // 0 --> technical, 1 --> administrative
         this.technicalServices = 'Τεχνικες Υπ.';
@@ -21,14 +22,16 @@ let MainTabPage = class MainTabPage {
         this.changeCityTitle = 'Αλλαγή πόλης';
         this.selectedCityText = 'Η επιλγμένη πόλη είναι η';
         this.changeCityText = 'Μπορείς να την αλλάξεις πατώντας στις 3 τελειες, πάνω δεξιά.';
-        this.isSecondTime = false;
+        this.fillProfileTitleTxt = '';
+        this.fillProfileBodyTxt = '';
+        this.isFirstTime = false;
         this.setTranslationPairs();
     }
     ngOnInit() {
         return __awaiter(this, void 0, void 0, function* () {
             this.localTranslateService.translateLanguage();
-            this.isSecondTime = yield this.storageCounter.isSecondTime();
-            this.route.queryParamMap.subscribe((params) => {
+            this.isFirstTime = yield this.storageCounter.isFirstTime();
+            this.activatedRoute.queryParamMap.subscribe((params) => {
                 const polygon = CITY_POLYGONS[params.get('name')];
                 this.city = {
                     name: params.get('name'),
@@ -39,24 +42,7 @@ let MainTabPage = class MainTabPage {
                     polygon,
                     cityKey: params.get('cityKey')
                 };
-                if (this.city.name !== null) {
-                    if (this.isSecondTime) {
-                        this.alertService.showAlert({
-                            head: this.changeCityTitle,
-                            body: `${this.selectedCityText} ${this.city.name}. ${this.changeCityText}`
-                        }, () => __awaiter(this, void 0, void 0, function* () {
-                        }));
-                        this.isSecondTime = false;
-                    }
-                    else {
-                        this.storageState.stateIsTrue().then(state => {
-                            if (!state) {
-                                Toast.show({ text: `${this.selectedCityText} ${this.city.name}.` });
-                                this.storageState.setState(true);
-                            }
-                        });
-                    }
-                }
+                setTimeout(() => this.showStartingMessages(), 500);
             });
         });
     }
@@ -82,6 +68,28 @@ let MainTabPage = class MainTabPage {
             });
         });
     }
+    showStartingMessages() {
+        if (this.isFirstTime) {
+            this.alertService.showAlert({
+                head: this.fillProfileTitleTxt,
+                body: this.fillProfileBodyTxt,
+            }, () => this.navigateToProfileScreen(), () => { });
+            this.isFirstTime = false;
+        }
+        else {
+            if (this.city.name !== null) {
+                this.storageState.stateIsTrue().then(state => {
+                    if (!state) {
+                        Toast.show({ text: `${this.selectedCityText} ${this.city.name}.` });
+                        this.storageState.setState(true);
+                    }
+                });
+            }
+        }
+    }
+    navigateToProfileScreen() {
+        this.router.navigate(['/profile']);
+    }
     setTranslationPairs() {
         this.localTranslateService.pairs.push({ key: 'technical-services', callback: (res) => this.technicalServices = res });
         this.localTranslateService.pairs.push({ key: 'administrative-services', callback: (res) => this.administrativeServices = res });
@@ -89,6 +97,8 @@ let MainTabPage = class MainTabPage {
         this.localTranslateService.pairs.push({ key: 'change-city-title', callback: (res) => this.changeCityTitle = res });
         this.localTranslateService.pairs.push({ key: 'selected-city-text', callback: (res) => this.selectedCityText = res });
         this.localTranslateService.pairs.push({ key: 'change-city-text', callback: (res) => this.changeCityText = res });
+        this.localTranslateService.pairs.push({ key: 'fill-profile-title', callback: (res) => this.fillProfileTitleTxt = res });
+        this.localTranslateService.pairs.push({ key: 'fill-profile-body', callback: (res) => this.fillProfileBodyTxt = res });
     }
 };
 MainTabPage = __decorate([

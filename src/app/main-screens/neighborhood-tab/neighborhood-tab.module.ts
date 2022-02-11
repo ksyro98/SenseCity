@@ -10,14 +10,16 @@ import { NeighborhoodTabPage } from './neighborhood-tab.page';
 import {NeighborhoodMapComponent} from '../../neighborhood/neighborhood-map/neighborhood-map.component';
 import {NeighborhoodMessagesComponent} from '../../neighborhood/neighborhood-messages/neighborhood-messages.component';
 import {MapComponent} from '../../view-utils/map/map.component';
+import {RequestsTabPageModule} from '../requests-tab/requests-tab.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    NeighborhoodTabPageRoutingModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        NeighborhoodTabPageRoutingModule,
+        RequestsTabPageModule
+    ],
   exports: [
     MapComponent
   ],

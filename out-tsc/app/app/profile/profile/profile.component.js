@@ -26,6 +26,7 @@ let ProfileComponent = class ProfileComponent {
             { key: 'not-verified-1', callback: (res) => this.notVerified1 = res },
             { key: 'not-verified-2', callback: (res) => this.notVerified2 = res },
             { key: 'verify', callback: (res) => this.verify = res },
+            { key: 'required', callback: (res) => this.requiredTxt = res },
             { key: this.city.cityKey, callback: (res) => this.city.name = res }
         ];
         logic.waitForUser().then((user) => {
@@ -46,6 +47,9 @@ let ProfileComponent = class ProfileComponent {
     ngOnInit() {
         this.localTranslateService.initTranslate();
         this.language = this.localTranslateService.language;
+    }
+    isRequired(key) {
+        return key === ProfileElement.NAME_KEY || key === ProfileElement.EMAIL_KEY || key === ProfileElement.PHONE_KEY;
     }
     changeLanguage() {
         this.localTranslateService.changeLanguage(this.language);

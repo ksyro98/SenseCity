@@ -15,6 +15,7 @@ $dark-red: #C01010;
 :root {
   --ion-background-color: #f8faf7;
   --ion-text-color: #696969;
+  --ion-darker-grey-text-color: #333333;
 
   /** primary **/
   --ion-color-primary: #0D8479;
@@ -89,6 +90,7 @@ $dark-red: #C01010;
   --ion-color-light-tint: #f5f6f9;
 
 
+  --ion-row-item-color: #f8faf7;
   --ion-color-lines: #dedede;
   --ion-card-background: #ffffff;
   --ion-textarea-background: #eeeeee;
@@ -177,6 +179,9 @@ $dark-red: #C01010;
     --ion-text-color: #ffffff;
     --ion-text-color-rgb: 255,255,255;
 
+    --ion-darker-grey-text-color: #ffffff;
+    --ion-darker-grey-text-color-rgb: 255,255,255;
+
     --ion-color-step-50: #0d0d0d;
     --ion-color-step-100: #1a1a1a;
     --ion-color-step-150: #262626;
@@ -197,6 +202,7 @@ $dark-red: #C01010;
     --ion-color-step-900: #e6e6e6;
     --ion-color-step-950: #f2f2f2;
 
+    --ion-row-item-color: #000000;
     --ion-toolbar-background: #000000;
     --ion-tab-bar-background: #000000;
     --ion-item-background: #1c1c1d;
@@ -217,6 +223,9 @@ $dark-red: #C01010;
 
     --ion-text-color: #f2f2f2;
     --ion-text-color-rgb: 242,242,242;
+
+    --ion-darker-grey-text-color: #f2f2f2;
+    --ion-darker-grey-text-color-rgb: 242,242,242;
 
     --ion-border-color: #222222;
 
@@ -240,6 +249,7 @@ $dark-red: #C01010;
     --ion-color-step-900: #e7e7e7;
     --ion-color-step-950: #f3f3f3;
 
+    --ion-row-item-color: #121212;
     --ion-item-background: #1e1e1e;
     --ion-toolbar-background: #121212;
     --ion-tab-bar-background: #121212;

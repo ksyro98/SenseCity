@@ -15,12 +15,22 @@ let TechnicalRequestLogicService = TechnicalRequestLogicService_1 = class Techni
     }
     isEmailVerified() { return this.verifiedEmail; }
     isPhoneVerified() { return this.verifiedPhone; }
+    getEmail() {
+        return this.userService.getUser().email;
+    }
     setIsUserActive() {
         const user = this.userService.getUser();
-        this.repository.isUserActive(user.email, user.phone, user.fullName).subscribe(x => {
-            this.verifiedEmail = x[1].activate_email === '1';
-            this.verifiedPhone = x[0].activate_sms === '1';
+        return new Observable(subscriber => {
+            this.repository.isUserActive(user.email, user.phone, user.fullName).subscribe(x => {
+                this.verifiedEmail = x[1].activate_email === '1';
+                this.verifiedPhone = x[0].activate_sms === '1';
+                subscriber.complete();
+            });
         });
+        // this.repository.isUserActive(user.email, user.phone, user.fullName).subscribe(x => {
+        //   this.verifiedEmail = x[1].activate_email === '1';
+        //   this.verifiedPhone = x[0].activate_sms === '1';
+        // });
     }
     getEmailProfileElement() {
         return ProfileElement.getProfileElementsFromUser(this.userService.getUser())[1]; // 1 --> email
@@ -32,8 +42,8 @@ let TechnicalRequestLogicService = TechnicalRequestLogicService_1 = class Techni
         if (this.isLocationUndefined()) {
             return this.getUndefinedLocationError();
         }
-        const lat = this.request.location.coordinates[0];
-        const long = this.request.location.coordinates[1];
+        const lat = this.request.location.coordinates[1];
+        const long = this.request.location.coordinates[0];
         return this.repository.getPolicyAboutEmailsSms(lat, long).pipe(map(x => ({
             type: TechnicalRequestLogicService_1.POLICY_EMAIL_SMS_REQUEST,
             value: x
@@ -44,8 +54,8 @@ let TechnicalRequestLogicService = TechnicalRequestLogicService_1 = class Techni
             return this.getUndefinedLocationError();
         }
         const issueKey = this.request.subService.translationKey;
-        const lat = this.request.location.coordinates[0];
-        const long = this.request.location.coordinates[1];
+        const lat = this.request.location.coordinates[1];
+        const long = this.request.location.coordinates[0];
         return this.repository.getPolicyAboutAnonymity(issueKey, lat, long).pipe(map(x => ({
             type: TechnicalRequestLogicService_1.POLICY_ANONYMITY_REQUEST,
             value: x
@@ -56,8 +66,8 @@ let TechnicalRequestLogicService = TechnicalRequestLogicService_1 = class Techni
             return this.getUndefinedLocationError();
         }
         const issueKey = this.request.service.translationKey;
-        const lat = this.request.location.coordinates[0];
-        const long = this.request.location.coordinates[1];
+        const lat = this.request.location.coordinates[1];
+        const long = this.request.location.coordinates[0];
         return this.repository.getRecommendations(issueKey, lat, long).pipe(map(x => x.length > 0 ? x[0].bugs.map(e => new Recommendation(e)) : []), map(x => ({
             type: TechnicalRequestLogicService_1.RECOMMENDATIONS_REQUEST,
             value: x
@@ -91,6 +101,15 @@ let TechnicalRequestLogicService = TechnicalRequestLogicService_1 = class Techni
         return new Observable(subscriber => {
             subscriber.error(error);
         });
+    }
+    areRequiredDetailsMissing(isEmailNeeded, isPhoneNeeded) {
+        const user = this.userService.getUser();
+        const name = user.fullName;
+        const email = user.email;
+        const phone = user.phone;
+        return name === '' || name === undefined || name === null ||
+            isEmailNeeded && (email === '' || email === undefined || email === null) ||
+            isPhoneNeeded && (phone === '' || phone === undefined || phone === null);
     }
 };
 TechnicalRequestLogicService.RECOMMENDATIONS_REQUEST = 'RECOMMENDATIONS';

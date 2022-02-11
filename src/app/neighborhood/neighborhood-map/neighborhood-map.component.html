@@ -1,11 +1,16 @@
-<app-map [useCurrentLocation]="true"></app-map>
+<app-map
+        [useCurrentLocation]="false"
+        (locationChange)="onLocationChange($event)"
+        [location]="neighborhood"
+        mapId="neighborhood_map">
+</app-map>
 
-<ion-item lines="none" class="short_item_no_ripple">
-    <p class="checkbox-text" i18n>
-        {{receiveMessages}}
-    </p>
-    <ion-checkbox slot="start" checked="true"></ion-checkbox>
-</ion-item>
+<!--<ion-item lines="none" class="short_item_no_ripple">-->
+<!--    <p class="checkbox-text" i18n>-->
+<!--        {{receiveMessages}}-->
+<!--    </p>-->
+<!--    <ion-checkbox slot="start" checked="true"></ion-checkbox>-->
+<!--</ion-item>-->
 
 <ion-row style="justify-content: center">
     <ion-col size="1"></ion-col>

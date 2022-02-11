@@ -8,6 +8,7 @@ import {NeighborhoodComponent} from './neighborhood/neighborhood/neighborhood.co
 import {AdministrativeFormComponent} from './administrative-request/administrative-form/administrative-form.component';
 import {ConsultationsListComponent} from './consultations/consultations-list/consultations-list.component';
 import {SelectCityAtStartComponent} from './starting-screens/select-city-modal/select-city-at-start.component';
+import {NoInternetComponent} from './starting-screens/no-internet/no-internet.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,9 @@ const routes: Routes = [
   {
     path: 'neighborhood-tab-old',
     loadChildren: () => import('./main-screens/neighborhood-tab/neighborhood-tab.module').then(m => m.NeighborhoodTabPageModule)
+  },
+  {
+    path: 'no-internet', component: NoInternetComponent
   }
 ];
 @NgModule({

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "830577239942",
+    "project_id": "sensecity-test",
+    "storage_bucket": "sensecity-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830577239942:android:aea95965edb75935e22e07",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "830577239942-kurd58slbsrvn5b2ob5q3g6nolpqae0o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4O0Cx7RnZ4aXIcfThHDz0mv06ETZ78ZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "830577239942-kurd58slbsrvn5b2ob5q3g6nolpqae0o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

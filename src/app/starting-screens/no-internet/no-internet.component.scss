@@ -1,0 +1,18 @@
+@import "../../view-utils/toolbar";
+
+.no-internet-div {
+  color: #696969;
+  margin-left: 48px;
+  margin-right: 48px;
+  margin-top: 184px;
+  text-align: center;
+}
+
+.no-internet-image {
+  margin: auto;
+  max-width: 200px;
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+}

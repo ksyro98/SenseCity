@@ -5,6 +5,7 @@ import * as L from 'leaflet';
 const { Geolocation } = Plugins;
 let MapComponent = class MapComponent {
     constructor() {
+        this.mapId = 'map_id';
         this.locationChange = new EventEmitter();
     }
     ngOnInit() { }
@@ -31,10 +32,9 @@ let MapComponent = class MapComponent {
             popupAnchor: [-1, -38] // point from which the popup should open relative to the iconAnchor
         });
         this.locationMarker = new L.Marker([38.246242, 21.7350847], { icon: markerIcon, draggable: true });
-        this.map = L.map('map_id', { center: [38.246242, 21.7350847], zoom: 16 });
+        this.map = L.map(this.mapId, { center: [38.246242, 21.7350847], zoom: 16 });
         tiles.addTo(this.map);
         this.locationMarker.addTo(this.map);
-        this.updateLocation(38.246242, 21.7350847);
         this.map.addEventListener('click', (event) => {
             this.locationMarker.setLatLng(event.latlng);
             this.updateLocation(event.latlng.lat, event.latlng.lng);
@@ -46,15 +46,20 @@ let MapComponent = class MapComponent {
                 return;
             }
             else if (this.location.coordinates.length !== 0) {
-                const lat = this.location.coordinates[0];
-                const long = this.location.coordinates[1];
+                const lat = this.location.coordinates[1];
+                const long = this.location.coordinates[0];
                 this.setMapLocation(lat, long, 16);
             }
             else if (this.useCurrentLocation) {
-                const coordinates = yield Geolocation.getCurrentPosition();
-                const lat = coordinates.coords.latitude;
-                const long = coordinates.coords.longitude;
-                this.setMapLocation(lat, long, 16);
+                try {
+                    const coordinates = yield Geolocation.getCurrentPosition();
+                    const lat = coordinates.coords.latitude;
+                    const long = coordinates.coords.longitude;
+                    this.setMapLocation(lat, long, 16);
+                }
+                catch (e) {
+                    this.setMapLocation(38.246242, 21.7350847, 16);
+                }
             }
         });
     }
@@ -64,7 +69,7 @@ let MapComponent = class MapComponent {
         this.updateLocation(lat, long);
     }
     updateLocation(lat, long) {
-        this.location = { type: 'Point', coordinates: [lat, long] };
+        this.location = { type: 'Point', coordinates: [long, lat] };
         this.locationChange.emit(this.location);
     }
 };
@@ -77,6 +82,9 @@ __decorate([
 __decorate([
     Input()
 ], MapComponent.prototype, "location", void 0);
+__decorate([
+    Input()
+], MapComponent.prototype, "mapId", void 0);
 __decorate([
     Output()
 ], MapComponent.prototype, "locationChange", void 0);

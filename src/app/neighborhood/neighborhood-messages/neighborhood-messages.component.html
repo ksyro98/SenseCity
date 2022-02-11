@@ -1,5 +1,22 @@
-<ion-content>
-    <div class="full-screen-center-div grey-text-div">
+<div *ngIf="(messages$ | async) as messages; else loading_content" style="height: 100%;">
+    <ion-list *ngIf="messages.length !== 0" class="list">
+        <ion-item *ngFor="let message of messages" class="card-colors">
+            <ion-col class="item-col">
+                <div class="title-div">{{message.getTitle()}}</div>
+                <div class="body-div">{{message.getMsg()}}</div>
+                <div class="time-div">{{message.getTimeSent()}}</div>
+            </ion-col>
+        </ion-item>
+    </ion-list>
+
+    <div *ngIf="messages.length === 0" class="full-screen-center-div grey-text-div">
         {{noMessagesText}}
     </div>
-</ion-content>
+</div>
+
+<ng-template #loading_content>
+    <div class="full-screen-center-div">
+        <ion-spinner color="primary"></ion-spinner>
+    </div>
+</ng-template>
+

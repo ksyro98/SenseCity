@@ -2,12 +2,14 @@
 
 .snack-bar-div {
   width: 100%;
-  height: 50px;
+  min-height: 50px;
   background-color: $dark-red;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .text-span {

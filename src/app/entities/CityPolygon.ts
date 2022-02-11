@@ -1,5 +1,5 @@
 import * as L from 'leaflet';
-import {LatLng, polygon} from 'leaflet';
+import {LatLng} from 'leaflet';
 
 export class CityPolygon {
     point1: Point;

@@ -5,3 +5,4 @@ export interface Comment {
     timestamp: number;
     isReply: boolean;
 }
+

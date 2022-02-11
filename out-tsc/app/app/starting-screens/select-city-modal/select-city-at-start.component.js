@@ -33,20 +33,6 @@ let SelectCityAtStartComponent = SelectCityAtStartComponent_1 = class SelectCity
     exitComponent(city) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.cityParamsService.navigate(city);
-            // await this.router.navigate(
-            //     ['../tabs/main-tab'],
-            //     {
-            //       relativeTo: this.route,
-            //       queryParams: {
-            //         name: city.name,
-            //         lat: city.lat,
-            //         long: city.long,
-            //         zoom: city.zoom,
-            //         url: city.url,
-            //         polygon: city.polygon
-            //       }
-            //     }
-            //     );
         });
     }
     setTranslationPairs() {

@@ -44,4 +44,11 @@ export function getMonthText(month) {
         default: return { name: 'Γεν.', translationKey: 'month-1' };
     }
 }
+// yyyy-mm-ddTHH:MM:SS:MSZ --> HH:MM dd-mm-yyy eg 2020/05/06T07:10:30.552Z --> 07:10 06/05/2020
+export function transformDateFormat(dateTime) {
+    const parts = dateTime.split('T');
+    const newDate = parts[0].split('-').reverse().join('/');
+    const newTime = parts[1].substring(0, 5);
+    return `${newTime} ${newDate}`;
+}
 //# sourceMappingURL=date-utils.js.map

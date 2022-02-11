@@ -6,7 +6,7 @@
 </ion-list>
 
 <app-map [city]="city" [useCurrentLocation]="true"
-         [(location)]="locationLatLng" (locationChange)="locationLatLngChange.emit(locationLatLng)">
+         [(location)]="requestLocation" (locationChange)="setLocation($event);">
 </app-map>
 
 <p style="margin-top: 10px;" (click)="presentCitiesModal()">{{changeCity}}</p>

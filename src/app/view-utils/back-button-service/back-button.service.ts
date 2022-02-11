@@ -18,7 +18,6 @@ export class BackButtonService {
   init() {
     this.platform.backButton.subscribeWithPriority(-1, async () => {
       const currentUrl = this.router.url;
-      console.log(currentUrl);
       if (this.startingUrls.map(url => currentUrl.includes(url)).includes(true)) {
         // close the app
         (navigator as any).app.exitApp();
@@ -33,8 +32,9 @@ export class BackButtonService {
     });
   }
 
-  constructor(private platform: Platform,
-              private router: Router,
-              private navController: NavController
+  constructor(
+      private platform: Platform,
+      private router: Router,
+      private navController: NavController
   ) { }
 }

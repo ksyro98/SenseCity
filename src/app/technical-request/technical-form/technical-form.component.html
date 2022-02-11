@@ -8,19 +8,23 @@
                 [(category)]="logic.request.subService">
         </app-technical-form-subcategory>
 
-        <app-technical-form-info *ngSwitchCase="1"
-                                 [(imageDataUrl)]="logic.request.imageDataUrl"
-                                 [(userComments)]="logic.request.comments">
+        <app-technical-form-info
+                *ngSwitchCase="1"
+                [(imageDataUrl)]="logic.request.imageDataUrl"
+                [(userComments)]="logic.request.comments">
         </app-technical-form-info>
 
-        <app-technical-form-map *ngSwitchCase="2" [(locationLatLng)]="logic.request.location">
+        <app-technical-form-map
+                *ngSwitchCase="2"
+                [(requestLocation)]="logic.request.location">
         </app-technical-form-map>
 
-        <app-technical-form-submit *ngSwitchCase="3" [finalRequest]="logic.request"
-                                   (imageDataUrlChange)="logic.request.imageDataUrl = $event"
-                                   [(namedClicked)]="namedClicked" (namedClickedChange)="setCanSubmit()"
-                                   [(termsAcceptedClicked)]="termsAcceptedClicked"
-                                   (termsAcceptedClickedChange)="setCanSubmit()">
+        <app-technical-form-submit
+                *ngSwitchCase="3" [finalRequest]="logic.request"
+                (imageDataUrlChange)="logic.request.imageDataUrl = $event"
+                [(termsAcceptedClicked)]="termsAcceptedClicked"
+                (termsAcceptedClickedChange)="setCanSubmit()">
+            <!--                [(namedClicked)]="namedClicked" (namedClickedChange)="setCanSubmit()"-->
         </app-technical-form-submit>
     </div>
 </ion-content>
@@ -32,8 +36,18 @@
 </app-form-stepper>
 
 <app-snackbar
-        *ngIf="isVerificationNeeded()"
-        [text]="getVerificationSnackBarText()" [buttonText]="verifyTxt"
+        *ngIf="areDetailsMissing()"
+        [text]="missingDetailsTxt"
+        [buttonText]="goTxt"
+        (click)="navigateToProfileScreen()"
+        style="z-index: 10">
+</app-snackbar>
+
+<app-snackbar
+        *ngIf="!areDetailsMissing() && isVerificationNeeded()"
+        [text]="getVerificationSnackBarText()"
+        [buttonText]="verifyTxt"
         (click)="presentVerificationModal()"
         style="z-index: 10">
 </app-snackbar>
+

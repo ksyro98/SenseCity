@@ -1,14 +1,18 @@
 var NetworkUtilsService_1;
 import { __decorate } from "tslib";
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Plugins } from '@capacitor/core';
+import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic';
 const { Device } = Plugins;
 const BASE_URL = 'http://apitest.sense.city:4000';
 let NetworkUtilsService = NetworkUtilsService_1 = class NetworkUtilsService {
     constructor(http) {
         this.http = http;
-        this.deviceUuid = '';
-        Device.getInfo().then((info) => this.deviceUuid = info.uuid);
+        if (this.deviceUuid === undefined) {
+            this.deviceUuid = '';
+            Device.getInfo().then((info) => this.deviceUuid = info.uuid);
+        }
     }
     static getHeaders() {
         return {
@@ -40,21 +44,22 @@ let NetworkUtilsService = NetworkUtilsService_1 = class NetworkUtilsService {
         lat = 38.29236177807543;
         long = 21.786332993872996;
         city = 'patras';
-        const params = `uuid=${this.deviceUuid}&name=${userName.replace(' ', '%20')}&mobile=${userMobile}&lat=${lat}&long=${long}&city=${city}`;
+        const params = `uuid=${this.deviceUuid}&name=${userName.replace(' ', '%20')}&mobile=${userMobile}`
+            + `&lat=${lat}&long=${long}&city=${city}`;
         const url = `${BASE_URL}/api/1.0/activate_user?${params}`;
         return this.http.post(url, {}, {
             headers: NetworkUtilsService_1.getHeaders()
         });
     }
     activateEmail(userEmail, emailCode) {
-        // const url = `${BASE_URL}/api/1.0/activate_email?uuid=${this.deviceUuid}&code=${emailCode}&email=${userEmail}`;
-        const url = `${BASE_URL}/api/1.0/activate_email?uuid=web-site&code=${emailCode}&email=${userEmail}`;
+        const url = `${BASE_URL}/api/1.0/activate_email?uuid=${this.deviceUuid}&code=${emailCode}&email=${userEmail}`;
         return this.http.post(url, {}, {
             headers: NetworkUtilsService_1.getHeaders()
         });
     }
     activateMobile(userPhone, mobileCode) {
         const url = `${BASE_URL}/api/1.0/activate_mobile?uuid=${this.deviceUuid}&code=${mobileCode}&mobile=${userPhone}`;
+        console.log(url);
         return this.http.post(url, {}, {
             headers: NetworkUtilsService_1.getHeaders()
         });
@@ -71,10 +76,10 @@ let NetworkUtilsService = NetworkUtilsService_1 = class NetworkUtilsService {
             headers: NetworkUtilsService_1.getHeaders()
         });
     }
-    getIssueRecommendations(subServiceIssue, issueLat, issueLong) {
+    getIssueRecommendations(serviceIssueKey, issueLat, issueLong) {
         const url = `${BASE_URL}/api/1.0/issue_recommendation`;
         const body = {
-            issue: subServiceIssue,
+            issue: serviceIssueKey,
             lat: issueLat,
             long: issueLong
         };
@@ -85,10 +90,7 @@ let NetworkUtilsService = NetworkUtilsService_1 = class NetworkUtilsService {
     addNewIssue(request, user, userDeviceId) {
         const url = `${BASE_URL}/api/1.0/add_new_issue`;
         const body = {
-            loc: {
-                type: request.location.type,
-                coordinates: [request.location.coordinates[1], request.location.coordinates[0]]
-            },
+            loc: request.location,
             issue: request.service.translationKey,
             device_id: userDeviceId,
             value_desc: request.subService.name,
@@ -130,6 +132,56 @@ let NetworkUtilsService = NetworkUtilsService_1 = class NetworkUtilsService {
         const url = `${BASE_URL}/api/1.0/fullissue/${issueAlias}`;
         return this.http.get(url, {
             headers: NetworkUtilsService_1.getHeaders()
+        });
+    }
+    registerLocation(email, latitude, longitude) {
+        const url = `${BASE_URL}/api/1.0/register/myNeighboor`;
+        const body = {
+            fcmToken: '',
+            email_user: email,
+            set_longitude: longitude.toString(),
+            set_lattitude: latitude.toString()
+        };
+        return this.httpWithFcmToken(url, body);
+    }
+    unregisterLocation(email) {
+        const url = `${BASE_URL}/api/1.0/unregister/myNeighboor`;
+        const body = {
+            email_user: email,
+        };
+        return this.http.post(url, body, {
+            headers: NetworkUtilsService_1.getHeaders()
+        });
+    }
+    getNeighborhood(email) {
+        const url = `${BASE_URL}/api/1.0/get_my_neighboor`;
+        const body = {
+            email_user: email,
+            fcmToken: ''
+        };
+        return this.httpWithFcmToken(url, body);
+    }
+    getMessages(email) {
+        const url = `${BASE_URL}/api/1.0/myNeighboor/get_my_msg`;
+        const body = {
+            email_user: email,
+            fcmToken: ''
+        };
+        return this.httpWithFcmToken(url, body);
+    }
+    getFcmToken() {
+        return new Observable(subscriber => {
+            FCM.getToken().then(token => subscriber.next(token));
+        });
+    }
+    httpWithFcmToken(url, body) {
+        return new Observable(subscriber => {
+            this.getFcmToken().subscribe(token => {
+                body.fcmToken = token;
+                this.http.post(url, body, {
+                    headers: NetworkUtilsService_1.getHeaders()
+                }).subscribe(res => subscriber.next(res));
+            });
         });
     }
 };

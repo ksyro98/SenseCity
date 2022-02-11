@@ -11,12 +11,12 @@ let TechnicalFormSubmitComponent = class TechnicalFormSubmitComponent {
         this.cutBranches = 'Κομμένα Κλαδιά';
         this.comments = 'Σχόλια';
         this.commentsValue = 'Architecto commodi quod non...';
-        this.namedRequest = 'Επώνυμη αναφορά';
+        // namedRequest = 'Επώνυμη αναφορά';
         this.acceptTerms1 = 'Αποδέχομαι τους ';
         this.acceptTerms2 = 'όρους χρήσης';
         this.acceptTerms3 = ' του SenseCity.';
         this.imageDataUrlChange = new EventEmitter();
-        this.namedClickedChange = new EventEmitter();
+        // @Output() namedClickedChange = new EventEmitter<boolean>();
         this.termsAcceptedClickedChange = new EventEmitter();
         this.setTranslationPairs();
     }
@@ -26,9 +26,9 @@ let TechnicalFormSubmitComponent = class TechnicalFormSubmitComponent {
     getUserComments() {
         return getShortString(this.finalRequest.comments, 40);
     }
-    onNamedClickChanged() {
-        this.namedClickedChange.emit(this.namedClicked);
-    }
+    // onNamedClick.Changed(){
+    // this.namedClickedChange.emit(this.namedClicked);
+    // }
     onTermsAcceptedClicked() {
         this.termsAcceptedClickedChange.emit(this.termsAcceptedClicked);
     }
@@ -40,7 +40,7 @@ let TechnicalFormSubmitComponent = class TechnicalFormSubmitComponent {
         this.localTranslateService.pairs.push({ key: 'cut-branches', callback: (res) => this.cutBranches = res });
         this.localTranslateService.pairs.push({ key: 'comments', callback: (res) => this.comments = res });
         this.localTranslateService.pairs.push({ key: '_comments-value', callback: (res) => this.commentsValue = res });
-        this.localTranslateService.pairs.push({ key: 'named-request', callback: (res) => this.namedRequest = res });
+        // this.localTranslateService.pairs.push({key: 'named-request', callback: (res: string) => this.namedRequest = res});
         this.localTranslateService.pairs.push({ key: 'accept-terms-1', callback: (res) => this.acceptTerms1 = res });
         this.localTranslateService.pairs.push({ key: 'accept-terms-2', callback: (res) => this.acceptTerms2 = res });
         this.localTranslateService.pairs.push({ key: 'accept-terms-3', callback: (res) => this.acceptTerms3 = res });
@@ -51,16 +51,10 @@ __decorate([
 ], TechnicalFormSubmitComponent.prototype, "finalRequest", void 0);
 __decorate([
     Input()
-], TechnicalFormSubmitComponent.prototype, "namedClicked", void 0);
-__decorate([
-    Input()
 ], TechnicalFormSubmitComponent.prototype, "termsAcceptedClicked", void 0);
 __decorate([
     Output()
 ], TechnicalFormSubmitComponent.prototype, "imageDataUrlChange", void 0);
-__decorate([
-    Output()
-], TechnicalFormSubmitComponent.prototype, "namedClickedChange", void 0);
 __decorate([
     Output()
 ], TechnicalFormSubmitComponent.prototype, "termsAcceptedClickedChange", void 0);

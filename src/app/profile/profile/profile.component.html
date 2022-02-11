@@ -7,7 +7,9 @@
             <div *ngFor="let element of elements">
 
                 <ion-item lines="insert">
-                    <ion-label position="floating" class="grey-label">{{element.label}}</ion-label>
+                    <ion-label position="floating" class="grey-label">
+                        {{element.label + (isRequired(element.key) ? ' *' : '')}}
+                    </ion-label>
                     <ion-input
                             [value]="element.value"
                             [type]="element.inputType"
@@ -45,6 +47,7 @@
             </ion-select>
         </ion-item>
 
+        <div class="requirement-div">{{requiredTxt}}</div>
     </ion-list>
 
 </ion-content>

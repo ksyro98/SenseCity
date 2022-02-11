@@ -1,20 +1,15 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ToolbarPopoverComponent} from '../../view-utils/toolbar-popover/toolbar-popover.component';
 import {ModalController, PopoverController} from '@ionic/angular';
 import {CitiesModalComponent} from '../../view-utils/cities-modal/cities-modal.component';
 import {Plugins} from '@capacitor/core';
 import {City} from '../../entities/City';
-import {CityAlertService} from '../../starting-screens/city-alert-service/city-alert.service';
-import {FirstTimeStorageService} from '../../storage-utils/first-time-storage-service/first-time-storage.service';
-import {FeedbackModalComponent} from '../../starting-screens/feedback-modal/feedback-modal.component';
-import {ActivatedRoute} from '@angular/router';
-import {CityPolygon} from '../../entities/CityPolygon';
+import {WelcomeAlertService} from '../../starting-screens/welcome-alert-service/welcome-alert.service';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CITY_POLYGONS} from '../../constants/Cities';
 import {StorageCounterService} from '../../storage-utils/storage-counter-service/storage-counter.service';
 import {StorageStateService} from '../../storage-utils/storage-state-service/storage-state.service';
-import {StorageFeedbackCounterService} from '../../storage-utils/storage-feedback-counter-service/storage-feedback-counter.service';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
-
 
 const { Toast } = Plugins;
 
@@ -35,16 +30,19 @@ export class MainTabPage implements OnInit {
   private changeCityTitle = 'Αλλαγή πόλης';
   private selectedCityText = 'Η επιλγμένη πόλη είναι η';
   private changeCityText = 'Μπορείς να την αλλάξεις πατώντας στις 3 τελειες, πάνω δεξιά.';
+  private fillProfileTitleTxt = '';
+  private fillProfileBodyTxt = '';
 
-  private isSecondTime = false;
+  private isFirstTime = false;
 
   constructor(
       public popoverController: PopoverController,
       public modalController: ModalController,
-      private alertService: CityAlertService,
+      private alertService: WelcomeAlertService,
       private storageCounter: StorageCounterService,
       private storageState: StorageStateService,
-      private route: ActivatedRoute,
+      private activatedRoute: ActivatedRoute,
+      private router: Router,
       private localTranslateService: LocalTranslateService
   ) {
     this.setTranslationPairs();
@@ -53,9 +51,9 @@ export class MainTabPage implements OnInit {
   async ngOnInit() {
     this.localTranslateService.translateLanguage();
 
-    this.isSecondTime = await this.storageCounter.isSecondTime();
+    this.isFirstTime = await this.storageCounter.isFirstTime();
 
-    this.route.queryParamMap.subscribe((params) => {
+    this.activatedRoute.queryParamMap.subscribe((params) => {
       const polygon = CITY_POLYGONS[params.get('name')];
       this.city = {
         name: params.get('name'),
@@ -67,25 +65,7 @@ export class MainTabPage implements OnInit {
         cityKey: params.get('cityKey')
       };
 
-      if (this.city.name !== null) {
-        if (this.isSecondTime) {
-          this.alertService.showAlert(
-              {
-                head: this.changeCityTitle,
-                body: `${this.selectedCityText} ${this.city.name}. ${this.changeCityText}`
-              },
-              async () => {
-              });
-          this.isSecondTime = false;
-        } else {
-          this.storageState.stateIsTrue().then(state => {
-            if (!state){
-              Toast.show({text: `${this.selectedCityText} ${this.city.name}.`});
-              this.storageState.setState(true);
-            }
-          });
-        }
-      }
+      setTimeout(() => this.showStartingMessages(), 500);
 
     });
   }
@@ -115,6 +95,34 @@ export class MainTabPage implements OnInit {
     });
   }
 
+  private showStartingMessages() {
+    if (this.isFirstTime) {
+      this.alertService.showAlert(
+          {
+            head: this.fillProfileTitleTxt,
+            body: this.fillProfileBodyTxt,
+          },
+          () => this.navigateToProfileScreen(),
+          () => {}
+      );
+      this.isFirstTime = false;
+    }
+    else {
+      if (this.city.name !== null) {
+        this.storageState.stateIsTrue().then(state => {
+          if (!state) {
+            Toast.show({text: `${this.selectedCityText} ${this.city.name}.`});
+            this.storageState.setState(true);
+          }
+        });
+      }
+    }
+  }
+
+  private  navigateToProfileScreen(){
+    this.router.navigate(['/profile']);
+  }
+
   private setTranslationPairs(){
     this.localTranslateService.pairs.push({key: 'technical-services', callback: (res: string) => this.technicalServices = res});
     this.localTranslateService.pairs.push({key: 'administrative-services', callback: (res: string) => this.administrativeServices = res});
@@ -122,6 +130,8 @@ export class MainTabPage implements OnInit {
     this.localTranslateService.pairs.push({key: 'change-city-title', callback: (res: string) => this.changeCityTitle = res});
     this.localTranslateService.pairs.push({key: 'selected-city-text', callback: (res: string) => this.selectedCityText = res});
     this.localTranslateService.pairs.push({key: 'change-city-text', callback: (res: string) => this.changeCityText = res});
+    this.localTranslateService.pairs.push({key: 'fill-profile-title', callback: (res: string) => this.fillProfileTitleTxt = res});
+    this.localTranslateService.pairs.push({key: 'fill-profile-body', callback: (res: string) => this.fillProfileBodyTxt = res});
   }
 
 }

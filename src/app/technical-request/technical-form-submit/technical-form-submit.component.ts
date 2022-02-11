@@ -17,16 +17,16 @@ export class TechnicalFormSubmitComponent implements OnInit {
   cutBranches = 'Κομμένα Κλαδιά';
   comments = 'Σχόλια';
   commentsValue = 'Architecto commodi quod non...';
-  namedRequest = 'Επώνυμη αναφορά';
+  // namedRequest = 'Επώνυμη αναφορά';
   acceptTerms1 = 'Αποδέχομαι τους ';
   acceptTerms2 = 'όρους χρήσης';
   acceptTerms3 = ' του SenseCity.';
 
   @Input() finalRequest: TechnicalRequest;
-  @Input() namedClicked: boolean;
+  // @Input() namedClicked: boolean;
   @Input() termsAcceptedClicked: boolean;
   @Output() imageDataUrlChange = new EventEmitter<string>();
-  @Output() namedClickedChange = new EventEmitter<boolean>();
+  // @Output() namedClickedChange = new EventEmitter<boolean>();
   @Output() termsAcceptedClickedChange = new EventEmitter<boolean>();
 
   constructor(private localTranslateService: LocalTranslateService) {
@@ -41,9 +41,9 @@ export class TechnicalFormSubmitComponent implements OnInit {
     return getShortString(this.finalRequest.comments, 40);
   }
 
-  onNamedClickChanged(){
-    this.namedClickedChange.emit(this.namedClicked);
-  }
+  // onNamedClick.Changed(){
+    // this.namedClickedChange.emit(this.namedClicked);
+  // }
 
   onTermsAcceptedClicked(){
     this.termsAcceptedClickedChange.emit(this.termsAcceptedClicked);
@@ -57,7 +57,7 @@ export class TechnicalFormSubmitComponent implements OnInit {
     this.localTranslateService.pairs.push({key: 'cut-branches', callback: (res: string) => this.cutBranches = res});
     this.localTranslateService.pairs.push({key: 'comments', callback: (res: string) => this.comments = res});
     this.localTranslateService.pairs.push({key: '_comments-value', callback: (res: string) => this.commentsValue = res});
-    this.localTranslateService.pairs.push({key: 'named-request', callback: (res: string) => this.namedRequest = res});
+    // this.localTranslateService.pairs.push({key: 'named-request', callback: (res: string) => this.namedRequest = res});
     this.localTranslateService.pairs.push({key: 'accept-terms-1', callback: (res: string) => this.acceptTerms1 = res});
     this.localTranslateService.pairs.push({key: 'accept-terms-2', callback: (res: string) => this.acceptTerms2 = res});
     this.localTranslateService.pairs.push({key: 'accept-terms-3', callback: (res: string) => this.acceptTerms3 = res});

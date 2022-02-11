@@ -15,7 +15,7 @@ let VerificationRepositoryService = class VerificationRepositoryService {
         return this.networkUtils.activateEmail(userEmail, emailCode);
     }
     activateMobile(userPhone, emailCode) {
-        return this.networkUtils.activateEmail(userPhone, emailCode);
+        return this.networkUtils.activateMobile(userPhone, emailCode);
     }
 };
 VerificationRepositoryService = __decorate([

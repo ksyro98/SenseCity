@@ -7,7 +7,7 @@ let TechnicalFormMapComponent = class TechnicalFormMapComponent {
         this.modalController = modalController;
         this.localTranslateService = localTranslateService;
         this.city = CITIES[4];
-        this.locationLatLngChange = new EventEmitter();
+        this.requestLocationChange = new EventEmitter();
         this.location = 'Τοποθεσία';
         this.changeCity = 'Αλλαγή πόλης';
         this.setTranslationPairs();
@@ -15,12 +15,16 @@ let TechnicalFormMapComponent = class TechnicalFormMapComponent {
     ngOnInit() {
         this.localTranslateService.translateLanguage();
     }
+    setLocation(location) {
+        this.requestLocation = location;
+        this.requestLocationChange.emit(this.requestLocation);
+    }
     presentCitiesModal() {
         return __awaiter(this, void 0, void 0, function* () {
             CitiesModalComponent.present(this.modalController, (city) => {
                 this.city = city;
-                this.locationLatLng = { type: 'Point', coordinates: [city.lat, city.long] };
-                this.locationLatLngChange.emit(this.locationLatLng);
+                this.requestLocation = { type: 'Point', coordinates: [city.long, city.lat] };
+                this.requestLocationChange.emit(this.requestLocation);
             });
         });
     }
@@ -31,10 +35,10 @@ let TechnicalFormMapComponent = class TechnicalFormMapComponent {
 };
 __decorate([
     Input()
-], TechnicalFormMapComponent.prototype, "locationLatLng", void 0);
+], TechnicalFormMapComponent.prototype, "requestLocation", void 0);
 __decorate([
     Output()
-], TechnicalFormMapComponent.prototype, "locationLatLngChange", void 0);
+], TechnicalFormMapComponent.prototype, "requestLocationChange", void 0);
 TechnicalFormMapComponent = __decorate([
     Component({
         selector: 'app-technical-form-map',

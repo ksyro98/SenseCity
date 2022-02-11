@@ -1,4 +1,4 @@
-import {Component, Input, NgZone, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {RequestsLogicService} from '../requests-logic/requests-logic.service';
 import {Observable} from 'rxjs';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';

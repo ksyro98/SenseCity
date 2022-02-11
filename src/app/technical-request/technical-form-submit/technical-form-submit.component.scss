@@ -32,3 +32,9 @@ b {
   --background-activated: transparent;
   --background: var(--ion-background-color);
 }
+
+.bottom-checkbox {
+  position: absolute;
+  bottom: 118px;
+  margin-left: 8px;
+}

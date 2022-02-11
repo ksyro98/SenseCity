@@ -19,11 +19,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() useCurrentLocation: boolean;
   @Input() city: City;
   @Input() location: RequestLocation;
+  @Input() mapId = 'map_id';
   @Output() locationChange = new EventEmitter<RequestLocation>();
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterViewInit(): void {
     this.initMap();
@@ -55,11 +56,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
     this.locationMarker = new L.Marker([38.246242, 21.7350847],
         {icon: markerIcon, draggable: true});
 
-    this.map = L.map('map_id', {center: [38.246242, 21.7350847], zoom: 16});
+    this.map = L.map(this.mapId, {center: [38.246242, 21.7350847], zoom: 16});
     tiles.addTo(this.map);
     this.locationMarker.addTo(this.map);
-
-    this.updateLocation(38.246242, 21.7350847);
 
     this.map.addEventListener('click', (event) => {
       this.locationMarker.setLatLng(event.latlng);
@@ -72,15 +71,20 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
       return;
     }
     else if (this.location.coordinates.length !== 0){
-      const lat = this.location.coordinates[0];
-      const long = this.location.coordinates[1];
+      const lat = this.location.coordinates[1];
+      const long = this.location.coordinates[0];
       this.setMapLocation(lat, long, 16);
     }
     else if (this.useCurrentLocation) {
-      const coordinates = await Geolocation.getCurrentPosition();
-      const lat = coordinates.coords.latitude;
-      const long = coordinates.coords.longitude;
-      this.setMapLocation(lat, long, 16);
+      try {
+        const coordinates = await Geolocation.getCurrentPosition();
+        const lat = coordinates.coords.latitude;
+        const long = coordinates.coords.longitude;
+        this.setMapLocation(lat, long, 16);
+      }
+      catch (e) {
+        this.setMapLocation(38.246242, 21.7350847, 16);
+      }
     }
   }
 
@@ -91,7 +95,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   private updateLocation(lat: number, long: number){
-    this.location = {type: 'Point', coordinates: [lat, long]};
+    this.location = {type: 'Point', coordinates: [long, lat]};
     this.locationChange.emit(this.location);
   }
 }

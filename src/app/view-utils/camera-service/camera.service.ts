@@ -9,7 +9,6 @@ const { Camera } = Plugins;
 })
 export class CameraService {
 
-
   constructor(public actionSheetController: ActionSheetController) { }
 
   private static async takeNewPhoto(): Promise<string> {

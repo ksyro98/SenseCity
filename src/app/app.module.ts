@@ -10,8 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BackArrowHeaderComponent} from './view-utils/back-arrow-header/back-arrow-header.component';
 import {TechnicalFormComponent} from './technical-request/technical-form/technical-form.component';
-import {GET_SERVICES_INTERFACE_DI_TOKEN} from './interface-adapters/GetServicesInterface';
-import {ServicesCommunication} from './backend-communication/ServicesCommunication';
 import {FormStepperComponent} from './view-utils/form-stepper/form-stepper.component';
 import {TechnicalFormSubServiceComponent} from './technical-request/technical-form-sub-service/technical-form-sub-service.component';
 import {FormsModule} from '@angular/forms';
@@ -49,6 +47,7 @@ import {VerifyModalComponent} from './profile/verify-modal/verify-modal.componen
 import {RecommendationsModalComponent} from './technical-request/recommendations/recommendations-modal/recommendations-modal.component';
 import {RecommendationCardComponent} from './technical-request/recommendations/recommendation-card/recommendation-card.component';
 import {SnackbarComponent} from './view-utils/snackbar/snackbar.component';
+import {NoInternetComponent} from './starting-screens/no-internet/no-internet.component';
 
 @NgModule({
     declarations: [
@@ -85,6 +84,7 @@ import {SnackbarComponent} from './view-utils/snackbar/snackbar.component';
         RecommendationsModalComponent,
         RecommendationCardComponent,
         SnackbarComponent,
+        NoInternetComponent,
     ],
     entryComponents: [],
     imports: [
@@ -107,7 +107,6 @@ import {SnackbarComponent} from './view-utils/snackbar/snackbar.component';
         StatusBar,
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
-        {provide: GET_SERVICES_INTERFACE_DI_TOKEN, useClass: ServicesCommunication},
         {provide: LOCALE_ID, useValue: 'en-US'},
         FileChooser
     ],

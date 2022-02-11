@@ -5,7 +5,6 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {UserService} from '../../user-service/user.service';
 import {ProfileElement} from '../../entities/ProfileElement';
-import {User} from '../../entities/User';
 import {Recommendation} from '../../entities/Recommendation';
 
 
@@ -31,12 +30,23 @@ export class TechnicalRequestLogicService {
     this.setIsUserActive();
   }
 
-  setIsUserActive(){
+  getEmail(): string {
+    return this.userService.getUser().email;
+  }
+
+  setIsUserActive(): Observable<any>{
     const user = this.userService.getUser();
-    this.repository.isUserActive(user.email, user.phone, user.fullName).subscribe(x => {
-      this.verifiedEmail = x[1].activate_email === '1';
-      this.verifiedPhone = x[0].activate_sms === '1';
+    return new Observable<any>(subscriber => {
+      this.repository.isUserActive(user.email, user.phone, user.fullName).subscribe(x => {
+        this.verifiedEmail = x[1].activate_email === '1';
+        this.verifiedPhone = x[0].activate_sms === '1';
+        subscriber.complete();
+      });
     });
+    // this.repository.isUserActive(user.email, user.phone, user.fullName).subscribe(x => {
+    //   this.verifiedEmail = x[1].activate_email === '1';
+    //   this.verifiedPhone = x[0].activate_sms === '1';
+    // });
   }
 
   getEmailProfileElement(): ProfileElement {
@@ -52,8 +62,8 @@ export class TechnicalRequestLogicService {
       return this.getUndefinedLocationError();
     }
 
-    const lat = this.request.location.coordinates[0];
-    const long = this.request.location.coordinates[1];
+    const lat = this.request.location.coordinates[1];
+    const long = this.request.location.coordinates[0];
 
     return this.repository.getPolicyAboutEmailsSms(lat, long).pipe(
         map(x => ({
@@ -69,8 +79,8 @@ export class TechnicalRequestLogicService {
     }
 
     const issueKey = this.request.subService.translationKey;
-    const lat = this.request.location.coordinates[0];
-    const long = this.request.location.coordinates[1];
+    const lat = this.request.location.coordinates[1];
+    const long = this.request.location.coordinates[0];
 
     return this.repository.getPolicyAboutAnonymity(issueKey, lat, long).pipe(
         map(x => ({
@@ -86,8 +96,8 @@ export class TechnicalRequestLogicService {
     }
 
     const issueKey = this.request.service.translationKey;
-    const lat = this.request.location.coordinates[0];
-    const long = this.request.location.coordinates[1];
+    const lat = this.request.location.coordinates[1];
+    const long = this.request.location.coordinates[0];
 
     return this.repository.getRecommendations(issueKey, lat, long).pipe(
         map( x => x.length > 0 ? x[0].bugs.map(e => new Recommendation(e)) : []),
@@ -121,6 +131,7 @@ export class TechnicalRequestLogicService {
     if (this.userService.getUser().fullName === '' || this.userService.getUser().fullName === undefined){
       return this.getErrorObservable('No user name.');
     }
+
     return this.repository.addNewIssue(this.request, this.userService.getUser(), '').pipe(
         map(x => ({
           type: TechnicalRequestLogicService.NEW_ISSUE_REQUEST,
@@ -133,5 +144,16 @@ export class TechnicalRequestLogicService {
     return new Observable(subscriber => {
       subscriber.error(error);
     });
+  }
+
+  areRequiredDetailsMissing(isEmailNeeded: boolean, isPhoneNeeded: boolean): boolean{
+    const user = this.userService.getUser();
+    const name = user.fullName;
+    const email = user.email;
+    const phone = user.phone;
+
+    return name === '' || name === undefined || name === null ||
+        isEmailNeeded && (email === '' || email === undefined || email === null) ||
+        isPhoneNeeded && (phone === '' || phone === undefined || phone === null);
   }
 }

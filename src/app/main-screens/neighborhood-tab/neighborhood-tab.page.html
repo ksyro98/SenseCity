@@ -24,13 +24,23 @@
   </ion-segment-button>
 </ion-segment>
 
+<app-divider *ngIf="neighborhoodSegment === 1"></app-divider>
 
 <ion-content>
-
-  <div [ngSwitch]="neighborhoodSegment" style="height: 100%;">
-    <app-neighborhood-map *ngSwitchCase="0"></app-neighborhood-map>
-    <app-neighborhood-messages *ngSwitchCase="1"></app-neighborhood-messages>
+  <div *ngIf="(neighborhood$ | async) as neighborhood; else neighborhood_loading_content">
+    <app-neighborhood-map
+            *ngIf="neighborhoodSegment === 0"
+            [neighborhood]="neighborhood"
+            (locationChange)="onLocationChange($event)"
+            (registerNeighborhood)="registerNeighborhood()"
+            (unregisterNeighborhood)="unregisterNeighborhood()">
+    </app-neighborhood-map>
   </div>
+  <ng-template #neighborhood_loading_content>
+    <div class="full-screen-center-div">
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
+  </ng-template>
 
-
+  <app-neighborhood-messages *ngIf="neighborhoodSegment === 1"></app-neighborhood-messages>
 </ion-content>

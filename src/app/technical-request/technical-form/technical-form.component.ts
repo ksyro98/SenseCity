@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, NgZone, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Service} from '../../entities/Service';
 import {TechnicalRequest} from '../../entities/TechnicalRequest';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
@@ -9,13 +9,12 @@ import {ModalController} from '@ionic/angular';
 import {Location} from '@angular/common';
 import {Observable, merge, Subscriber} from 'rxjs';
 import {VerifyModalComponent} from '../../profile/verify-modal/verify-modal.component';
-import {AlertService} from '../../view-utils/alert-service/alert.service';
 import {Plugins} from '@capacitor/core';
 import {Recommendation} from '../../entities/Recommendation';
 import {PermissionFlag} from '../../entities/utils/PermissionFlag';
 import {ProfileElement} from '../../entities/ProfileElement';
 
-const { Toast, Device } = Plugins;
+const { Toast } = Plugins;
 
 @Component({
   selector: 'app-technical-form',
@@ -32,7 +31,7 @@ export class TechnicalFormComponent implements OnInit {
   private anonymousAllowed = false;
   unverifiedEmailAllowed = true;
   unverifiedSmsAllowed = true;
-  namedClicked: boolean;
+  // namedClicked: boolean;
   termsAcceptedClicked = true;
 
   newRequestTxt = 'Νέα Αίτηση';
@@ -45,6 +44,9 @@ export class TechnicalFormComponent implements OnInit {
   needToVerify1Txt = 'Πρέπει να επιβεβαιώσετε το ';
   needToVerify2Txt = ' και το ';
   needToVerify3Txt = ' για να υποβάλει αυτό το αίτημα.';
+  missingDetailsTxt = 'Ορισμένες από τις απαιτούμενες λεπτομέρειες λείπουν από το προφίλ σας. Παρακαλούμε συμπληρώστε τες για να ' +
+      'υποβάλετε αυτό το αίτημα.';
+  goTxt = 'Πάμε';
   emailTxt = 'email';
   mobilePhoneTxt = 'τηλέφωνο';
 
@@ -53,18 +55,19 @@ export class TechnicalFormComponent implements OnInit {
   private termsNotAcceptedTxt = '';
 
   constructor(
-      private router: ActivatedRoute,
+      private activatedRoute: ActivatedRoute,
+      private router: Router,
       private localTranslateService: LocalTranslateService,
       public logic: TechnicalRequestLogicService,
-      private alertService: AlertService,
       private modalController: ModalController,
-      private location: Location
+      private location: Location,
+      private ngZone: NgZone
   ) { }
 
   ngOnInit() {
     this.localTranslateService.translateLanguage();
 
-    this.router.queryParams.subscribe(params => {
+    this.activatedRoute.queryParams.subscribe(params => {
       const selectedService = {
         id: parseInt(params.service_id, 10),
         name: params.service_name,
@@ -74,10 +77,17 @@ export class TechnicalFormComponent implements OnInit {
 
       const defaultSubService = Service.getSubServices(selectedService.id)[0];
 
-      this.logic.request = new TechnicalRequest(
-          selectedService, defaultSubService, '', '', {type: 'point', coordinates: []}, false);
+      if (this.logic.request === undefined || this.logic.request.service.id !== selectedService.id){
+        this.logic.request = new TechnicalRequest(
+            selectedService, defaultSubService, '', '', {type: 'point', coordinates: []}, false);
+      }
 
       this.setTranslationPairs();
+      this.logic.setIsUserActive().subscribe({
+        complete: () => {
+          this.setCanSubmit();
+        }
+      });
     });
   }
 
@@ -106,15 +116,21 @@ export class TechnicalFormComponent implements OnInit {
   private manageNexStepResponse(response){
     switch (response.type) {
       case TechnicalRequestLogicService.POLICY_EMAIL_SMS_REQUEST:
+        if (response.value.length === 0){
+          break;
+        }
         this.unverifiedEmailAllowed = response.value[0].mandatory_email === 'false';
         this.unverifiedSmsAllowed = response.value[0].mandatory_sms === 'false';
         this.setCanSubmit();
         break;
       case TechnicalRequestLogicService.POLICY_ANONYMITY_REQUEST:
-        this.anonymousAllowed = response.value[0].anonymous ? (response.value[0].anonymous === 'true') : undefined;
-        if (this.namedClicked === undefined) {
-          this.namedClicked = !this.anonymousAllowed && this.anonymousAllowed !== undefined;
+        if (response.value.length === 0){
+          break;
         }
+        this.anonymousAllowed = response.value[0].anonymous ? (response.value[0].anonymous === 'true') : undefined;
+        // if (this.namedClicked === undefined) {
+        //   this.namedClicked = !this.anonymousAllowed && this.anonymousAllowed !== undefined;
+        // }
         this.setCanSubmit();
         break;
       case TechnicalRequestLogicService.RECOMMENDATIONS_REQUEST:
@@ -164,23 +180,29 @@ export class TechnicalFormComponent implements OnInit {
   }
 
   setCanSubmit(){
+    let canSubmitFlag;
     if (this.isVerificationNeeded()){
-      this.canSubmit = new PermissionFlag(false, this.verificationNeededTxt);
+      canSubmitFlag = new PermissionFlag(false, this.verificationNeededTxt);
     }
-    else if (!this.anonymousAllowed && !this.namedClicked){
-      this.canSubmit = new PermissionFlag(false, this.anonymousNotAllowedTxt);
-    }
+    // else if (!this.anonymousAllowed && !this.namedClicked){
+    //   canSubmitFlag = new PermissionFlag(false, this.anonymousNotAllowedTxt);
+    // }
     else if (!this.termsAcceptedClicked){
-      this.canSubmit = new PermissionFlag(false, this.termsNotAcceptedTxt);
+      canSubmitFlag = new PermissionFlag(false, this.termsNotAcceptedTxt);
     }
     else{
-      this.canSubmit = new PermissionFlag(true, '');
+      canSubmitFlag = new PermissionFlag(true, '');
     }
+    this.ngZone.run(() => this.canSubmit = canSubmitFlag);
   }
 
   isVerificationNeeded(): boolean {
     return (!this.unverifiedEmailAllowed && !this.logic.isEmailVerified()) ||
         (!this.unverifiedSmsAllowed && !this.logic.isPhoneVerified());
+  }
+
+  areDetailsMissing(): boolean {
+    return this.logic.areRequiredDetailsMissing(!this.unverifiedEmailAllowed, !this.unverifiedSmsAllowed);
   }
 
   getVerificationSnackBarText(): string {
@@ -212,9 +234,15 @@ export class TechnicalFormComponent implements OnInit {
         profileElement,
         (result: boolean) => {
           if (result) {
-            this.logic.setIsUserActive();
+            this.logic.setIsUserActive().subscribe({
+              complete: () => this.setCanSubmit()
+            });
           }
         });
+  }
+
+  navigateToProfileScreen(){
+    this.router.navigate(['/profile']);
   }
 
   private setTranslationPairs(){
@@ -233,6 +261,8 @@ export class TechnicalFormComponent implements OnInit {
     this.localTranslateService.pairs.push({key: 'verification-needed', callback: (res: string) => this.verificationNeededTxt = res});
     this.localTranslateService.pairs.push({key: 'anonymous-not-allowed', callback: (res: string) => this.anonymousNotAllowedTxt = res});
     this.localTranslateService.pairs.push({key: 'terms-not-accepted', callback: (res: string) => this.termsNotAcceptedTxt = res});
+    this.localTranslateService.pairs.push({key: 'details-missing', callback: (res: string) => this.missingDetailsTxt = res});
+    this.localTranslateService.pairs.push({key: 'go', callback: (res: string) => this.goTxt = res});
     this.localTranslateService.pairs.push({key: this.logic.request.subService.translationKey,
       callback: (res: string) => this.logic.request.subService.name = res});
   }

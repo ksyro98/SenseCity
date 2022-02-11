@@ -1,7 +1,6 @@
 import {Component, Input, OnInit, Optional, Output} from '@angular/core';
 import {Config, IonRouterOutlet, ModalController, NavController, Platform} from '@ionic/angular';
-
-
+import {Location} from '@angular/common';
 
 // The code for this component was taken from Ionic's back button component
 // https://github.com/ionic-team/ionic-framework/blob/main/angular/src/directives/navigation/ion-back-button.ts
@@ -18,7 +17,8 @@ export class BackArrowHeaderComponent implements OnInit {
 
   defaultHref: string | undefined | null;
 
-  constructor(@Optional() private routerOutlet: IonRouterOutlet, private navCtrl: NavController, private config: Config) { }
+    constructor(@Optional() private routerOutlet: IonRouterOutlet, private navCtrl: NavController, private config: Config,
+                private location: Location) { }
 
   ngOnInit() {}
 
@@ -27,6 +27,9 @@ export class BackArrowHeaderComponent implements OnInit {
       this.modalController.dismiss();
       return;
     }
+
+    this.location.back();
+    return;
 
     const defaultHref = this.defaultHref || this.config.get('backButtonDefaultHref');
 

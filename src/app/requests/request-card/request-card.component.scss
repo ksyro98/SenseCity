@@ -14,8 +14,10 @@ ion-img {
   padding-top: 2px;
 }
 
-.card-border-color {
+.card-colors {
   --border-color: var(--ion-color-lines);
+  --ion-background-color: var(--ion-row-item-color);
+  --background: var(--ion-row-item-color);
 }
 
 .title-div {

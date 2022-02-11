@@ -15,7 +15,6 @@ let BackButtonService = class BackButtonService {
     init() {
         this.platform.backButton.subscribeWithPriority(-1, () => __awaiter(this, void 0, void 0, function* () {
             const currentUrl = this.router.url;
-            console.log(currentUrl);
             if (this.startingUrls.map(url => currentUrl.includes(url)).includes(true)) {
                 // close the app
                 navigator.app.exitApp();

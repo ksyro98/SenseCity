@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit {
   notVerified1: string;
   notVerified2: string;
   verify: string;
+  requiredTxt: string;
 
   readonly emailKey = ProfileElement.EMAIL_KEY;
   readonly phoneKey = ProfileElement.PHONE_KEY;
@@ -47,6 +48,7 @@ export class ProfileComponent implements OnInit {
       {key: 'not-verified-1', callback: (res: string) => this.notVerified1 = res},
       {key: 'not-verified-2', callback: (res: string) => this.notVerified2 = res},
       {key: 'verify', callback: (res: string) => this.verify = res},
+      {key: 'required', callback: (res: string) => this.requiredTxt = res},
       {key: this.city.cityKey, callback: (res: string) => this.city.name = res}
   ];
 
@@ -82,6 +84,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.localTranslateService.initTranslate();
     this.language = this.localTranslateService.language;
+  }
+
+  isRequired(key: string): boolean{
+    return key === ProfileElement.NAME_KEY || key === ProfileElement.EMAIL_KEY || key === ProfileElement.PHONE_KEY;
   }
 
   changeLanguage(){
