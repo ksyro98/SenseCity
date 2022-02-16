@@ -25,13 +25,7 @@ let AppComponent = class AppComponent {
     }
     initializeApp() {
         return __awaiter(this, void 0, void 0, function* () {
-            const ready = yield this.platform.ready();
-            console.log(ready);
-            // this.statusBar.styleDefault();
-            // this.statusBar.styleLightContent();
-            // this.statusBar.backgroundColorByHexString('#f8faf7');
-            // this.statusBar.overlaysWebView(true);
-            // this.statusBar.backgroundColorByHexString('#f8faf7');
+            yield this.platform.ready();
             this.userService.initUser();
             this.backButtonService.init();
             yield this.storageCounter.updateCounter();
@@ -43,12 +37,6 @@ let AppComponent = class AppComponent {
                     interval: 0.3
                 }
             });
-            // MOVE THIS OUT OF HERE
-            // const moreThanSecondTime = await this.storageCounter.isMoreThanSecondTime();
-            // const showDialog = await this.storageFeedbackCounter.showDialog();
-            // if (moreThanSecondTime && showDialog) {
-            //     await FeedbackModalComponent.present(this.modalController, () => { });
-            // }
             const isConnectedToNetwork = (yield Network.getStatus()).connected;
             const isFirstTime = yield this.storageCounter.isFirstTime();
             if (!isConnectedToNetwork) {

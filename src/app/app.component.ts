@@ -42,14 +42,7 @@ export class AppComponent {
   }
 
   async initializeApp() {
-      const ready = await this.platform.ready();
-      console.log(ready);
-
-      // this.statusBar.styleDefault();
-      // this.statusBar.styleLightContent();
-      // this.statusBar.backgroundColorByHexString('#f8faf7');
-      // this.statusBar.overlaysWebView(true);
-      // this.statusBar.backgroundColorByHexString('#f8faf7');
+      await this.platform.ready();
 
       this.userService.initUser();
 
@@ -65,13 +58,6 @@ export class AppComponent {
               interval: 0.3
           }
       });
-
-      // MOVE THIS OUT OF HERE
-      // const moreThanSecondTime = await this.storageCounter.isMoreThanSecondTime();
-      // const showDialog = await this.storageFeedbackCounter.showDialog();
-      // if (moreThanSecondTime && showDialog) {
-      //     await FeedbackModalComponent.present(this.modalController, () => { });
-      // }
 
       const isConnectedToNetwork = (await Network.getStatus()).connected;
       const isFirstTime = await this.storageCounter.isFirstTime();

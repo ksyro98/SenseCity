@@ -3,11 +3,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {LanguageSelectorService} from '../language-selector-service/language-selector.service';
 import {StorageTranslationService} from '../../storage-utils/storage-translation-service/storage-translation.service';
 
-
-// export const DEFAULT_LANGUAGE = window.Intl && typeof window.Intl === 'object'
-//                                     ? getLanguageFromTag(navigator.language)
-//                                     : 'en';
-
 @Injectable({
   providedIn: 'root'
 })

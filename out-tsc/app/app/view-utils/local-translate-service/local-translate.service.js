@@ -1,9 +1,6 @@
 var LocalTranslateService_1;
 import { __awaiter, __decorate } from "tslib";
 import { Injectable } from '@angular/core';
-// export const DEFAULT_LANGUAGE = window.Intl && typeof window.Intl === 'object'
-//                                     ? getLanguageFromTag(navigator.language)
-//                                     : 'en';
 let LocalTranslateService = LocalTranslateService_1 = class LocalTranslateService {
     constructor(languageSelector, storageTranslation) {
         this.languageSelector = languageSelector;
