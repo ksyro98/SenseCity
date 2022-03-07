@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {NavController, Platform} from '@ionic/angular';
 import {Router} from '@angular/router';
-import {App} from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +23,9 @@ export class BackButtonService {
       }
       else if (currentUrl === '/select-city'){
         // do nothing
+      }
+      else if (currentUrl.includes('/no-internet')){
+        (navigator as any).app.exitApp();
       }
       else {
         // go back

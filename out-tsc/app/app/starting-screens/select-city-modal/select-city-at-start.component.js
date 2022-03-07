@@ -3,9 +3,10 @@ import { __awaiter, __decorate } from "tslib";
 import { Component } from '@angular/core';
 import { CITIES } from '../../constants/Cities';
 let SelectCityAtStartComponent = SelectCityAtStartComponent_1 = class SelectCityAtStartComponent {
-    constructor(cityParamsService, localTranslateService) {
+    constructor(cityParamsService, localTranslateService, storageCityService) {
         this.cityParamsService = cityParamsService;
         this.localTranslateService = localTranslateService;
+        this.storageCityService = storageCityService;
         this.query = '';
         this.buttonWillExit = false;
         this.selectCityAtStartTxt = 'Πριν ξεκινήσεις επίλεξε την πόλη σου.';
@@ -32,7 +33,8 @@ let SelectCityAtStartComponent = SelectCityAtStartComponent_1 = class SelectCity
     }
     exitComponent(city) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.cityParamsService.navigate(city);
+            this.storageCityService.storeCity(city);
+            yield this.cityParamsService.navigate(this.getTranslatedCity(city));
         });
     }
     setTranslationPairs() {
@@ -41,6 +43,11 @@ let SelectCityAtStartComponent = SelectCityAtStartComponent_1 = class SelectCity
         this.cities.forEach((city) => {
             this.localTranslateService.pairs.push({ key: city.cityKey, callback: (res) => city.name = res });
         });
+    }
+    getTranslatedCity(city) {
+        this.localTranslateService.pairs.push({ key: city.cityKey, callback: (res) => city.name = res });
+        this.localTranslateService.translateLanguage();
+        return city;
     }
 };
 SelectCityAtStartComponent = SelectCityAtStartComponent_1 = __decorate([

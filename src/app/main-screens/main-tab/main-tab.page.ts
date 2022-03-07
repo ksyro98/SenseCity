@@ -10,8 +10,11 @@ import {CITY_POLYGONS} from '../../constants/Cities';
 import {StorageCounterService} from '../../storage-utils/storage-counter-service/storage-counter.service';
 import {StorageStateService} from '../../storage-utils/storage-state-service/storage-state.service';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
+import {StorageCityService} from '../../storage-utils/storage-city-service/storage-city.service';
+import {StorageFeedbackCounterService} from '../../storage-utils/storage-feedback-counter-service/storage-feedback-counter.service';
+import {FeedbackModalComponent} from '../../starting-screens/feedback-modal/feedback-modal.component';
 
-const { Toast } = Plugins;
+const { Geolocation, Toast } = Plugins;
 
 @Component({
   selector: 'app-main-tab',
@@ -43,7 +46,9 @@ export class MainTabPage implements OnInit {
       private storageState: StorageStateService,
       private activatedRoute: ActivatedRoute,
       private router: Router,
-      private localTranslateService: LocalTranslateService
+      private localTranslateService: LocalTranslateService,
+      private storageCityService: StorageCityService,
+      private storageFeedbackCounter: StorageFeedbackCounterService
   ) {
     this.setTranslationPairs();
   }
@@ -65,9 +70,10 @@ export class MainTabPage implements OnInit {
         cityKey: params.get('cityKey')
       };
 
+      this.translateCity();
       setTimeout(() => this.showStartingMessages(), 500);
-
     });
+    setTimeout(() => this.showFeedbackDialogIfNeeded(), 600);
   }
 
   public servicesSegmentChanged(event: any){
@@ -90,9 +96,8 @@ export class MainTabPage implements OnInit {
   }
 
   async changeCity(city: City){
-    await Toast.show({
-      text: this.cityChanged + city.name
-    });
+    Toast.show({text: this.cityChanged + city.name});
+    this.storageCityService.storeCity(city);
   }
 
   private showStartingMessages() {
@@ -119,6 +124,21 @@ export class MainTabPage implements OnInit {
     }
   }
 
+  private async showFeedbackDialogIfNeeded(){
+    const shouldShowDialog = await this.storageFeedbackCounter.shouldShowDialog();
+    if (shouldShowDialog){
+      try {
+        const currentPosition = await Geolocation.getCurrentPosition();
+        await FeedbackModalComponent.present(
+            this.modalController,
+            {type: 'Point', coordinates: [currentPosition.coords.longitude, currentPosition.coords.latitude]}
+        );
+      } catch (e) {
+        // do nothing
+      }
+    }
+  }
+
   private  navigateToProfileScreen(){
     this.router.navigate(['/profile']);
   }
@@ -132,6 +152,10 @@ export class MainTabPage implements OnInit {
     this.localTranslateService.pairs.push({key: 'change-city-text', callback: (res: string) => this.changeCityText = res});
     this.localTranslateService.pairs.push({key: 'fill-profile-title', callback: (res: string) => this.fillProfileTitleTxt = res});
     this.localTranslateService.pairs.push({key: 'fill-profile-body', callback: (res: string) => this.fillProfileBodyTxt = res});
+  }
+
+  private translateCity(){
+    this.localTranslateService.pairs.push({key: this.city.cityKey, callback: (res: string) => this.city.name = res});
   }
 
 }

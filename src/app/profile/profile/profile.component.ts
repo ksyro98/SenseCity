@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {CitiesModalComponent} from '../../view-utils/cities-modal/cities-modal.component';
 import {ProfileElement} from '../../entities/ProfileElement';
@@ -8,9 +8,10 @@ import {CITIES} from '../../constants/Cities';
 import {ProfileLogicService} from '../profile-logic/profile-logic.service';
 import {Observable} from 'rxjs';
 import {VerifyModalComponent} from '../verify-modal/verify-modal.component';
-import {Plugins} from '@capacitor/core';
-
-const { Toast } = Plugins;
+import {Location} from '@angular/common';
+import {City} from '../../entities/City';
+import {Toast} from '@capacitor/core';
+import {StorageCityService} from '../../storage-utils/storage-city-service/storage-city.service';
 
 @Component({
   selector: 'app-profile',
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit {
   notVerified2: string;
   verify: string;
   requiredTxt: string;
+  private cityChangedTxt = 'Η πόλη άλλαξε σε';
 
   readonly emailKey = ProfileElement.EMAIL_KEY;
   readonly phoneKey = ProfileElement.PHONE_KEY;
@@ -49,16 +51,18 @@ export class ProfileComponent implements OnInit {
       {key: 'not-verified-2', callback: (res: string) => this.notVerified2 = res},
       {key: 'verify', callback: (res: string) => this.verify = res},
       {key: 'required', callback: (res: string) => this.requiredTxt = res},
-      {key: this.city.cityKey, callback: (res: string) => this.city.name = res}
+      {key: 'city-changed', callback: (res: string) => this.cityChangedTxt = res}
   ];
 
   isActive$: Observable<any>;
 
   constructor(
+      public zone: NgZone,
       public modalController: ModalController,
       private translate: TranslateService,
       private localTranslateService: LocalTranslateService,
-      private logic: ProfileLogicService
+      private logic: ProfileLogicService,
+      private location: Location
   ) {
     logic.waitForUser().then((user) => {
       this.elements = ProfileElement.getProfileElementsFromUser(user);
@@ -84,6 +88,12 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.localTranslateService.initTranslate();
     this.language = this.localTranslateService.language;
+    this.initCity();
+  }
+
+  async initCity(){
+    this.city = await this.logic.getCity();
+    this.pairs.push({key: this.city.cityKey, callback: (res: string) => this.city.name = res});
   }
 
   isRequired(key: string): boolean{
@@ -95,7 +105,13 @@ export class ProfileComponent implements OnInit {
   }
 
   async presentCitiesModal(){
-    CitiesModalComponent.present(this.modalController, (city) => this.city = city);
+    CitiesModalComponent.present(this.modalController, (city) => this.changeCity(city));
+  }
+
+  async changeCity(city: City){
+    this.city = city;
+    Toast.show({text: this.cityChangedTxt + city.name});
+    this.logic.setCity(city);
   }
 
   onFocusLost(key: string, value: string){
@@ -112,4 +128,9 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+
+  exit(){
+    this.location.back();
+  }
 }
+

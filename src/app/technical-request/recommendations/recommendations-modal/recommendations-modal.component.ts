@@ -3,7 +3,6 @@ import {ModalController} from '@ionic/angular';
 import {Recommendation} from '../../../entities/Recommendation';
 import {NetworkUtilsService} from '../../../network-utils/network-utils.service';
 import {UserService} from '../../../user-service/user.service';
-import {normalizeExtraEntryPoints} from '@angular-devkit/build-angular/src/webpack/utils/helpers';
 import {Subscriber} from 'rxjs';
 import {LocalTranslateService} from '../../../view-utils/local-translate-service/local-translate.service';
 

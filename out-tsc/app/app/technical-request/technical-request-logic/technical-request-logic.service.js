@@ -27,10 +27,6 @@ let TechnicalRequestLogicService = TechnicalRequestLogicService_1 = class Techni
                 subscriber.complete();
             });
         });
-        // this.repository.isUserActive(user.email, user.phone, user.fullName).subscribe(x => {
-        //   this.verifiedEmail = x[1].activate_email === '1';
-        //   this.verifiedPhone = x[0].activate_sms === '1';
-        // });
     }
     getEmailProfileElement() {
         return ProfileElement.getProfileElementsFromUser(this.userService.getUser())[1]; // 1 --> email

@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
-import {ModalController, ToastController} from '@ionic/angular';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {ModalController} from '@ionic/angular';
 import {CitiesModalComponent} from '../../view-utils/cities-modal/cities-modal.component';
 import {CITIES} from '../../constants/Cities';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
@@ -12,8 +12,6 @@ import {RequestLocation} from '../../entities/RequestLocation';
 })
 export class TechnicalFormMapComponent implements OnInit {
 
-  private map;
-  private locationMarker;
   city = CITIES[4];
   @Input() requestLocation: RequestLocation;
   @Output() requestLocationChange = new EventEmitter<RequestLocation>();

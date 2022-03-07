@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
 import {StorageFeedbackCounterService} from '../../storage-utils/storage-feedback-counter-service/storage-feedback-counter.service';
+import {NetworkUtilsService} from '../../network-utils/network-utils.service';
+import {Mood} from '../../entities/Mood';
+import {RequestLocation} from '../../entities/RequestLocation';
+import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 
 const { Toast } = Plugins;
 
@@ -12,28 +16,43 @@ const { Toast } = Plugins;
 })
 export class FeedbackModalComponent implements OnInit {
 
-  static async present(modalController: ModalController, onDismiss: () => void) {
+  @Input() location: RequestLocation;
+  moodTitleTxt = 'Πόσο ευχαριστημένος είσαι από την περιοχή σου;';
+  private moodStoredTxt = 'Η διάθεση σας καταχωρήθηκε. Ευχαριστούμε!';
+
+  static async present(modalController: ModalController, currentLocation: RequestLocation) {
     const modal = await modalController.create({
       component: FeedbackModalComponent,
       cssClass: 'feedback-modal-class',
+      componentProps: {
+        location: currentLocation,
+      }
     });
-
-    modal.onDidDismiss()
-        .then((data) => onDismiss());
 
     return await modal.present();
   }
 
   constructor(
       private modalController: ModalController,
-      private storageFeedbackCounter: StorageFeedbackCounterService
+      private storageFeedbackCounter: StorageFeedbackCounterService,
+      private networkUtils: NetworkUtilsService,
+      private localTranslateService: LocalTranslateService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.setTranslationPairs();
+    this.localTranslateService.translateLanguage();
+  }
 
   async sendFeedback(value: number){
-    await Toast.show({text: 'Η διαθεση σας καταχωρηθηκε. Ευχαριστουμε!'});
-    await this.modalController.dismiss();
-    await this.storageFeedbackCounter.updateCounter();
+    this.networkUtils.setFeeling(new Mood(value), this.location).subscribe((_) => {
+      Toast.show({text: this.moodStoredTxt});
+    });
+    await Promise.all([this.modalController.dismiss(), this.storageFeedbackCounter.updateCounter()]);
+  }
+
+  private setTranslationPairs(){
+    this.localTranslateService.pairs.push({key: 'express-mood', callback: (res: string) => this.moodTitleTxt = res});
+    this.localTranslateService.pairs.push({key: 'mood-stored', callback: (res: string) => this.moodStoredTxt = res});
   }
 }

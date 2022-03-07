@@ -31,7 +31,6 @@ export class TechnicalFormComponent implements OnInit {
   private anonymousAllowed = false;
   unverifiedEmailAllowed = true;
   unverifiedSmsAllowed = true;
-  // namedClicked: boolean;
   termsAcceptedClicked = true;
 
   newRequestTxt = 'Νέα Αίτηση';
@@ -128,9 +127,6 @@ export class TechnicalFormComponent implements OnInit {
           break;
         }
         this.anonymousAllowed = response.value[0].anonymous ? (response.value[0].anonymous === 'true') : undefined;
-        // if (this.namedClicked === undefined) {
-        //   this.namedClicked = !this.anonymousAllowed && this.anonymousAllowed !== undefined;
-        // }
         this.setCanSubmit();
         break;
       case TechnicalRequestLogicService.RECOMMENDATIONS_REQUEST:
@@ -184,9 +180,6 @@ export class TechnicalFormComponent implements OnInit {
     if (this.isVerificationNeeded()){
       canSubmitFlag = new PermissionFlag(false, this.verificationNeededTxt);
     }
-    // else if (!this.anonymousAllowed && !this.namedClicked){
-    //   canSubmitFlag = new PermissionFlag(false, this.anonymousNotAllowedTxt);
-    // }
     else if (!this.termsAcceptedClicked){
       canSubmitFlag = new PermissionFlag(false, this.termsNotAcceptedTxt);
     }

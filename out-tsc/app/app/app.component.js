@@ -5,9 +5,7 @@ import { getCityFromPoint } from './constants/Cities';
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic';
 const { Geolocation, SplashScreen, Network } = Plugins;
 let AppComponent = class AppComponent {
-    constructor(platform, 
-    // private splashScreen: SplashScreen,
-    statusBar, modalController, storageCounter, storageState, storageFeedbackCounter, router, route, backButtonService, cityParamsService, translate, localTranslateService, userService) {
+    constructor(platform, statusBar, modalController, storageCounter, storageState, storageFeedbackCounter, router, route, backButtonService, cityParamsService, translate, localTranslateService, userService, storageCityService) {
         this.platform = platform;
         this.statusBar = statusBar;
         this.modalController = modalController;
@@ -21,6 +19,7 @@ let AppComponent = class AppComponent {
         this.translate = translate;
         this.localTranslateService = localTranslateService;
         this.userService = userService;
+        this.storageCityService = storageCityService;
         this.initializeApp();
     }
     initializeApp() {
@@ -40,7 +39,7 @@ let AppComponent = class AppComponent {
             const isConnectedToNetwork = (yield Network.getStatus()).connected;
             const isFirstTime = yield this.storageCounter.isFirstTime();
             if (!isConnectedToNetwork) {
-                yield this.router.navigate(['no-internet'], { relativeTo: this.route });
+                yield this.router.navigate(['no-internet']);
             }
             else {
                 try {
@@ -52,19 +51,28 @@ let AppComponent = class AppComponent {
                         city = getCityFromPoint(lat, long);
                     }
                     if (city === undefined || city === null) {
-                        // here we present the 'select a city modal'
-                        yield this.router.navigate(['select-city'], { relativeTo: this.route });
+                        yield this.retrieveStoredCity();
                     }
                     else {
-                        // here we set the current city as the user's city
                         yield this.cityParamsService.navigate(this.getTranslatedCity(city));
                     }
                 }
                 catch (error) {
-                    yield this.router.navigate(['select-city'], { relativeTo: this.route });
+                    yield this.retrieveStoredCity();
                 }
             }
             yield SplashScreen.hide();
+        });
+    }
+    retrieveStoredCity() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const city = yield this.storageCityService.getCity();
+            if (city) {
+                yield this.cityParamsService.navigate(this.getTranslatedCity(city));
+            }
+            else {
+                yield this.router.navigate(['select-city'], { relativeTo: this.route });
+            }
         });
     }
     getTranslatedCity(city) {

@@ -5,6 +5,8 @@ import {TechnicalRequest} from '../entities/TechnicalRequest';
 import {User} from '../entities/User';
 import {Plugins} from '@capacitor/core';
 import {FCM} from 'cordova-plugin-fcm-with-dependecy-updated/ionic';
+import {RequestLocation} from '../entities/RequestLocation';
+import {Mood} from '../entities/Mood';
 
 const { Device } = Plugins;
 
@@ -179,6 +181,21 @@ export class NetworkUtilsService {
     });
   }
 
+  setFeeling(mood: Mood, location: RequestLocation): Observable<any>{
+    const url = `${BASE_URL}/api/1.0/feelings`;
+
+    const body = {
+      loc: location,
+      issue: mood.getIssue(),
+      device_id: this.deviceUuid,
+      value_desc: mood.getValueDescription()
+    };
+
+    return this.http.post(url, body, {
+      headers: NetworkUtilsService.getHeaders()
+    });
+  }
+
   registerLocation(email: string, latitude: number, longitude: number): Observable<any>{
     const url = `${BASE_URL}/api/1.0/register/myNeighboor`;
 
@@ -226,12 +243,6 @@ export class NetworkUtilsService {
     return this.httpWithFcmToken(url, body);
   }
 
-  private getFcmToken(): Observable<string>{
-    return new Observable(subscriber => {
-      FCM.getToken().then(token => subscriber.next(token));
-    });
-  }
-
   private httpWithFcmToken(url: string, body): Observable<any>{
     return new Observable<any>(subscriber => {
       this.getFcmToken().subscribe(token => {
@@ -241,6 +252,12 @@ export class NetworkUtilsService {
           headers: NetworkUtilsService.getHeaders()
         }).subscribe(res => subscriber.next(res));
       });
+    });
+  }
+
+  private getFcmToken(): Observable<string>{
+    return new Observable(subscriber => {
+      FCM.getToken().then(token => subscriber.next(token));
     });
   }
 }

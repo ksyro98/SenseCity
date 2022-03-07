@@ -27,5 +27,4 @@ export class NeighborhoodMessagesComponent implements OnInit {
   private setTranslationPairs(){
     this.localTranslateService.pairs.push({key: 'no-messages-text', callback: (res: string) => this.noMessagesText = res});
   }
-
 }

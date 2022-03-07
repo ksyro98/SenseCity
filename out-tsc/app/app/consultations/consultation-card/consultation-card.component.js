@@ -16,9 +16,7 @@ let ConsultationCardComponent = class ConsultationCardComponent {
         return this.consultation.date.getDate().toString();
     }
     getMonth() {
-        // return '1';
         return this.month.name;
-        // return mapMonth(this.consultation.date.getMonth()).name;
     }
     getYear() {
         return this.consultation.date.getFullYear().toString();

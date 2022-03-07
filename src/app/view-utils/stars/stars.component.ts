@@ -17,10 +17,8 @@ export class StarsComponent implements OnInit {
   ngOnInit() {}
 
   starClicked(which: number){
-    // if (this.fullScreen) {
     this.selectedStars = which;
     this.selectedStarsChange.emit(which);
-    // }
     if (!this.fullScreen){
       this.router.navigate(['/request-rating'], {queryParams: {stars: which}});
     }

@@ -3,43 +3,43 @@ import {ProfileElement} from '../entities/ProfileElement';
 export const PROFILE_ELEMENTS: ProfileElement[] = [
     {
         label: 'Όνομα',
-        value: 'Κωνσταντίνος Συροκώστας',
+        value: '',
         inputType: 'text',
         key: 'name'
     },
     {
         label: 'Email',
-        value: 'konstantinos.syrokostas@gmail.com',
+        value: '',
         inputType: 'email',
         key: 'email'
     },
     {
         label: 'Τηλέφωνο',
-        value: '6980082464',
+        value: '',
         inputType: 'tel',
         key: 'phone-number'
     },
     {
         label: 'Όνομα πατέρα',
-        value: 'Γεώργιος Συροκώστας',
+        value: '',
         inputType: 'text',
         key: 'fathers-name'
     },
     {
         label: 'Όνομα μητέρας',
-        value: 'Αναστασία Βαρουτίδου',
+        value: '',
         inputType: 'text',
         key: 'mothers-name'
     },
     {
         label: 'ΑΔΤ',
-        value: 'ΑΑ 123456',
+        value: '',
         inputType: 'text',
         key: 'id-number'
     },
     {
         label: 'ΑΦΜ',
-        value: '123456789012345',
+        value: '',
         inputType: 'number',
         key: 'tax-number'
     }

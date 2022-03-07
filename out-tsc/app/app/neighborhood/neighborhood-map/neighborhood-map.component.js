@@ -1,7 +1,5 @@
 import { __awaiter, __decorate } from "tslib";
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Plugins } from '@capacitor/core';
-const { Toast } = Plugins;
 let NeighborhoodMapComponent = class NeighborhoodMapComponent {
     constructor(alertService, localTranslateService) {
         this.alertService = alertService;

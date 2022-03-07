@@ -14,7 +14,6 @@ let RequestDetailsMapModalComponent = class RequestDetailsMapModalComponent {
         const mapUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
         const tiles = new L.TileLayer(mapUrl, {});
         const markerIcon = L.icon({
-            // iconUrl: '../../assets/svg-images/' + this.markerIcon,
             iconUrl: '../../assets/svg-images/empty_marker.svg',
             iconSize: [19, 47],
             iconAnchor: [11, 47],

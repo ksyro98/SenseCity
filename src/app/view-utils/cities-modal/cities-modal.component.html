@@ -1,4 +1,4 @@
-<ion-header translucent>
+<ion-header translucent="true">
   <ion-row class="header-row">
     <ion-img src="../../../assets/svg-images/close-grey.svg" (click)="dismiss(null)"></ion-img>
     <p i18n>{{selectCity}}</p>
@@ -9,7 +9,7 @@
 </ion-header>
 <ion-content>
   <ion-list class="cities-list">
-    <div *ngFor="let city of cities">
+    <div *ngFor="let city of getSortedCities()">
       <ion-item
               *ngIf="query.length === 0 || city.name.toLowerCase().includes(query)"
               lines="full"

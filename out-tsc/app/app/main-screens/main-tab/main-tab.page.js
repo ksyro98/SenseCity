@@ -4,9 +4,10 @@ import { ToolbarPopoverComponent } from '../../view-utils/toolbar-popover/toolba
 import { CitiesModalComponent } from '../../view-utils/cities-modal/cities-modal.component';
 import { Plugins } from '@capacitor/core';
 import { CITY_POLYGONS } from '../../constants/Cities';
-const { Toast } = Plugins;
+import { FeedbackModalComponent } from '../../starting-screens/feedback-modal/feedback-modal.component';
+const { Geolocation, Toast } = Plugins;
 let MainTabPage = class MainTabPage {
-    constructor(popoverController, modalController, alertService, storageCounter, storageState, activatedRoute, router, localTranslateService) {
+    constructor(popoverController, modalController, alertService, storageCounter, storageState, activatedRoute, router, localTranslateService, storageCityService, storageFeedbackCounter) {
         this.popoverController = popoverController;
         this.modalController = modalController;
         this.alertService = alertService;
@@ -15,6 +16,8 @@ let MainTabPage = class MainTabPage {
         this.activatedRoute = activatedRoute;
         this.router = router;
         this.localTranslateService = localTranslateService;
+        this.storageCityService = storageCityService;
+        this.storageFeedbackCounter = storageFeedbackCounter;
         this.typeOfService = 0; // 0 --> technical, 1 --> administrative
         this.technicalServices = 'Τεχνικες Υπ.';
         this.administrativeServices = 'Διοικητικες Υπ.';
@@ -42,8 +45,10 @@ let MainTabPage = class MainTabPage {
                     polygon,
                     cityKey: params.get('cityKey')
                 };
+                this.translateCity();
                 setTimeout(() => this.showStartingMessages(), 500);
             });
+            setTimeout(() => this.showFeedbackDialogIfNeeded(), 600);
         });
     }
     servicesSegmentChanged(event) {
@@ -63,9 +68,8 @@ let MainTabPage = class MainTabPage {
     }
     changeCity(city) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield Toast.show({
-                text: this.cityChanged + city.name
-            });
+            Toast.show({ text: this.cityChanged + city.name });
+            this.storageCityService.storeCity(city);
         });
     }
     showStartingMessages() {
@@ -87,6 +91,20 @@ let MainTabPage = class MainTabPage {
             }
         }
     }
+    showFeedbackDialogIfNeeded() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const shouldShowDialog = yield this.storageFeedbackCounter.shouldShowDialog();
+            if (shouldShowDialog) {
+                try {
+                    const currentPosition = yield Geolocation.getCurrentPosition();
+                    yield FeedbackModalComponent.present(this.modalController, { type: 'Point', coordinates: [currentPosition.coords.longitude, currentPosition.coords.latitude] });
+                }
+                catch (e) {
+                    // do nothing
+                }
+            }
+        });
+    }
     navigateToProfileScreen() {
         this.router.navigate(['/profile']);
     }
@@ -99,6 +117,9 @@ let MainTabPage = class MainTabPage {
         this.localTranslateService.pairs.push({ key: 'change-city-text', callback: (res) => this.changeCityText = res });
         this.localTranslateService.pairs.push({ key: 'fill-profile-title', callback: (res) => this.fillProfileTitleTxt = res });
         this.localTranslateService.pairs.push({ key: 'fill-profile-body', callback: (res) => this.fillProfileBodyTxt = res });
+    }
+    translateCity() {
+        this.localTranslateService.pairs.push({ key: this.city.cityKey, callback: (res) => this.city.name = res });
     }
 };
 MainTabPage = __decorate([

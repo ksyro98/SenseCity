@@ -33,7 +33,7 @@ export class StorageFeedbackCounterService {
     });
   }
 
-  async showDialog(){
+  async shouldShowDialog(): Promise<boolean>{
     const strVal = await Storage.get({key: this.storageKey});
     const feedbackVal: number = + strVal.value;
     const counterVal = await this.storageCounter.getValue();

@@ -15,7 +15,8 @@ let CityParamsService = class CityParamsService {
                     long: city.long,
                     zoom: city.zoom,
                     url: city.url,
-                    polygon: city.polygon
+                    polygon: city.polygon,
+                    cityKey: city.cityKey
                 }
             });
         });

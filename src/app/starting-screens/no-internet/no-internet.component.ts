@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {Plugins} from '@capacitor/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {NavController} from '@ionic/angular';
+
+const {Network} = Plugins;
 
 @Component({
   selector: 'app-no-internet',
@@ -7,8 +12,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NoInternetComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private route: ActivatedRoute, private navController: NavController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    Network.addListener('networkStatusChange', status => {
+      if (status.connected){
+        this.navController.back();
+      }
+    });
+  }
 
 }

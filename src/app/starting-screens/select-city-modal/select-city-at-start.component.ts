@@ -4,6 +4,7 @@ import {City} from '../../entities/City';
 import {CITIES} from '../../constants/Cities';
 import {CityParamsService} from '../../view-utils/city-params-service/city-params.service';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
+import {StorageCityService} from '../../storage-utils/storage-city-service/storage-city.service';
 
 @Component({
   selector: 'app-select-at-start',
@@ -31,7 +32,11 @@ export class SelectCityAtStartComponent implements OnInit {
     return await modal.present();
   }
 
-  constructor(private cityParamsService: CityParamsService, private localTranslateService: LocalTranslateService) { }
+  constructor(
+      private cityParamsService: CityParamsService,
+      private localTranslateService: LocalTranslateService,
+      private storageCityService: StorageCityService
+  ) { }
 
   ngOnInit() {
     this.cities = CITIES;
@@ -44,7 +49,8 @@ export class SelectCityAtStartComponent implements OnInit {
   }
 
   async exitComponent(city: City){
-    await this.cityParamsService.navigate(city);
+    this.storageCityService.storeCity(city);
+    await this.cityParamsService.navigate(this.getTranslatedCity(city));
   }
 
   private setTranslationPairs(){
@@ -53,6 +59,12 @@ export class SelectCityAtStartComponent implements OnInit {
     this.cities.forEach((city) => {
       this.localTranslateService.pairs.push({key: city.cityKey, callback: (res: string) => city.name = res});
     });
+  }
+
+  private getTranslatedCity(city){
+    this.localTranslateService.pairs.push({key: city.cityKey, callback: (res: string) => city.name = res});
+    this.localTranslateService.translateLanguage();
+    return city;
   }
 }
 

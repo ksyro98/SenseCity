@@ -15,8 +15,6 @@ export class LocalTranslateService {
   language = undefined;
   pairs: {key: string, callback: (s: string) => string}[] = undefined;
   translate: TranslateService;
-  // translationSubject = new Subject<string>();
-
 
   static getDefaultLanguage(): string{
     return LocalTranslateService.defaultLanguage;
@@ -59,8 +57,11 @@ export class LocalTranslateService {
   }
 
   initialiseTranslation() {
-    this.pairs.forEach((pair) =>
-        this.translate.get(pair.key).subscribe((res: string) => pair.callback(res)));
+    this.pairs.forEach((pair) => {
+      if (pair.key) {
+        this.translate.get(pair.key).subscribe((res: string) => pair.callback(res));
+      }
+    });
   }
 }
 

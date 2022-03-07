@@ -4,6 +4,7 @@ import {NeighborhoodLogicService} from '../../neighborhood/neighborhood-logic/ne
 import {Plugins} from '@capacitor/core';
 import {Observable} from 'rxjs';
 import {RequestLocation} from '../../entities/RequestLocation';
+import {AlertService} from '../../view-utils/alert-service/alert.service';
 
 const { Toast } = Plugins;
 
@@ -24,8 +25,14 @@ export class NeighborhoodTabPage implements OnInit {
   private noEmailErrorTxt = 'Το email δεν έχει οριστεί';
   private unexpectedErrorTxt = 'Ένα λάθος προέκυψε! Παρακαλούμε δοκίμασε ξανά.';
   private neighborhoodDeletedTxt = 'Η γειτονιά σου διαγράφηκε';
+  private myNeighborhoodTxt = 'Η γειτονιά μου';
+  private myNeighborhoodInfoTxt = 'Μπορείς να καταχωρήσετε τη γειτονιά σου στον χάρτη ως περιοχή ενδιαφέροντος και να λαμβάνεις μηνύματα από τον δήμο σου για την περιοχή αυτή.';
 
-  constructor(private logic: NeighborhoodLogicService, private localTranslateService: LocalTranslateService) {
+  constructor(
+      private logic: NeighborhoodLogicService,
+      private localTranslateService: LocalTranslateService,
+      private alertService: AlertService
+  ) {
     this.setTranslationPairs();
   }
 
@@ -66,6 +73,17 @@ export class NeighborhoodTabPage implements OnInit {
     });
   }
 
+  showInfo(){
+    this.alertService.show(
+        {
+          head: this.myNeighborhoodTxt,
+          body: this.myNeighborhoodInfoTxt
+        },
+        () => {},
+        false,
+        true
+    );
+  }
 
   private setTranslationPairs(){
     this.localTranslateService.pairs.push({key: 'my-neighborhood-caps', callback: (res: string) => this.myNeighborhood = res});
@@ -75,6 +93,8 @@ export class NeighborhoodTabPage implements OnInit {
     this.localTranslateService.pairs.push({key: 'unexpected-error', callback: (res: string) => this.unexpectedErrorTxt = res});
     this.localTranslateService.pairs.push({key: 'no-email-error', callback: (res: string) => this.noEmailErrorTxt = res});
     this.localTranslateService.pairs.push({key: 'neighborhood-deleted', callback: (res: string) => this.neighborhoodDeletedTxt = res});
+    this.localTranslateService.pairs.push({key: 'my-neighborhood-caps', callback: (res: string) => this.myNeighborhoodTxt = res});
+    this.localTranslateService.pairs.push({key: 'my-neighborhood-info', callback: (res: string) => this.myNeighborhoodInfoTxt = res});
   }
 
 }

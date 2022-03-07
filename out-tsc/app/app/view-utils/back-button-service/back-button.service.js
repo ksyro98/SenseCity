@@ -22,6 +22,9 @@ let BackButtonService = class BackButtonService {
             else if (currentUrl === '/select-city') {
                 // do nothing
             }
+            else if (currentUrl.includes('/no-internet')) {
+                navigator.app.exitApp();
+            }
             else {
                 // go back
                 this.navController.back();

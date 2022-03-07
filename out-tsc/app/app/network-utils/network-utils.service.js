@@ -134,6 +134,18 @@ let NetworkUtilsService = NetworkUtilsService_1 = class NetworkUtilsService {
             headers: NetworkUtilsService_1.getHeaders()
         });
     }
+    setFeeling(mood, location) {
+        const url = `${BASE_URL}/api/1.0/feelings`;
+        const body = {
+            loc: location,
+            issue: mood.getIssue(),
+            device_id: this.deviceUuid,
+            value_desc: mood.getValueDescription()
+        };
+        return this.http.post(url, body, {
+            headers: NetworkUtilsService_1.getHeaders()
+        });
+    }
     registerLocation(email, latitude, longitude) {
         const url = `${BASE_URL}/api/1.0/register/myNeighboor`;
         const body = {
@@ -169,11 +181,6 @@ let NetworkUtilsService = NetworkUtilsService_1 = class NetworkUtilsService {
         };
         return this.httpWithFcmToken(url, body);
     }
-    getFcmToken() {
-        return new Observable(subscriber => {
-            FCM.getToken().then(token => subscriber.next(token));
-        });
-    }
     httpWithFcmToken(url, body) {
         return new Observable(subscriber => {
             this.getFcmToken().subscribe(token => {
@@ -182,6 +189,11 @@ let NetworkUtilsService = NetworkUtilsService_1 = class NetworkUtilsService {
                     headers: NetworkUtilsService_1.getHeaders()
                 }).subscribe(res => subscriber.next(res));
             });
+        });
+    }
+    getFcmToken() {
+        return new Observable(subscriber => {
+            FCM.getToken().then(token => subscriber.next(token));
         });
     }
 };

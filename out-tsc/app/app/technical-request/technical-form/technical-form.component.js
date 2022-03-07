@@ -25,7 +25,6 @@ let TechnicalFormComponent = class TechnicalFormComponent {
         this.anonymousAllowed = false;
         this.unverifiedEmailAllowed = true;
         this.unverifiedSmsAllowed = true;
-        // namedClicked: boolean;
         this.termsAcceptedClicked = true;
         this.newRequestTxt = 'Νέα Αίτηση';
         this.verifyTxt = 'Επιβεβαίωση';
@@ -101,9 +100,6 @@ let TechnicalFormComponent = class TechnicalFormComponent {
                     break;
                 }
                 this.anonymousAllowed = response.value[0].anonymous ? (response.value[0].anonymous === 'true') : undefined;
-                // if (this.namedClicked === undefined) {
-                //   this.namedClicked = !this.anonymousAllowed && this.anonymousAllowed !== undefined;
-                // }
                 this.setCanSubmit();
                 break;
             case TechnicalRequestLogicService.RECOMMENDATIONS_REQUEST:
@@ -153,9 +149,6 @@ let TechnicalFormComponent = class TechnicalFormComponent {
         if (this.isVerificationNeeded()) {
             canSubmitFlag = new PermissionFlag(false, this.verificationNeededTxt);
         }
-        // else if (!this.anonymousAllowed && !this.namedClicked){
-        //   canSubmitFlag = new PermissionFlag(false, this.anonymousNotAllowedTxt);
-        // }
         else if (!this.termsAcceptedClicked) {
             canSubmitFlag = new PermissionFlag(false, this.termsNotAcceptedTxt);
         }

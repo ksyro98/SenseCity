@@ -5,13 +5,26 @@ import {map} from 'rxjs/operators';
 import {ProfileElement} from '../../entities/ProfileElement';
 import {UserService} from '../../user-service/user.service';
 import {ProfileRepositoryService} from '../profile-repository/profile-repository.service';
+import {StorageCityService} from '../../storage-utils/storage-city-service/storage-city.service';
+import {City} from '../../entities/City';
+import {CITIES} from '../../constants/Cities';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileLogicService {
 
-  constructor(private userService: UserService, private repository: ProfileRepositoryService) { }
+  private city: City;
+
+  constructor(
+      private userService: UserService,
+      private repository: ProfileRepositoryService,
+      private storageCityService: StorageCityService
+  ) {
+    if (this.city === undefined || this.city === null){
+      this.city = CITIES[4];
+    }
+  }
 
   async waitForUser(): Promise<User>{
     let user = this.userService.getUser();
@@ -39,6 +52,18 @@ export class ProfileLogicService {
           [ProfileElement.PHONE_KEY]: user.phone.length === 0 || x[0].activate_sms === '1'
         }))
     );
+  }
+
+  async getCity(){
+    const city = await this.storageCityService.getCity();
+    if (city){
+      this. city = city;
+    }
+    return this.city;
+  }
+
+  setCity(city: City){
+    this.storageCityService.storeCity(city);
   }
 }
 

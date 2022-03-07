@@ -13,6 +13,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {LocalTranslateService} from './view-utils/local-translate-service/local-translate.service';
 import {UserService} from './user-service/user.service';
 import {FCM} from 'cordova-plugin-fcm-with-dependecy-updated/ionic';
+import {StorageCityService} from './storage-utils/storage-city-service/storage-city.service';
+import {City} from './entities/City';
 
 const {Geolocation, SplashScreen, Network} = Plugins;
 
@@ -24,7 +26,6 @@ const {Geolocation, SplashScreen, Network} = Plugins;
 export class AppComponent {
   constructor(
     private platform: Platform,
-    // private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public modalController: ModalController,
     private storageCounter: StorageCounterService,
@@ -36,7 +37,8 @@ export class AppComponent {
     private cityParamsService: CityParamsService,
     private translate: TranslateService,
     private localTranslateService: LocalTranslateService,
-    private userService: UserService
+    private userService: UserService,
+    private storageCityService: StorageCityService
   ) {
     this.initializeApp();
   }
@@ -63,11 +65,11 @@ export class AppComponent {
       const isFirstTime = await this.storageCounter.isFirstTime();
 
       if (!isConnectedToNetwork){
-          await this.router.navigate(['no-internet'], {relativeTo: this.route});
+          await this.router.navigate(['no-internet']);
       }
       else {
           try {
-              let city;
+              let city: City;
               if (!isFirstTime) {
                   const currentPosition = await Geolocation.getCurrentPosition();
                   const lat = currentPosition.coords.latitude;
@@ -77,18 +79,26 @@ export class AppComponent {
               }
 
               if (city === undefined || city === null) {
-                  // here we present the 'select a city modal'
-                  await this.router.navigate(['select-city'], {relativeTo: this.route});
+                  await this.retrieveStoredCity();
               } else {
-                  // here we set the current city as the user's city
                   await this.cityParamsService.navigate(this.getTranslatedCity(city));
               }
           } catch (error) {
-              await this.router.navigate(['select-city'], {relativeTo: this.route});
+              await this.retrieveStoredCity();
           }
       }
 
       await SplashScreen.hide();
+  }
+
+  private async retrieveStoredCity(){
+      const city: City = await this.storageCityService.getCity();
+      if (city){
+          await this.cityParamsService.navigate(this.getTranslatedCity(city));
+      }
+      else{
+          await this.router.navigate(['select-city'], {relativeTo: this.route});
+      }
   }
 
   private getTranslatedCity(city){
@@ -98,4 +108,3 @@ export class AppComponent {
   }
 
 }
-

@@ -2,8 +2,9 @@ import {AfterViewInit, Component, Input, OnChanges, OnInit, Output, SimpleChange
 import { Plugins } from '@capacitor/core';
 import * as L from 'leaflet';
 import {City} from '../../entities/City';
-import {latLng} from 'leaflet';
 import {RequestLocation} from '../../entities/RequestLocation';
+import {StorageCityService} from '../../storage-utils/storage-city-service/storage-city.service';
+import {LatLngExpression} from 'leaflet';
 
 const { Geolocation } = Plugins;
 
@@ -16,15 +17,21 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
 
   private map;
   private locationMarker;
+  private defaultPoint: LatLngExpression = [38.246242, 21.7350847];
   @Input() useCurrentLocation: boolean;
   @Input() city: City;
   @Input() location: RequestLocation;
   @Input() mapId = 'map_id';
   @Output() locationChange = new EventEmitter<RequestLocation>();
 
-  constructor() { }
+  constructor(private storageCityService: StorageCityService) { }
 
-  ngOnInit() { }
+  async ngOnInit() {
+    const storedCity = await this.storageCityService.getCity();
+    if (storedCity) {
+      this.defaultPoint = [storedCity.lat, storedCity.long];
+    }
+  }
 
   ngAfterViewInit(): void {
     this.initMap();
@@ -53,10 +60,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
       iconAnchor: [11, 47], // point of the icon which will correspond to marker's location
       popupAnchor: [-1, -38] // point from which the popup should open relative to the iconAnchor
     });
-    this.locationMarker = new L.Marker([38.246242, 21.7350847],
+    this.locationMarker = new L.Marker(this.defaultPoint,
         {icon: markerIcon, draggable: true});
 
-    this.map = L.map(this.mapId, {center: [38.246242, 21.7350847], zoom: 16});
+    this.map = L.map(this.mapId, {center: this.defaultPoint, zoom: 16});
     tiles.addTo(this.map);
     this.locationMarker.addTo(this.map);
 
@@ -83,7 +90,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
         this.setMapLocation(lat, long, 16);
       }
       catch (e) {
-        this.setMapLocation(38.246242, 21.7350847, 16);
+        this.setMapLocation(this.defaultPoint[0], this.defaultPoint[1], 16);
       }
     }
   }

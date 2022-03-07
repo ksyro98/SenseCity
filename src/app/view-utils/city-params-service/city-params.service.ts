@@ -15,12 +15,13 @@ export class CityParamsService {
         {
           relativeTo: this.route,
           queryParams: {
-            name: city.name,
-            lat: city.lat,
-            long: city.long,
-            zoom: city.zoom,
-            url: city.url,
-            polygon: city.polygon
+              name: city.name,
+              lat: city.lat,
+              long: city.long,
+              zoom: city.zoom,
+              url: city.url,
+              polygon: city.polygon,
+              cityKey: city.cityKey
           }
         }
     );

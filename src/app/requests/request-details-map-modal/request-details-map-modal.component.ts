@@ -28,7 +28,6 @@ export class RequestDetailsMapModalComponent implements OnInit, AfterViewInit {
     const tiles = new L.TileLayer(mapUrl, {});
 
     const markerIcon = L.icon({
-      // iconUrl: '../../assets/svg-images/' + this.markerIcon,
       iconUrl: '../../assets/svg-images/empty_marker.svg',
 
       iconSize: [19, 47], // size of the icon

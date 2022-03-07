@@ -11,7 +11,6 @@ let LocalTranslateService = LocalTranslateService_1 = class LocalTranslateServic
             this.pairs = [];
         }
     }
-    // translationSubject = new Subject<string>();
     static getDefaultLanguage() {
         return LocalTranslateService_1.defaultLanguage;
     }
@@ -45,7 +44,11 @@ let LocalTranslateService = LocalTranslateService_1 = class LocalTranslateServic
         }
     }
     initialiseTranslation() {
-        this.pairs.forEach((pair) => this.translate.get(pair.key).subscribe((res) => pair.callback(res)));
+        this.pairs.forEach((pair) => {
+            if (pair.key) {
+                this.translate.get(pair.key).subscribe((res) => pair.callback(res));
+            }
+        });
     }
 };
 LocalTranslateService.defaultLanguage = window.Intl && typeof window.Intl === 'object'

@@ -2,10 +2,15 @@ import { __awaiter, __decorate } from "tslib";
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { ProfileElement } from '../../entities/ProfileElement';
+import { CITIES } from '../../constants/Cities';
 let ProfileLogicService = class ProfileLogicService {
-    constructor(userService, repository) {
+    constructor(userService, repository, storageCityService) {
         this.userService = userService;
         this.repository = repository;
+        this.storageCityService = storageCityService;
+        if (this.city === undefined || this.city === null) {
+            this.city = CITIES[4];
+        }
     }
     waitForUser() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -29,6 +34,18 @@ let ProfileLogicService = class ProfileLogicService {
             [ProfileElement.EMAIL_KEY]: user.email.length === 0 || x[1].activate_email === '1',
             [ProfileElement.PHONE_KEY]: user.phone.length === 0 || x[0].activate_sms === '1'
         })));
+    }
+    getCity() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const city = yield this.storageCityService.getCity();
+            if (city) {
+                this.city = city;
+            }
+            return this.city;
+        });
+    }
+    setCity(city) {
+        this.storageCityService.storeCity(city);
     }
 };
 ProfileLogicService = __decorate([

@@ -26,7 +26,7 @@ let StorageFeedbackCounterService = class StorageFeedbackCounterService {
             });
         });
     }
-    showDialog() {
+    shouldShowDialog() {
         return __awaiter(this, void 0, void 0, function* () {
             const strVal = yield Storage.get({ key: this.storageKey });
             const feedbackVal = +strVal.value;

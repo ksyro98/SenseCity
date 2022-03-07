@@ -1,11 +1,10 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GeneralNotification} from '../../entities/notifications/GeneralNotification';
 import {NeighborhoodNotification} from '../../entities/notifications/NeighborhoodNotification';
 import {CommentNotification} from '../../entities/notifications/CommentNotification';
 import {RequestNotification} from '../../entities/notifications/RequestNotification';
 import {CommentReplyNotification} from '../../entities/notifications/CommentReplyNotification';
 import {NotificationType} from '../../entities/notifications/NotificationType';
-import {not} from 'rxjs/internal-compatibility';
 import {ToolbarPopoverComponent} from '../../view-utils/toolbar-popover/toolbar-popover.component';
 import {PopoverController} from '@ionic/angular';
 import {AlertService} from '../../view-utils/alert-service/alert.service';
@@ -78,7 +77,6 @@ export class NotificationsTabPage implements OnInit {
   }
 
   async presentPopover(ev: any){
-
     const  items = [
       this.markAllAsRead,
       this.showingRead ? this.showUnread : this.showAll,

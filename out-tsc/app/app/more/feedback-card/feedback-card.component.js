@@ -1,44 +1,55 @@
 import { __awaiter, __decorate } from "tslib";
 import { Component } from '@angular/core';
 import { Plugins } from '@capacitor/core';
+import { Mood } from '../../entities/Mood';
 const { Toast, Geolocation } = Plugins;
 let FeedbackCardComponent = class FeedbackCardComponent {
-    constructor(storageFeedbackCounter, localTranslateService) {
+    constructor(storageFeedbackCounter, localTranslateService, networkUtils) {
         this.storageFeedbackCounter = storageFeedbackCounter;
         this.localTranslateService = localTranslateService;
+        this.networkUtils = networkUtils;
         this.feedbackReceived = false;
         this.buttonsEnabled = true;
-        this.localTranslateService.pairs.push({ key: 'express-mood', callback: (res) => this.expressMoodTitle = res });
+        this.moodStoredTxt = 'Η διάθεση σας καταχωρήθηκε. Ευχαριστούμε!';
+        this.locationRequiredTxt = 'Τα δεδομένα τοποθεσίας είναι απαραίτητα για αυτή τη λειτουργία.';
+        this.setTranslationPairs();
     }
     ngOnInit() {
         this.localTranslateService.translateLanguage();
     }
     sendFeedback(value) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(this.buttonsEnabled);
             if (!this.buttonsEnabled) {
                 return;
             }
             this.buttonsEnabled = false;
             Geolocation.getCurrentPosition()
                 .then(res => {
-                const lat = res.coords.latitude;
-                const long = res.coords.longitude;
-                Toast.show({ text: 'Η διαθεση σας καταχωρηθηκε. Ευχαριστουμε!' });
-                this.feedbackReceived = true;
-                this.buttonsEnabled = true;
-                this.storageFeedbackCounter.updateCounter();
+                const location = {
+                    type: 'Point', coordinates: [res.coords.longitude, res.coords.latitude]
+                };
+                const mood = new Mood(value);
+                this.networkUtils.setFeeling(mood, location).subscribe((x) => {
+                    Toast.show({ text: this.moodStoredTxt });
+                    this.feedbackReceived = true;
+                    this.buttonsEnabled = true;
+                    this.storageFeedbackCounter.updateCounter();
+                });
             })
                 .catch(reason => {
                 Toast.show({
-                    text: 'Δυστυχως υπηρξε ενα προβλμα ενω καταχωρουσαμε τη διαθεση σας.' +
-                        ' Παρακαλουμε σιγουρευτειτε οτι η τοποθεσια στο κινητο σας ειναι ενεργοποιημενη και δοκιμαστε ξανα.',
+                    text: this.locationRequiredTxt,
                     duration: 'long'
                 });
                 console.log(reason);
                 this.buttonsEnabled = true;
             });
         });
+    }
+    setTranslationPairs() {
+        this.localTranslateService.pairs.push({ key: 'express-mood', callback: (res) => this.expressMoodTitle = res });
+        this.localTranslateService.pairs.push({ key: 'mood-stored', callback: (res) => this.moodStoredTxt = res });
+        this.localTranslateService.pairs.push({ key: 'location-required', callback: (res) => this.locationRequiredTxt = res });
     }
 };
 FeedbackCardComponent = __decorate([

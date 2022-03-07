@@ -63,8 +63,17 @@ div {
 }
 
 .requirement-div{
-  justify-content: flex-end;
   display: flex;
-  padding-right: 14px;
-  padding-top: 10px;
+  padding-top: 18px;
+  padding-left: 14px;
+}
+
+.profile-fab {
+  width: 52px;
+  height: 52px;
+}
+
+.profile-fab-icon {
+  width: 24px;
+  height: 24px;
 }

@@ -1,8 +1,20 @@
 import { __decorate } from "tslib";
 import { Component } from '@angular/core';
+import { Plugins } from '@capacitor/core';
+const { Network } = Plugins;
 let NoInternetComponent = class NoInternetComponent {
-    constructor() { }
-    ngOnInit() { }
+    constructor(router, route, navController) {
+        this.router = router;
+        this.route = route;
+        this.navController = navController;
+    }
+    ngOnInit() {
+        Network.addListener('networkStatusChange', status => {
+            if (status.connected) {
+                this.navController.back();
+            }
+        });
+    }
 };
 NoInternetComponent = __decorate([
     Component({

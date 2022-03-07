@@ -18,15 +18,7 @@ let ConsultationCommentsModalComponent = class ConsultationCommentsModalComponen
         });
     }
     addComment(comment) {
-        // const comment = {
-        //   userName: 'Κωνσταντινος Συροκωστας',
-        //   text: this.userComment,
-        //   replies: [],
-        //   timestamp: (new Date()).getTime(),
-        //   isReply: false
-        // };
         this.comments.splice(0, 0, comment);
-        // this.userComment = '';
     }
     setUserComment(value) {
         this.userComment = value;

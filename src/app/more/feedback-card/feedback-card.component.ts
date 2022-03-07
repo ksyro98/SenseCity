@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Plugins} from '@capacitor/core';
 import {StorageFeedbackCounterService} from '../../storage-utils/storage-feedback-counter-service/storage-feedback-counter.service';
-import {LanguageSelectorService} from '../../view-utils/language-selector-service/language-selector.service';
-import {createConsoleLogServer} from '@ionic/angular-toolkit/builders/cordova-serve/log-server';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
+import {RequestLocation} from '../../entities/RequestLocation';
+import {NetworkUtilsService} from '../../network-utils/network-utils.service';
+import {Mood} from '../../entities/Mood';
 
 const {Toast, Geolocation} = Plugins;
 
@@ -18,9 +19,15 @@ export class FeedbackCardComponent implements OnInit {
   buttonsEnabled = true;
 
   expressMoodTitle: string;
+  private moodStoredTxt = 'Η διάθεση σας καταχωρήθηκε. Ευχαριστούμε!';
+  private locationRequiredTxt = 'Τα δεδομένα τοποθεσίας είναι απαραίτητα για αυτή τη λειτουργία.';
 
-  constructor(private storageFeedbackCounter: StorageFeedbackCounterService, private localTranslateService: LocalTranslateService) {
-      this.localTranslateService.pairs.push({key: 'express-mood', callback: (res: string) => this.expressMoodTitle = res});
+  constructor(
+      private storageFeedbackCounter: StorageFeedbackCounterService,
+      private localTranslateService: LocalTranslateService,
+      private networkUtils: NetworkUtilsService
+  ) {
+      this.setTranslationPairs();
   }
 
   ngOnInit() {
@@ -28,7 +35,6 @@ export class FeedbackCardComponent implements OnInit {
   }
 
   async sendFeedback(value: number){
-    console.log(this.buttonsEnabled);
     if (!this.buttonsEnabled){
       return;
     }
@@ -36,21 +42,32 @@ export class FeedbackCardComponent implements OnInit {
     this.buttonsEnabled = false;
     Geolocation.getCurrentPosition()
         .then(res => {
-          const lat = res.coords.latitude;
-          const long = res.coords.longitude;
-          Toast.show({text: 'Η διαθεση σας καταχωρηθηκε. Ευχαριστουμε!'});
-          this.feedbackReceived = true;
-          this.buttonsEnabled = true;
-          this.storageFeedbackCounter.updateCounter();
+            const location: RequestLocation = {
+                type: 'Point', coordinates: [res.coords.longitude, res.coords.latitude]
+            };
+            const mood = new Mood(value);
+
+            this.networkUtils.setFeeling(mood, location).subscribe((x) => {
+                Toast.show({text: this.moodStoredTxt});
+                this.feedbackReceived = true;
+                this.buttonsEnabled = true;
+                this.storageFeedbackCounter.updateCounter();
+            });
         })
         .catch(reason => {
           Toast.show({
-            text: 'Δυστυχως υπηρξε ενα προβλμα ενω καταχωρουσαμε τη διαθεση σας.' +
-                ' Παρακαλουμε σιγουρευτειτε οτι η τοποθεσια στο κινητο σας ειναι ενεργοποιημενη και δοκιμαστε ξανα.',
+            text: this.locationRequiredTxt,
             duration: 'long'
           });
           console.log(reason);
           this.buttonsEnabled = true;
         });
   }
+
+  private setTranslationPairs(){
+      this.localTranslateService.pairs.push({key: 'express-mood', callback: (res: string) => this.expressMoodTitle = res});
+      this.localTranslateService.pairs.push({key: 'mood-stored', callback: (res: string) => this.moodStoredTxt = res});
+      this.localTranslateService.pairs.push({key: 'location-required', callback: (res: string) => this.locationRequiredTxt = res});
+  }
 }
+

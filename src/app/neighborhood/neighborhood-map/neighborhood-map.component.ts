@@ -1,10 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { AlertService } from '../../view-utils/alert-service/alert.service';
-import { Plugins } from '@capacitor/core';
 import {LocalTranslateService} from '../../view-utils/local-translate-service/local-translate.service';
 import {RequestLocation} from '../../entities/RequestLocation';
-
-const { Toast } = Plugins;
 
 @Component({
   selector: 'app-neighborhood-map',

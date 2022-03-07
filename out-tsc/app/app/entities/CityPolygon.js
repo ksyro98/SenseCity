@@ -2,17 +2,17 @@ import * as L from 'leaflet';
 import { LatLng } from 'leaflet';
 export class CityPolygon {
     constructor(points) {
-        this.point1 = points.point1;
-        this.point2 = points.point2;
-        this.point3 = points.point3;
-        this.point4 = points.point4;
+        this.pointLB = points.pointLB;
+        this.pointLT = points.pointLT;
+        this.pointRT = points.pointRT;
+        this.pointRB = points.pointRB;
     }
     toMapPolygon() {
         return [
-            new LatLng(this.point1.x, this.point1.y),
-            new LatLng(this.point2.x, this.point2.y),
-            new LatLng(this.point3.x, this.point3.y),
-            new LatLng(this.point4.x, this.point4.y),
+            new LatLng(this.pointLB.x, this.pointLB.y),
+            new LatLng(this.pointLT.x, this.pointLT.y),
+            new LatLng(this.pointRT.x, this.pointRT.y),
+            new LatLng(this.pointRB.x, this.pointRB.y),
         ];
     }
     containsPoint(point) {

@@ -29,9 +29,7 @@ export class ConsultationCardComponent implements OnInit {
   }
 
   getMonth(): string {
-    // return '1';
     return this.month.name;
-    // return mapMonth(this.consultation.date.getMonth()).name;
   }
 
   getYear(): string {
