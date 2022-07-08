@@ -99,6 +99,10 @@ export class TechnicalFormComponent implements OnInit {
   }
 
   goToNextStep(nextStep: number){
+    if (!this.canProceedToNextStep(nextStep)){
+      return;
+    }
+
     this.loading = true;
     this.doActionBeforeStepChange(nextStep).subscribe(new Subscriber({
       next: (x) => {
@@ -110,6 +114,13 @@ export class TechnicalFormComponent implements OnInit {
         this.loading = false;
       },
     }));
+  }
+
+  private canProceedToNextStep(nextStep: number): boolean{
+    if (nextStep === 3 && this.logic.request.location.coordinates.length === 0){
+      return false;
+    }
+    return true;
   }
 
   private manageNexStepResponse(response){

@@ -73,6 +73,9 @@ let TechnicalFormComponent = class TechnicalFormComponent {
         this.logic.request.location = { type: 'Point', coordinates: latlng };
     }
     goToNextStep(nextStep) {
+        if (!this.canProceedToNextStep(nextStep)) {
+            return;
+        }
         this.loading = true;
         this.doActionBeforeStepChange(nextStep).subscribe(new Subscriber({
             next: (x) => {
@@ -84,6 +87,12 @@ let TechnicalFormComponent = class TechnicalFormComponent {
                 this.loading = false;
             },
         }));
+    }
+    canProceedToNextStep(nextStep) {
+        if (nextStep === 3 && this.logic.request.location.coordinates.length === 0) {
+            return false;
+        }
+        return true;
     }
     manageNexStepResponse(response) {
         switch (response.type) {
